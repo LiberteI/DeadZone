@@ -92,6 +92,7 @@ public class MovementManager : MonoBehaviour
 
         CheckLandedFromJumping();
 
+        BufferLedge();
     }
 
     private void HandleHorizontalMovement(){
@@ -224,6 +225,9 @@ public class MovementManager : MonoBehaviour
     
 
     public void BufferLedge(){
+        if(!isInMidAir){
+            return;
+        }
         Vector2 outerBack = outerBackRayCastRoot.position;
 
         // RaycastHit2D hit = Physics2D.RayCast(v2 origin, V2 dir, float distance, LayerMask target);
@@ -275,6 +279,9 @@ public class MovementManager : MonoBehaviour
         if(parameter.isReloading){
             return false;
         }
+        if(parameter.isCrouching){
+            return false;
+        }
         return true;
     }
     private bool CanFlip(){
@@ -287,7 +294,7 @@ public class MovementManager : MonoBehaviour
 
         if(parameter.isReloading){
             return false;
-        }
+        }  
         return true;
 
     }
@@ -317,6 +324,10 @@ public class MovementManager : MonoBehaviour
         }
 
         if(parameter.isReloading){
+            return false;
+        }
+
+        if(parameter.isCrouching){
             return false;
         }
         

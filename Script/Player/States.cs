@@ -55,6 +55,10 @@ public class IdleState : PlayerIState
             }
             
         }
+
+        if(Input.GetKey("s")){
+            player.TransitionState(PlayerStateType.Crouch);
+        }
         
     }
 
@@ -115,6 +119,9 @@ public class WalkState : PlayerIState
                 return;
             }
             
+        }
+        if(Input.GetKey("s")){
+            player.TransitionState(PlayerStateType.Crouch);
         }
     }
 
@@ -177,6 +184,9 @@ public class RunState : PlayerIState
             }
             
         }
+        if(Input.GetKey("s")){
+            player.TransitionState(PlayerStateType.Crouch);
+        }
     }
 
     public void OnExit(){
@@ -201,7 +211,6 @@ public class JumpState : PlayerIState
     }
 
     public void OnUpdate(){
-        parameter.movementManager.BufferLedge();
         if(parameter.movementManager.isInMidAir){
             return;
         }
@@ -273,7 +282,42 @@ public class DieState : PlayerIState
 
     }
 }
+public class CrouchState : PlayerIState
+{
+    private Player player;
+    
+    private Parameters parameter;
 
+    public CrouchState(Player player){
+        this.player = player;
+
+        this.parameter = player.parameter;
+    }
+
+    public void OnEnter(){
+        parameter.isCrouching = true;
+        parameter.animator.Play("Crouch");
+    }
+
+    public void OnUpdate(){
+
+    }
+
+    public void HandleInput(){
+        if(!Input.GetKey("s")){
+            player.TransitionState(PlayerStateType.Idle);
+            return;
+        }
+        if(Input.GetKey("j")){
+            player.TransitionState(PlayerStateType.CrouchShoot);
+            return;
+        }
+    }
+
+    public void OnExit(){
+        parameter.isCrouching = false;
+    }
+}
 
 public class StandShootState : PlayerIState
 {

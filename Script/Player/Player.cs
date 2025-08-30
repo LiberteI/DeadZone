@@ -15,7 +15,8 @@ public enum PlayerStateType{
     CrouchShoot,
     Kick,
     Reload,
-    Jump
+    Jump,
+    Crouch
 }
 [Serializable]
 public class Parameters{
@@ -41,6 +42,8 @@ public class Parameters{
     public bool isKicking;
 
     public bool isFacingRight;
+
+    public bool isCrouching;
 }
 
 
@@ -66,6 +69,7 @@ public class Player : MonoBehaviour
         states.Add(PlayerStateType.Kick, new KickState(this));
         states.Add(PlayerStateType.Reload, new ReloadState(this));
         states.Add(PlayerStateType.Jump, new JumpState(this));
+        states.Add(PlayerStateType.Crouch, new CrouchState(this));
 
         currentState = states[PlayerStateType.Idle];
     }

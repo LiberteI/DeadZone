@@ -38,27 +38,18 @@ public class ShootingManager : MonoBehaviour
 
     private IEnumerator ExecuteFireABullet(Transform muzzle){
         // instantiate new bullet
-        GameObject curBullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 
-        Rigidbody2D curBulletRB = curBullet.GetComponentInChildren<Rigidbody2D>();
+        BulletManager curBullet = bullet.GetComponent<BulletManager>();
 
-        if(curBulletRB == null){
-            Debug.Log("curBullet RB is null");
+        if(curBullet == null){
+            Debug.Log("curBullet is null");
             yield break;
         }
-        if(parameter.isFacingRight){
-            curBullet.transform.rotation = Quaternion.Euler(0, 0, -90f);
-            // assign force
+        // determine bullet dir
+        curBullet.isFacingRight = parameter.isFacingRight;
 
-            curBulletRB.AddForce(new Vector2(bulletFlyForce, 0), ForceMode2D.Impulse);
-        }
-        else{
-            curBullet.transform.rotation = Quaternion.Euler(0, -180f, -90f);
-            
-            // assign force
-
-            curBulletRB.AddForce(new Vector2(-1f * bulletFlyForce, 0), ForceMode2D.Impulse);
-        }
+        bullet.SetActive(true);
         yield return new WaitForSeconds(firingInterval);
         firing = null;
     }
