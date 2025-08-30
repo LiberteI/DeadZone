@@ -344,12 +344,15 @@ public class StandShootState : PlayerIState
     public void HandleInput(){
         if(Input.GetKey("s")){
             player.TransitionState(PlayerStateType.CrouchShoot);
+            return;
         }
         if(!Input.GetKey("j")){
             player.TransitionState(PlayerStateType.Idle);
+            return;
         }
         else{
             player.TransitionState(PlayerStateType.StandShoot);
+            return;
         }
     }
 
@@ -382,12 +385,15 @@ public class CrouchShootState : PlayerIState
     public void HandleInput(){
         if(!Input.GetKey("s")){
             player.TransitionState(PlayerStateType.StandShoot);
+            return;
         }
         if(!Input.GetKey("j")){
             player.TransitionState(PlayerStateType.Idle);
+            return;
         }
         else{
             player.TransitionState(PlayerStateType.CrouchShoot);
+            return;
         }
     }
 
@@ -422,6 +428,7 @@ public class KickState : PlayerIState
         }
         if(info.normalizedTime > 1f){
             player.TransitionState(PlayerStateType.Idle);
+            return;
         }
     }
 
@@ -461,6 +468,7 @@ public class ReloadState : PlayerIState
         }
         if(info.normalizedTime > 1f){
             player.TransitionState(PlayerStateType.Idle);
+            return;
         }
     }
 
