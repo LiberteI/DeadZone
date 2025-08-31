@@ -6,15 +6,31 @@ public static class EventManager
 
     public static event Action<MeleeHitData> OnMeleeHit;
 
-    public static void RaiseBulletHit(BulletHitData data){
-        if(OnBulletHit != null){
+    public static event Action<GameObject> OnSurvivorDied;
+
+    public static void RaiseOnBulletHit(BulletHitData data)
+    {
+        if (OnBulletHit != null)
+        {
             OnBulletHit(data);
         }
     }
 
-    public static void RaiseOnMeleeHit(MeleeHitData data){
-        if(OnMeleeHit != null){
+    public static void RaiseOnMeleeHit(MeleeHitData data)
+    {
+        if (OnMeleeHit != null)
+        {
             OnMeleeHit(data);
         }
     }
+
+    public static void RaiseOnSurvivorDied(GameObject survivor)
+    {
+        if (OnSurvivorDied != null)
+        {
+            OnSurvivorDied(survivor);
+        }
+    }
+    
+    
 }

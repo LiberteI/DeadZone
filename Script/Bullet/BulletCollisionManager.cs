@@ -60,7 +60,7 @@ public class BulletCollisionManager : MonoBehaviour
         
         SetData(other.gameObject);
 
-        EventManager.RaiseBulletHit(data);
+        EventManager.RaiseOnBulletHit(data);
 
         // Debug.Log($"Collider Hit {data.hitReceiver}");
 
@@ -92,7 +92,7 @@ public class BulletCollisionManager : MonoBehaviour
         }
         SetData(hit.collider.gameObject);
 
-        EventManager.RaiseBulletHit(data);
+        EventManager.RaiseOnBulletHit(data);
 
         // Debug.Log($"Raycast Hit {data.hitReceiver}");
 

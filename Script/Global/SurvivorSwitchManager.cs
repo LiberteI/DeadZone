@@ -9,12 +9,21 @@ public class SurvivorSwitchManager : MonoBehaviour
     */
     [SerializeField] private List<GameObject> survivorList;
 
+    void OnEnable()
+    {
+        EventManager.OnSurvivorDied += RemoveSurvivor;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnSurvivorDied -= RemoveSurvivor;
+    }
     void Update(){
         TrySwitchSurvivor();
     }
 
     private void TrySwitchSurvivor(){
-        if(survivorList.Count <= 1){
+        if(survivorList.Count < 1){
             return;
         }
         
@@ -59,6 +68,18 @@ public class SurvivorSwitchManager : MonoBehaviour
         return idx - 1;
     }
 
-
+    private void RemoveSurvivor(GameObject survivor) {
+        for (int i = 0; i < survivorList.Count; i ++) {
+            Transform childTransform = survivorList[i].transform.GetChild(0);
+            GameObject curSurvivor = childTransform.gameObject;
+            if (curSurvivor == survivor)
+            {
+                // remove from the list
+                Debug.Log($"Removed {survivorList[i]}");
+                survivorList.RemoveAt(i);
+                break;
+            }
+        }
+    }
 
 }

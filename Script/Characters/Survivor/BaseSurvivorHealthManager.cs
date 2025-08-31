@@ -42,8 +42,12 @@ public class BaseSurvivorHealthManager : MonoBehaviour
         if(isDead){
             return;
         }
-        if(curHealth <= 0){
+        if (curHealth <= 0)
+        {
             isDead = true;
+
+            EventManager.RaiseOnSurvivorDied(this.gameObject);
+            Debug.Log($"Broadcast a death {this.gameObject}");
             Destroy(this.gameObject);
         }
     }
