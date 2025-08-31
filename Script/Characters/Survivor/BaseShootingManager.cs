@@ -1,22 +1,20 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class ShootingManager : MonoBehaviour
+public abstract class BaseShootingManager : MonoBehaviour
 {
     /*
         This script is responsible for shooting, 
             including generating bullets, 
             managing reload etc.
     */
-    [SerializeField] private SurvivorBase survivor;
+    [SerializeField] protected SurvivorBase survivor;
 
-    private SurvivorParameters parameter;
+    protected SurvivorParameters parameter;
 
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] protected GameObject bulletPrefab;
 
-    [SerializeField] private float firingInterval; // 0 - 1
-
-    [SerializeField] private float bulletFlyForce;
+    [SerializeField] protected float firingInterval; // 0 - 1
 
     private Coroutine firing;
 
@@ -24,7 +22,7 @@ public class ShootingManager : MonoBehaviour
         this.parameter = survivor.parameter;
     }
 
-    public void FireABullet(Transform muzzle){
+    public virtual void FireABullet(Transform muzzle){
         if(firing != null){
             return;
         }

@@ -12,10 +12,12 @@ public class NZIdleState : IState
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
-
+        parameter.animator.Play("Idle");
     }
     public void OnUpdate(){
-
+        if(parameter.meleeManager.SurvivorIsInRange()){
+            zombie.TransitionState(NormalZombieStateTypes.Attack);
+        }
     }
     public void OnExit(){
 
@@ -91,16 +93,25 @@ public class NZAttackState : IState
 
     private NormalZombieParameter parameter;
 
+    private AnimatorStateInfo info;
+
     public NZAttackState(NormalZombie zombie){
         this.zombie = zombie;
 
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
-
+        parameter.animator.Play("Attack");
     }
     public void OnUpdate(){
-
+        info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+        if(!info.IsName("Attack")){
+            return;
+        }
+        if(info.normalizedTime > 1f){
+            zombie.TransitionState(NormalZombieStateTypes.Idle);
+            return;
+        }
     }
     public void OnExit(){
 

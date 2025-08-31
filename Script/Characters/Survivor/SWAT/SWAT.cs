@@ -18,18 +18,23 @@ public enum SWATStateType{
     Jump,
     Crouch
 }
+public enum SWATRole{
+    Assaulter,
+    Breacher,
+    ShieldOperator
+}
 [Serializable]
 public class SWATParameter : SurvivorParameters{
 
     public SWATMovementManager movementManager;
 
-    public ShootingManager shootingManager;
+    public SWATShootingManager shootingManager;
 
     public Transform standMuzzle;
 
     public Transform crouchMuzzle;
 
-    
+    public SWATRole currentRole;
     // universal bool
     public bool isShooting;
 

@@ -16,10 +16,13 @@ public enum NormalZombieStateTypes{
 }
 public class NormalZombie : BaseZombie
 {   
-    public NormalZombieParameter parameter;
+    public new NormalZombieParameter parameter;
 
     private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();
 
+    void Awake(){
+        base.parameter = (NormalZombieParameter)this.parameter;
+    }
     void Start(){
         states.Add(NormalZombieStateTypes.Idle , new NZIdleState(this));
 

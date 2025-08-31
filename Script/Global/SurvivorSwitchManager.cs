@@ -33,13 +33,13 @@ public class SurvivorSwitchManager : MonoBehaviour
         }
         // validate input
         if(NormalisedIndex(index) < 0 || NormalisedIndex(index) >= survivorList.Count){
-            Debug.Log("index out of scoop");
+            Debug.Log("index out of scope");
             return;
         }
-        ActiveSurvivor(NormalisedIndex(index));
+        ActivateSurvivor(NormalisedIndex(index));
     }
 
-    private void ActiveSurvivor(int idx){
+    private void ActivateSurvivor(int idx){
         for(int i = 0; i < survivorList.Count; i ++){
             SurvivorBase survivorScript = survivorList[i].GetComponentInChildren<SurvivorBase>();
             if(idx == i){

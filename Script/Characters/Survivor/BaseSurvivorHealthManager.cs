@@ -1,14 +1,13 @@
 using UnityEngine;
 
-public class ZombieHealthManager : MonoBehaviour
+public class BaseSurvivorHealthManager : MonoBehaviour
 {
-    
     /*
-        This script is responsible for keeping track of zombie's health status.
+        This script is responsible for keeping track of survivor's health status.
 
         The health will get deducted if damage is taken.
 
-        If health drops to and below 0, Zombie dies instantly.
+        If health drops to and below 0, survivor dies instantly.
     */
 
     [SerializeField] private float maxHealth;
@@ -18,16 +17,12 @@ public class ZombieHealthManager : MonoBehaviour
     [SerializeField] private bool isDead;
 
     void OnEnable(){
-        EventManager.OnBulletHit += TakeDamage;
-
         EventManager.OnMeleeHit += TakeDamage;
     }
-
     void OnDisable(){
-        EventManager.OnBulletHit -= TakeDamage;
-
         EventManager.OnMeleeHit -= TakeDamage;
     }
+
     void Start(){
         curHealth = maxHealth;
     }
@@ -35,14 +30,6 @@ public class ZombieHealthManager : MonoBehaviour
     void Update(){
         TryDying();
     }
-    public void TakeDamage(BulletHitData data){
-        // receiver filter
-        if(this.gameObject != data.hitReceiver){
-            return;
-        }
-        curHealth -= data.damage;
-    }
-
     public void TakeDamage(MeleeHitData data){
         // receiver filter
         if(this.gameObject != data.receiver){
@@ -60,6 +47,4 @@ public class ZombieHealthManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-
 }
