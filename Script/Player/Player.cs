@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
     public void TransitionState(PlayerStateType newState){
         // exit current state
-        Debug.Log($"Transition from {currentState} to {newState}");
+        // Debug.Log($"Transition from {currentState} to {newState}");
         if(currentState != null){
             currentState.OnExit();
         }

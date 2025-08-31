@@ -13,9 +13,9 @@ public class BulletManager : MonoBehaviour
 
     [SerializeField] private float bulletForce;
 
-    [SerializeField] private float bulletDamage;
+    public float bulletDamage;
 
-    [SerializeField] private Rigidbody2D RB;
+    public Rigidbody2D RB;
 
     public bool isFacingRight;
 

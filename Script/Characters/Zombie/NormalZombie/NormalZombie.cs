@@ -3,26 +3,48 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
+/*
+    This script is a base for 4 normal zombies. They share the same behaviour but diffenrent sprite.
+*/
 [Serializable]
 public class NormalZombieParameter : BaseZombieParameter{
 
 }
 
+public enum NormalZombieStateTypes{
+    Attack, Hurt, Die, Idle, Walk
+}
 public class NormalZombie : BaseZombie
 {   
     public NormalZombieParameter parameter;
 
+    private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();
+
     void Start(){
-        base.states.Add(ZombieStateType.Idle , new NZIdleState(this));
+        states.Add(NormalZombieStateTypes.Idle , new NZIdleState(this));
 
-        base.states.Add(ZombieStateType.Walk , new NZWalkState(this));
+        states.Add(NormalZombieStateTypes.Walk , new NZWalkState(this));
 
-        base.states.Add(ZombieStateType.Attack , new NZAttackState(this));
+        states.Add(NormalZombieStateTypes.Attack , new NZAttackState(this));
 
-        base.states.Add(ZombieStateType.Hurt , new NZAttackState(this));
+        states.Add(NormalZombieStateTypes.Hurt , new NZAttackState(this));
 
-        base.states.Add(ZombieStateType.Die , new NZDieState(this));
+        states.Add(NormalZombieStateTypes.Die , new NZDieState(this));
 
-        base.TransitionState(ZombieStateType.Idle);
+        TransitionState(NormalZombieStateTypes.Idle);
+    }
+
+    public void TransitionState(NormalZombieStateTypes newState){
+        // exit current state
+        // Debug.Log($"Transition from {currentState} to {newState}");
+        if(base.currentState != null){
+            base.currentState.OnExit();
+        }
+
+        // assign new state from dictionary
+        base.currentState = states[newState];
+
+        // execute OnEnter once;
+        base.currentState.OnEnter();
     }
 }
