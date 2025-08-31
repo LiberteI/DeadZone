@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface PlayerIState
+public interface SurvivorIState
 {
     /*
         This script is the state transition interface.

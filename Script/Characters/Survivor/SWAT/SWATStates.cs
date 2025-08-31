@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class IdleState : PlayerIState
+public class SWATIdleState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public IdleState(Player player){
-        this.player = player;
+    public SWATIdleState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -23,41 +23,41 @@ public class IdleState : PlayerIState
 
     public void HandleInput(){
         if(Input.GetKeyDown("r")){
-            player.TransitionState(PlayerStateType.Reload);
+            swat.TransitionState(SWATStateType.Reload);
             return;
         }
         if(Input.GetKeyDown("f")){
-            player.TransitionState(PlayerStateType.Kick);
+            swat.TransitionState(SWATStateType.Melee);
             return;
         }
         if(Input.GetKey("j")){
             if(Input.GetKey("s")){
-                player.TransitionState(PlayerStateType.CrouchShoot);
+                swat.TransitionState(SWATStateType.CrouchShoot);
                 return;
             }
-            player.TransitionState(PlayerStateType.StandShoot);
+            swat.TransitionState(SWATStateType.StandShoot);
             return;
         }
         // movement
         if(Input.GetKey("a") || Input.GetKey("d")){
             if(Input.GetKey(KeyCode.LeftShift)){
-                player.TransitionState(PlayerStateType.Run);
+                swat.TransitionState(SWATStateType.Run);
                 return;
             }
-            player.TransitionState(PlayerStateType.Walk);
+            swat.TransitionState(SWATStateType.Walk);
             return;
         }
 
         if(Input.GetKeyDown("k")){
             if(parameter.movementManager.CanJump()){
-                player.TransitionState(PlayerStateType.Jump);
+                swat.TransitionState(SWATStateType.Jump);
                 return;
             }
             
         }
 
         if(Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.Crouch);
+            swat.TransitionState(SWATStateType.Crouch);
         }
         
     }
@@ -67,16 +67,16 @@ public class IdleState : PlayerIState
     }
 }
 
-public class WalkState : PlayerIState
+public class SWATWalkState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public WalkState(Player player){
-        this.player = player;
+    public SWATWalkState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -90,38 +90,38 @@ public class WalkState : PlayerIState
 
     public void HandleInput(){
         if(Input.GetKeyDown("r")){
-            player.TransitionState(PlayerStateType.Reload);
+            swat.TransitionState(SWATStateType.Reload);
             return;
         }
         if(Input.GetKeyDown("f")){
-            player.TransitionState(PlayerStateType.Kick);
+            swat.TransitionState(SWATStateType.Melee);
             return;
         }
         if(Input.GetKey("j")){
             if(Input.GetKey("s")){
-                player.TransitionState(PlayerStateType.CrouchShoot);
+                swat.TransitionState(SWATStateType.CrouchShoot);
                 return;
             }
-            player.TransitionState(PlayerStateType.StandShoot);
+            swat.TransitionState(SWATStateType.StandShoot);
             return;
         }
         if(!(Input.GetKey("a") || Input.GetKey("d"))){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
         if(Input.GetKey(KeyCode.LeftShift)){
-            player.TransitionState(PlayerStateType.Run);
+            swat.TransitionState(SWATStateType.Run);
             return;
         }
         if(Input.GetKeyDown("k")){
             if(parameter.movementManager.CanJump()){
-                player.TransitionState(PlayerStateType.Jump);
+                swat.TransitionState(SWATStateType.Jump);
                 return;
             }
             
         }
         if(Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.Crouch);
+            swat.TransitionState(SWATStateType.Crouch);
         }
     }
 
@@ -130,16 +130,16 @@ public class WalkState : PlayerIState
     }
 }
 
-public class RunState : PlayerIState
+public class SWATRunState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public RunState(Player player){
-        this.player = player;
+    public SWATRunState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -153,39 +153,39 @@ public class RunState : PlayerIState
 
     public void HandleInput(){
         if(Input.GetKeyDown("r")){
-            player.TransitionState(PlayerStateType.Reload);
+            swat.TransitionState(SWATStateType.Reload);
             return;
         }
         if(Input.GetKeyDown("f")){
-            player.TransitionState(PlayerStateType.Kick);
+            swat.TransitionState(SWATStateType.Melee);
             return;
         }
         if(Input.GetKey("j")){
             if(Input.GetKey("s")){
-                player.TransitionState(PlayerStateType.CrouchShoot);
+                swat.TransitionState(SWATStateType.CrouchShoot);
                 return;
             }
-            player.TransitionState(PlayerStateType.StandShoot);
+            swat.TransitionState(SWATStateType.StandShoot);
             return;
 
         }
         if(!Input.GetKey(KeyCode.LeftShift)){
-            player.TransitionState(PlayerStateType.Walk);
+            swat.TransitionState(SWATStateType.Walk);
             return;
         }
         if(!(Input.GetKey("a") || Input.GetKey("d"))){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
         if(Input.GetKeyDown("k")){
             if(parameter.movementManager.CanJump()){
-                player.TransitionState(PlayerStateType.Jump);
+                swat.TransitionState(SWATStateType.Jump);
                 return;
             }
             
         }
         if(Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.Crouch);
+            swat.TransitionState(SWATStateType.Crouch);
         }
     }
 
@@ -193,16 +193,16 @@ public class RunState : PlayerIState
 
     }
 }
-public class JumpState : PlayerIState
+public class SWATJumpState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public JumpState(Player player){
-        this.player = player;
+    public SWATJumpState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -215,7 +215,7 @@ public class JumpState : PlayerIState
             return;
         }
         
-        player.TransitionState(PlayerStateType.Idle);
+        swat.TransitionState(SWATStateType.Idle);
     }
 
     public void HandleInput(){
@@ -226,16 +226,16 @@ public class JumpState : PlayerIState
 
     }
 }
-public class HurtState : PlayerIState
+public class SWATHurtState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public HurtState(Player player){
-        this.player = player;
+    public SWATHurtState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -254,16 +254,16 @@ public class HurtState : PlayerIState
 
     }
 }
-public class DieState : PlayerIState
+public class SWATDieState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public DieState(Player player){
-        this.player = player;
+    public SWATDieState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -282,16 +282,16 @@ public class DieState : PlayerIState
 
     }
 }
-public class CrouchState : PlayerIState
+public class SWATCrouchState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public CrouchState(Player player){
-        this.player = player;
+    public SWATCrouchState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -305,11 +305,11 @@ public class CrouchState : PlayerIState
 
     public void HandleInput(){
         if(!Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
         if(Input.GetKey("j")){
-            player.TransitionState(PlayerStateType.CrouchShoot);
+            swat.TransitionState(SWATStateType.CrouchShoot);
             return;
         }
     }
@@ -319,16 +319,16 @@ public class CrouchState : PlayerIState
     }
 }
 
-public class StandShootState : PlayerIState
+public class SWATStandShootState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public StandShootState(Player player){
-        this.player = player;
+    public SWATStandShootState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -343,15 +343,15 @@ public class StandShootState : PlayerIState
 
     public void HandleInput(){
         if(Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.CrouchShoot);
+            swat.TransitionState(SWATStateType.CrouchShoot);
             return;
         }
         if(!Input.GetKey("j")){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
         else{
-            player.TransitionState(PlayerStateType.StandShoot);
+            swat.TransitionState(SWATStateType.StandShoot);
             return;
         }
     }
@@ -360,16 +360,16 @@ public class StandShootState : PlayerIState
         parameter.isShooting = false;
     }
 }
-public class CrouchShootState : PlayerIState
+public class SWATCrouchShootState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
-    public CrouchShootState(Player player){
-        this.player = player;
+    public SWATCrouchShootState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -384,15 +384,15 @@ public class CrouchShootState : PlayerIState
 
     public void HandleInput(){
         if(!Input.GetKey("s")){
-            player.TransitionState(PlayerStateType.StandShoot);
+            swat.TransitionState(SWATStateType.StandShoot);
             return;
         }
         if(!Input.GetKey("j")){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
         else{
-            player.TransitionState(PlayerStateType.CrouchShoot);
+            swat.TransitionState(SWATStateType.CrouchShoot);
             return;
         }
     }
@@ -401,33 +401,33 @@ public class CrouchShootState : PlayerIState
         parameter.isShooting = false;
     }
 }
-public class KickState : PlayerIState
+public class SWATMeleeState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
     private AnimatorStateInfo info;
 
-    public KickState(Player player){
-        this.player = player;
+    public SWATMeleeState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
-        parameter.isKicking = true;
-        parameter.animator.Play("Kick");
+        parameter.isDoingMelee = true;
+        parameter.animator.Play("Melee");
         info = parameter.animator.GetCurrentAnimatorStateInfo(0);
     }
 
     public void OnUpdate(){
         info = parameter.animator.GetCurrentAnimatorStateInfo(0);
-        if(!info.IsName("Kick")){
+        if(!info.IsName("Melee")){
             return;
         }
         if(info.normalizedTime > 1f){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
     }
@@ -437,21 +437,21 @@ public class KickState : PlayerIState
     }
 
     public void OnExit(){
-        parameter.isKicking = false;
+        parameter.isDoingMelee = false;
     }
 }
-public class ReloadState : PlayerIState
+public class SWATReloadState : SurvivorIState
 {
-    private Player player;
+    private SWAT swat;
     
-    private Parameters parameter;
+    private SWATParameter parameter;
 
     private AnimatorStateInfo info;
 
-    public ReloadState(Player player){
-        this.player = player;
+    public SWATReloadState(SWAT swat){
+        this.swat = swat;
 
-        this.parameter = player.parameter;
+        this.parameter = swat.parameter;
     }
 
     public void OnEnter(){
@@ -467,7 +467,7 @@ public class ReloadState : PlayerIState
             return;
         }
         if(info.normalizedTime > 1f){
-            player.TransitionState(PlayerStateType.Idle);
+            swat.TransitionState(SWATStateType.Idle);
             return;
         }
     }

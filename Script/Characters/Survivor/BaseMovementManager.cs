@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovementManager : MonoBehaviour
+public abstract class BaseMovementManager : MonoBehaviour
 {
     /*
         implement basic horizontal movement, and better jumping.
@@ -12,16 +12,16 @@ public class MovementManager : MonoBehaviour
         for better jumping:
             1. apply coyote time. *
 
-            2. push player a bit if player hits the ledge
-                if inner raycasts hits the ceiling but outer does not. push the player nearer to the outer raycast that does not hit.
+            2. push survivor a bit if survivor hits the ledge
+                if inner raycasts hits the ceiling but outer does not. push the survivor nearer to the outer raycast that does not hit.
 
             3. can adjust position mid-air *
     */
     [Header("The brain")]
 
-    [SerializeField] private Player player;
+    [SerializeField] protected SurvivorBase survivor;
 
-    private Parameters parameter;
+    protected SurvivorParameters parameter;
 
     [Header("horizontal")]
 
@@ -76,7 +76,7 @@ public class MovementManager : MonoBehaviour
     [SerializeField] private float bufferForce;
 
     void Start(){
-        this.parameter = player.parameter;
+        this.parameter = survivor.parameter;
     }
     void Update(){
         // to allow dynamic jumping
@@ -140,7 +140,7 @@ public class MovementManager : MonoBehaviour
         }
 
         if(shouldFaceRight != isFacingRight){
-            // rotate player on the y-axis
+            // rotate survivor on the y-axis
             transform.rotation = Quaternion.Euler(0, newPos, 0);
         }
 
@@ -245,7 +245,7 @@ public class MovementManager : MonoBehaviour
         
         /* 
             buffer ledge logic:
-            if one side of inner and outer hit, push the player to the other side.
+            if one side of inner and outer hit, push the survivor to the other side.
         */
         // define front and back
         Vector2 front = transform.right;
@@ -268,38 +268,28 @@ public class MovementManager : MonoBehaviour
     }
 
 
-    private bool CanMove(){
-        if(parameter.isShooting){
-            return false;
-        }
-        if(parameter.isKicking){
-            return false;
-        }
-
-        if(parameter.isReloading){
-            return false;
-        }
-        if(parameter.isCrouching){
+    protected virtual bool CanMove(){
+        if(!parameter.isPlayedByPlayer){
             return false;
         }
         return true;
     }
-    private bool CanFlip(){
+    protected virtual bool CanFlip(){
+        if(!parameter.isPlayedByPlayer){
+            return false;
+        }
         if(isInMidAir){
             return false;
         }
-        if(parameter.isShooting){
-            return false;
-        }
-
-        if(parameter.isReloading){
-            return false;
-        }  
+        
         return true;
 
     }
 
-    public bool CanJump(){
+    public virtual bool CanJump(){
+        if(!parameter.isPlayedByPlayer){
+            return false;
+        }
         // check if is grounded
         if(isInCoyoteTime){
             return true;
@@ -315,23 +305,7 @@ public class MovementManager : MonoBehaviour
             return false;
         }
 
-        if(parameter.isShooting){
-            return false;
-        }
-
-        if(parameter.isKicking){
-            return false;
-        }
-
-        if(parameter.isReloading){
-            return false;
-        }
-
-        if(parameter.isCrouching){
-            return false;
-        }
         
-
         return true;
     }
 }

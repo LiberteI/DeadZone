@@ -8,9 +8,9 @@ public class ShootingManager : MonoBehaviour
             including generating bullets, 
             managing reload etc.
     */
-    [SerializeField] private Player player;
+    [SerializeField] private SurvivorBase survivor;
 
-    private Parameters parameter;
+    private SurvivorParameters parameter;
 
     [SerializeField] private GameObject bulletPrefab;
 
@@ -21,7 +21,7 @@ public class ShootingManager : MonoBehaviour
     private Coroutine firing;
 
     void Start(){
-        this.parameter = player.parameter;
+        this.parameter = survivor.parameter;
     }
 
     public void FireABullet(Transform muzzle){
