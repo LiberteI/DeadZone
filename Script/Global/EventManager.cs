@@ -8,6 +8,8 @@ public static class EventManager
 
     public static event Action<GameObject> OnSurvivorDied;
 
+    public static event Action OnBaseBroken;
+
     public static void RaiseOnBulletHit(BulletHitData data)
     {
         if (OnBulletHit != null)
@@ -31,6 +33,13 @@ public static class EventManager
             OnSurvivorDied(survivor);
         }
     }
-    
+
+    public static void RaiseOnBaseBroken()
+    {
+        if (OnBaseBroken != null)
+        {
+            OnBaseBroken();
+        }
+    }
     
 }

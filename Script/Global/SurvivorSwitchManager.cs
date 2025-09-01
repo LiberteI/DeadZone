@@ -55,7 +55,7 @@ public class SurvivorSwitchManager : MonoBehaviour
                 // set this to be controlled by the player
                 survivorScript.parameter.isPlayedByPlayer = true;
 
-                Debug.Log($"Currently controlling {survivorList[idx]}");
+                // Debug.Log($"Currently controlling {survivorList[idx]}");
             }
             else{
                 // set this to be controlled by AI
@@ -75,8 +75,9 @@ public class SurvivorSwitchManager : MonoBehaviour
             if (curSurvivor == survivor)
             {
                 // remove from the list
-                Debug.Log($"Removed {survivorList[i]}");
+                Destroy(survivorList[i]);
                 survivorList.RemoveAt(i);
+                
                 break;
             }
         }
