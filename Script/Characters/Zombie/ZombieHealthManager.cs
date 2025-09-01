@@ -37,7 +37,7 @@ public class ZombieHealthManager : MonoBehaviour
     }
     public void TakeDamage(BulletHitData data){
         // receiver filter
-        if(this.gameObject != data.hitReceiver){
+        if(this.gameObject != data.receiver){
             return;
         }
         curHealth -= data.damage;

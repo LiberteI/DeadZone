@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &553875547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,9 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1adc0c777b433b8002c4eeb3a6950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  survivorList:
-  - {fileID: 949142750}
-  - {fileID: 542306366}
 --- !u!4 &553875548
 Transform:
   m_ObjectHideFlags: 0
@@ -963,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1296063571}
-  maxSpawnTimer: 0.5
+  maxSpawnTimer: 1
   curSpawnTimer: 0
   zombieContainerPrefabs:
   - {fileID: 2092308442}
@@ -1246,6 +1243,7 @@ MonoBehaviour:
     animator: {fileID: 1345269438}
     isPlayedByPlayer: 1
     isFacingRight: 0
+    survivorContainer: {fileID: 949142750}
     movementManager: {fileID: 1345269445}
     shootingManager: {fileID: 1345269447}
     standMuzzle: {fileID: 1270439162}
@@ -7456,6 +7454,7 @@ MonoBehaviour:
     animator: {fileID: 1924952438}
     isPlayedByPlayer: 0
     isFacingRight: 0
+    survivorContainer: {fileID: 542306366}
     movementManager: {fileID: 1924952433}
     shootingManager: {fileID: 1924952440}
     standMuzzle: {fileID: 1007366564}
@@ -7859,6 +7858,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090059663}
     m_Modifications:
+    - target: {fileID: 1112480900145399327, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
+      propertyPath: baseObj
+      value: 
+      objectReference: {fileID: 1914974000}
     - target: {fileID: 7132738641243790334, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
       propertyPath: m_Name
       value: NakedZombie
@@ -7916,6 +7919,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090059663}
     m_Modifications:
+    - target: {fileID: 583394297013564767, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
+      propertyPath: baseObj
+      value: 
+      objectReference: {fileID: 1914974000}
     - target: {fileID: 1350012186245311275, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.3
@@ -7973,6 +7980,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090059663}
     m_Modifications:
+    - target: {fileID: 770493111804643545, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
+      propertyPath: baseObj
+      value: 
+      objectReference: {fileID: 1914974000}
     - target: {fileID: 2389848078048206195, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.3
@@ -8034,6 +8045,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemaleStudentZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 2350096424842145805, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
+      propertyPath: baseObj
+      value: 
+      objectReference: {fileID: 1914974000}
     - target: {fileID: 9003354023403311756, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.1

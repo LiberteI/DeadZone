@@ -1,44 +1,57 @@
 using UnityEngine;
-
 using System;
 
+/*
+    This script is responsible for detecting collision and passing collision data
+*/
 [Serializable]
 public class BulletHitData{
+    public GameObject initiator;
+
     // receiver identifier
-    public GameObject hitReceiver;
+    public GameObject receiver;
     
     public float damage;
 
     public Vector2 bulletFlyingDir;
 }
 public class BulletCollisionManager : MonoBehaviour
-{   
+{
     [SerializeField] private BulletManager manager;
-    
-    private BulletHitData data;
+
+    [SerializeField] private BulletHitData data;
 
     private Vector3 lastFramePos;
 
     private Vector3 curFramePos;
 
-    void Start(){
-        lastFramePos = transform.position;
+    // initiator : assign during runtime
+    private GameObject initiator;
 
-        data = new BulletHitData();
+    void Start()
+    {
+        lastFramePos = transform.position;
     }
 
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
         RayCastSweep();
     }
-    private void SetData(GameObject receiver){
-        if(receiver == null){
+    private void SetData(GameObject receiver)
+    {
+        if (receiver == null)
+        {
+            Debug.Log("receiver is null");
             return;
         }
         data.damage = manager.bulletDamage;
 
         data.bulletFlyingDir = manager.RB.linearVelocity.normalized;
 
-        data.hitReceiver = receiver;
+        data.receiver = receiver;
+        
+        data.initiator = this.initiator;
+        
     }
 
     /*
@@ -48,32 +61,37 @@ public class BulletCollisionManager : MonoBehaviour
 
         compute last frame pos and this frame pos, and do a raycast. If there is object in between, treat it as a collision.
     */
-    private void OnTriggerEnter2D(Collider2D other){
-        
-        if(other == null){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other == null)
+        {
             return;
         }
-        if(!other.CompareTag("Zombie")){
+        if (!other.CompareTag("Zombie"))
+        {
             return;
         }
-        
+
         SetData(other.gameObject);
 
         EventManager.RaiseOnBulletHit(data);
 
-        // Debug.Log($"Collider Hit {data.hitReceiver}");
+        // Debug.Log($"Collider Hit {data.receiver}");
 
         manager.DestroyBullet();
     }
 
-    private void RayCastSweep(){
+    private void RayCastSweep()
+    {
         curFramePos = transform.position;
 
         Vector3 direction = curFramePos - lastFramePos;
 
         float distance = direction.magnitude;
-        
-        if(distance == 0){
+
+        if (distance == 0)
+        {
             lastFramePos = curFramePos;
             return;
         }
@@ -81,11 +99,13 @@ public class BulletCollisionManager : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(lastFramePos, direction.normalized, distance);
 
-        if(hit.collider == null){
+        if (hit.collider == null)
+        {
             lastFramePos = curFramePos;
             return;
         }
-        if(!hit.collider.CompareTag("Zombie")){
+        if (!hit.collider.CompareTag("Zombie"))
+        {
             lastFramePos = curFramePos;
             return;
         }
@@ -93,10 +113,16 @@ public class BulletCollisionManager : MonoBehaviour
 
         EventManager.RaiseOnBulletHit(data);
 
-        // Debug.Log($"Raycast Hit {data.hitReceiver}");
+        // Debug.Log($"Raycast Hit {data.receiver}");
 
         manager.DestroyBullet();
 
         lastFramePos = curFramePos;
+    }
+
+    public void SetBulletInitiator(GameObject survivor)
+    {
+        this.initiator = survivor;
+        
     }
 }

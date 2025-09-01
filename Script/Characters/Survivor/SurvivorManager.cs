@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System;
-public class SurvivorSwitchManager : MonoBehaviour
+public class SurvivorManager : MonoBehaviour
 {   
     /*
         This script is responsible for switching among / between survivors.
     */
-    [SerializeField] private List<GameObject> survivorList;
+    public static List<GameObject> survivorList = new List<GameObject>();
 
     void OnEnable()
     {
@@ -19,11 +19,19 @@ public class SurvivorSwitchManager : MonoBehaviour
         EventManager.OnSurvivorDied -= RemoveSurvivor;
     }
     void Update(){
+        // Debug.Log(survivorList.Count);
+        
         TrySwitchSurvivor();
     }
 
     private void TrySwitchSurvivor(){
-        if(survivorList.Count < 1){
+        if (survivorList == null)
+        {
+            Debug.Log("list is null");
+            return;
+        }
+        if (survivorList.Count < 1)
+        {
             return;
         }
         

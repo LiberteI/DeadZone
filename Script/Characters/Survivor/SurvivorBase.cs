@@ -4,7 +4,8 @@ using System.Collections;
 using System;
 
 
-public abstract class SurvivorParameters{
+public abstract class SurvivorParameters
+{
     public Rigidbody2D RB;
 
     public Animator animator;
@@ -12,6 +13,8 @@ public abstract class SurvivorParameters{
     public bool isPlayedByPlayer;
 
     public bool isFacingRight;
+
+    public GameObject survivorContainer;
 }
 public abstract class SurvivorBase : MonoBehaviour
 {

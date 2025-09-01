@@ -18,7 +18,7 @@ public abstract class BaseShootingManager : MonoBehaviour
 
     private Coroutine firing;
 
-    void Start(){
+    void Awake(){
         this.parameter = survivor.parameter;
     }
 
@@ -40,11 +40,21 @@ public abstract class BaseShootingManager : MonoBehaviour
 
         BulletManager curBullet = bullet.GetComponent<BulletManager>();
 
-        if(curBullet == null){
+        BulletCollisionManager curBulletCollider = bullet.GetComponentInChildren<BulletCollisionManager>();
+        
+        curBulletCollider.SetBulletInitiator(this.gameObject);
+
+        if (curBullet == null)
+        {
             Debug.Log("curBullet is null");
             yield break;
         }
         // determine bullet dir
+        if (parameter == null)
+        {
+            Debug.Log("parameter is null");
+            yield break;
+        }
         curBullet.isFacingRight = parameter.isFacingRight;
 
         bullet.SetActive(true);

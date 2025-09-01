@@ -8,9 +8,19 @@ public class RadioSetHealthManager : MonoBehaviour
 
     public bool isBroken;
 
+    public static GameObject baseObj;
+
+    void Awake()
+    {
+        baseObj = this.gameObject;
+    }
     void OnEnable()
     {
         EventManager.OnMeleeHit += TakeDamage;
+    }
+    void OnDisable()
+    {
+        EventManager.OnMeleeHit -= TakeDamage;
     }
     void Start()
     {
@@ -20,10 +30,7 @@ public class RadioSetHealthManager : MonoBehaviour
     {
         TryBreaking();
     }
-    void OnDisable()
-    {
-        EventManager.OnMeleeHit -= TakeDamage;
-    }
+    
     public void TakeDamage(MeleeHitData data)
     {
         // receiver filter

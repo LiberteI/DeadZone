@@ -6,7 +6,8 @@ using System;
 /*
     generic Zombie base.
 */
-public abstract class BaseZombieParameter{
+public abstract class BaseZombieParameter
+{
     public Animator animator;
 
     public Rigidbody2D RB;

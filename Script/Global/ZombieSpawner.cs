@@ -48,7 +48,9 @@ public class ZombieSpawner : MonoBehaviour
 
         GameObject zombieContainer = zombieContainerPrefabs[randomIdx];
 
-        Instantiate(zombieContainer, spawnPoint.position, Quaternion.identity);
+        GameObject CurZombieContainer = Instantiate(zombieContainer, spawnPoint.position, Quaternion.identity);
+
+        CurZombieContainer.SetActive(true);
 
         curSpawnTimer = maxSpawnTimer;
     }

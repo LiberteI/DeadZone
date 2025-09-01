@@ -58,7 +58,7 @@ public class SWAT : SurvivorBase
     }
 
     void Start()
-    {   
+    {
         // add states into the dictionary, taking a parameter of Player script
         states.Add(SWATStateType.Idle, new SWATIdleState(this));
         states.Add(SWATStateType.Walk, new SWATWalkState(this));
@@ -73,6 +73,10 @@ public class SWAT : SurvivorBase
         states.Add(SWATStateType.Crouch, new SWATCrouchState(this));
 
         base.currentState = states[SWATStateType.Idle];
+        
+        SurvivorManager.survivorList.Add(parameter.survivorContainer);
+
+        // Debug.Log("should added");
     }
 
 

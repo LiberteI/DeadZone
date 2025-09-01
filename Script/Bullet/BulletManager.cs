@@ -5,7 +5,6 @@ public class BulletManager : MonoBehaviour
     /*
         This script is responsible for 
         1. Keeping bullet data, such as flying time, flying speed, special effects etc.
-        2. anouncing hit with bullet using OnTriggerEnter2D.
     */
     [SerializeField] private float curDyingTime;
 
