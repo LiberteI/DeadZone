@@ -20,10 +20,12 @@ public class NormalZombie : BaseZombie
 
     private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();
 
-    void Awake(){
-        base.parameter = (NormalZombieParameter)this.parameter;
+    void OnEnable()
+    {
+        base.parameter = parameter;
     }
     void Start(){
+        
         states.Add(NormalZombieStateTypes.Idle , new NZIdleState(this));
 
         states.Add(NormalZombieStateTypes.Walk , new NZWalkState(this));

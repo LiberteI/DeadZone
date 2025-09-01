@@ -45,11 +45,21 @@ public class MeleeHitBoxManager : MonoBehaviour
         if(other == null){
             return;
         }
-        if(!(other.CompareTag("Zombie") || other.CompareTag("Survivor"))){
+        
+        data.receiver = other.gameObject;
+
+        // prevent zombie friendly fire
+        if (data.receiver.CompareTag("Zombie") && other.CompareTag("Zombie"))
+        {
             return;
         }
 
-        data.receiver = other.gameObject;
+        if (!(other.CompareTag("Zombie") || other.CompareTag("Survivor")))
+        {
+            return;
+        }
+
+        
         // to prevent self hit: set no interation in project setting
 
         EventManager.RaiseOnMeleeHit(data);

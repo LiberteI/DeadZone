@@ -15,6 +15,10 @@ public abstract class BaseZombieParameter
     public bool isFacingRight;
 
     public ZombieMeleeManager meleeManager;
+
+    public ZombieAggroManager aggroManager;
+
+    public ZombieMovementMnager movementManager;
 }
 
 

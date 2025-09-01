@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1164758451}
-  maxSpawnTimer: 1
+  maxSpawnTimer: 1.5
   curSpawnTimer: 0
   zombieContainerPrefabs:
   - {fileID: 2092308442}
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1296063571}
-  maxSpawnTimer: 1
+  maxSpawnTimer: 1.5
   curSpawnTimer: 0
   zombieContainerPrefabs:
   - {fileID: 2092308442}
@@ -7194,9 +7194,9 @@ GameObject:
   - component: {fileID: 1914974002}
   - component: {fileID: 1914974001}
   - component: {fileID: 1914974005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Survivor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7862,17 +7862,33 @@ PrefabInstance:
       propertyPath: baseObj
       value: 
       objectReference: {fileID: 1914974000}
+    - target: {fileID: 2651779614503125400, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651779614503125400, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7132738641243790334, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
       propertyPath: m_Name
       value: NakedZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 7132738641243790334, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132738641243790334, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7931712248200994673, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.6
+      value: -6.3999996
       objectReference: {fileID: 0}
     - target: {fileID: 7931712248200994673, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.7
+      value: 7.2500005
       objectReference: {fileID: 0}
     - target: {fileID: 7931712248200994673, guid: 2d3542907848f40f2bbe5ffe83fa00b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7925,11 +7941,11 @@ PrefabInstance:
       objectReference: {fileID: 1914974000}
     - target: {fileID: 1350012186245311275, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.3
+      value: -8.099998
       objectReference: {fileID: 0}
     - target: {fileID: 1350012186245311275, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: -0.44999933
       objectReference: {fileID: 0}
     - target: {fileID: 1350012186245311275, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7963,9 +7979,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2629883588957937682, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629883588957937682, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.52
+      objectReference: {fileID: 0}
     - target: {fileID: 6152885015601720021, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
       propertyPath: m_Name
       value: FemaleZombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152885015601720021, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152885015601720021, guid: e377ee2f1024241c9a558633b3fb4e6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7986,11 +8018,11 @@ PrefabInstance:
       objectReference: {fileID: 1914974000}
     - target: {fileID: 2389848078048206195, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.3
+      value: -4.1
       objectReference: {fileID: 0}
     - target: {fileID: 2389848078048206195, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.2
+      value: 7.75
       objectReference: {fileID: 0}
     - target: {fileID: 2389848078048206195, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8028,6 +8060,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SuitNTieZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 7397601742358175560, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397601742358175560, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408762907778870029, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408762907778870029, guid: e04b2d27bbd3249e6adcc02a58616292, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.71
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8045,17 +8093,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemaleStudentZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 893539149020889472, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 893539149020889472, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2350096424842145805, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
       propertyPath: baseObj
       value: 
       objectReference: {fileID: 1914974000}
+    - target: {fileID: 2683005031236772392, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683005031236772392, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.84
+      objectReference: {fileID: 0}
     - target: {fileID: 9003354023403311756, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.1
+      value: -5.8999996
       objectReference: {fileID: 0}
     - target: {fileID: 9003354023403311756, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: -3.2499993
       objectReference: {fileID: 0}
     - target: {fileID: 9003354023403311756, guid: a871b5457ef594a01a3537fe5ac7611f, type: 3}
       propertyPath: m_LocalPosition.z

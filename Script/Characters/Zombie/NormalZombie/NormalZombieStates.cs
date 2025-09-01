@@ -12,12 +12,20 @@ public class NZIdleState : IState
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
+        parameter.movementManager.DisableLinearVelocity();
         parameter.animator.Play("Idle");
     }
-    public void OnUpdate(){
-        if(parameter.meleeManager.SurvivorIsInRange()){
+    public void OnUpdate()
+    {
+        if (parameter.aggroManager.currentTarget == null)
+        {
+            return;
+        }
+        if (parameter.meleeManager.SurvivorIsInRange())
+        {
             zombie.TransitionState(NormalZombieStateTypes.Attack);
         }
+        zombie.TransitionState(NormalZombieStateTypes.Walk);
     }
     public void OnExit(){
 
@@ -36,9 +44,21 @@ public class NZWalkState : IState
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
-
+        parameter.animator.Play("Walk");
     }
-    public void OnUpdate(){
+    public void OnUpdate()
+    {
+        parameter.movementManager.Move();
+        if (parameter.meleeManager.SurvivorIsInRange())
+        {
+            zombie.TransitionState(NormalZombieStateTypes.Attack);
+            return;
+        }
+        if (parameter.aggroManager.currentTarget == null)
+        {
+            zombie.TransitionState(NormalZombieStateTypes.Idle);
+            return;
+        }
 
     }
     public void OnExit(){
@@ -101,6 +121,8 @@ public class NZAttackState : IState
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
+        parameter.movementManager.DisableLinearVelocity();
+
         parameter.animator.Play("Attack");
     }
     public void OnUpdate(){

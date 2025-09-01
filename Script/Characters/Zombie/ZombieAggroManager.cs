@@ -46,10 +46,6 @@ public class ZombieAggroManager : MonoBehaviour
     }
     void Update()
     {
-        if (isInSiegeMode)
-        {
-            return;
-        }
         TryAssignAggroTarget();
 
         UpdateAggroSwitchTimer();
@@ -60,11 +56,6 @@ public class ZombieAggroManager : MonoBehaviour
     void Start()
     {
         DecideSiegeMode();
-        
-        if (isInSiegeMode)
-        {
-            return;
-        }
 
         parameter = zombie.parameter;
 
@@ -72,6 +63,23 @@ public class ZombieAggroManager : MonoBehaviour
     }
 
 
+    private bool ShouldSearchForNextTarget()
+    {
+        if (isInSiegeMode)
+        {
+            return false;
+        }
+        if (curForceAggroTimer > 0)
+        {
+            return false;
+        }
+
+        if (curAggroSwitchTimer > 0)
+        {
+            return false;
+        }
+        return true;
+    }
     private void UpdateAggroSwitchTimer()
     {
         if (curAggroSwitchTimer > 0)
@@ -87,15 +95,9 @@ public class ZombieAggroManager : MonoBehaviour
             curForceAggroTimer -= Time.deltaTime;
         }
     }
-
     private void TryAssignAggroTarget()
     {
-        if (curForceAggroTimer > 0)
-        {
-            return;
-        }
-
-        if (curAggroSwitchTimer > 0)
+        if (!ShouldSearchForNextTarget())
         {
             return;
         }
@@ -118,6 +120,13 @@ public class ZombieAggroManager : MonoBehaviour
         {
             Debug.Log("survivor list not found");
             return null;
+        }
+        if (SurvivorManager.survivorList.Count < 1)
+        {
+            Debug.Log("Survivor list is empty now");
+            
+            return RadioSetHealthManager.baseObj;
+            
         }
         for (int i = 0; i < SurvivorManager.survivorList.Count; i++)
         {
