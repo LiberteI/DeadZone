@@ -17,6 +17,45 @@ public class ZombieSpawner : MonoBehaviour
 
     [SerializeField] private List<GameObject> zombieContainerPrefabs;
 
+    // max zombie count should be instantiated
+    private int maxZombieCount;
+
+    // zombie count left to be instantiated
+    private int curZombieCount;
+
+    private bool hasStoppedSpawning = false;
+    
+    void OnEnable()
+    {
+        EventManager.OnBreakingDawn += SetMaxZombieCount;
+
+        EventManager.OnNightFall += SetMaxZombieCount;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnBreakingDawn -= SetMaxZombieCount;
+
+        EventManager.OnNightFall -= SetMaxZombieCount;
+    }
+
+    private void SetMaxZombieCount(DayConfig dayConfig)
+    {
+        maxZombieCount = dayConfig.zombieCount;
+
+        curZombieCount = maxZombieCount;
+
+        hasStoppedSpawning = false;
+    }
+
+    private void SetMaxZombieCount(NightConfig nightConfig)
+    {
+        maxZombieCount = nightConfig.zombieCount;
+
+        curZombieCount = maxZombieCount;
+
+        hasStoppedSpawning = false;
+    }
     void Start()
     {
         curSpawnTimer = maxSpawnTimer;
@@ -27,6 +66,30 @@ public class ZombieSpawner : MonoBehaviour
         UpdateSpawnTimer();
 
         TrySpawn();
+
+        TryRaiseLevelCleared();
+    }
+
+    private void TryRaiseLevelCleared()
+    {
+        if (curZombieCount > 0)
+        {
+            return;
+        }
+
+        if (hasStoppedSpawning)
+        {
+            return;
+
+        }
+
+        hasStoppedSpawning = true;
+
+        EventManager.RaiseStopSpawning();
+
+        Debug.Log("Has Stopped respawing, should start tracking if the list is empty");
+
+
     }
     private void UpdateSpawnTimer()
     {
@@ -35,9 +98,14 @@ public class ZombieSpawner : MonoBehaviour
             curSpawnTimer -= Time.deltaTime;
         }
     }
-    
+
+
     private void TrySpawn()
     {
+        if (curZombieCount <= 0)
+        {
+            return;
+        }
         if (curSpawnTimer > 0)
         {
             return;
@@ -48,10 +116,17 @@ public class ZombieSpawner : MonoBehaviour
 
         GameObject zombieContainer = zombieContainerPrefabs[randomIdx];
 
-        GameObject CurZombieContainer = Instantiate(zombieContainer, spawnPoint.position, Quaternion.identity);
+        GameObject curZombieContainer = Instantiate(zombieContainer, spawnPoint.position, Quaternion.identity);
 
-        CurZombieContainer.SetActive(true);
+        // add instantiated zombies to the list
+        ZombieRecorder.curLevelZombies.Add(curZombieContainer);
+
+        curZombieContainer.SetActive(true);
 
         curSpawnTimer = maxSpawnTimer;
+
+        curZombieCount -= 1;
     }
+    
+    
 }

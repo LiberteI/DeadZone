@@ -17,48 +17,68 @@ public class ZombieHealthManager : MonoBehaviour
 
     [SerializeField] private bool isDead;
 
-    void OnEnable(){
+    void OnEnable()
+    {
         EventManager.OnBulletHit += TakeDamage;
 
         EventManager.OnMeleeHit += TakeDamage;
+
+        EventManager.OnZombieDie += Die;
     }
 
-    void OnDisable(){
+    void OnDisable()
+    {
         EventManager.OnBulletHit -= TakeDamage;
 
         EventManager.OnMeleeHit -= TakeDamage;
+        
+        EventManager.OnZombieDie -= Die;
     }
     void Start(){
         curHealth = maxHealth;
     }
 
-    void Update(){
-        TryDying();
-    }
-    public void TakeDamage(BulletHitData data){
+
+    public void TakeDamage(BulletHitData data)
+    {
         // receiver filter
-        if(this.gameObject != data.receiver){
+        if (this.gameObject != data.receiver)
+        {
             return;
         }
         curHealth -= data.damage;
+        
+        if (curHealth <= 0)
+        {
+            EventManager.RaiseOnZombieDie(data.receiver);
+        }
     }
 
-    public void TakeDamage(MeleeHitData data){
+    public void TakeDamage(MeleeHitData data)
+    {
         // receiver filter
-        if(this.gameObject != data.receiver){
+        if (this.gameObject != data.receiver)
+        {
             return;
         }
         curHealth -= data.damage;
+        if (curHealth <= 0)
+        {
+            EventManager.RaiseOnZombieDie(data.receiver);
+        }
     }
 
-    private void TryDying(){
-        if(isDead){
+    private void Die(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
             return;
         }
-        if(curHealth <= 0){
-            isDead = true;
-            Destroy(this.gameObject);
+        if (isDead)
+        {
+            return;
         }
+        isDead = true;
     }
 
 
