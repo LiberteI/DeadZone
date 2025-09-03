@@ -3,8 +3,6 @@ using UnityEngine;
 public class ZombieMeleeManager : MonoBehaviour
 {
     [SerializeField] private BaseZombie zombie;
-    
-    private BaseZombieParameter parameter;
 
     [SerializeField] private float damage;
 
@@ -16,10 +14,6 @@ public class ZombieMeleeManager : MonoBehaviour
 
     [SerializeField] private LayerMask targetLayer;
 
-
-    void Start(){
-        parameter = zombie.parameter;
-    }
     void Update(){
         SetData();
     }
@@ -30,10 +24,17 @@ public class ZombieMeleeManager : MonoBehaviour
     }
 
     private void SetData(){
-        if(parameter.isFacingRight){
+        if (zombie.parameter == null)
+        {
+            Debug.Log("parameter is null");
+            return;
+        }
+        if (zombie.parameter.isFacingRight)
+        {
             hitboxManager.SetData(damage, transform.right);
         }
-        else{
+        else
+        {
             hitboxManager.SetData(damage, -transform.right);
         }
     }

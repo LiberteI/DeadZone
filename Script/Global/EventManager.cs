@@ -21,6 +21,26 @@ public static class EventManager
 
     public static event Action OnClearLevel;
 
+    public static event Action<ClutchData> OnClutch;
+
+    public static event Action<ClutchData> OnRelease;
+
+    public static void RaiseOnRelease(ClutchData data)
+    {
+        if (OnRelease != null)
+        {
+            OnRelease(data);
+        }
+    }
+
+    public static void RaiseOnClutch(ClutchData data)
+    {
+        if (OnClutch != null)
+        {
+            OnClutch(data);
+        }
+    }
+
     public static void RaiseOnClearLevel()
     {
         if (OnClearLevel != null)

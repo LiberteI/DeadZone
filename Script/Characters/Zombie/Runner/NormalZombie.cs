@@ -15,7 +15,7 @@ public enum NormalZombieStateTypes{
     Attack, Hurt, Die, Idle, Walk
 }
 public class NormalZombie : BaseZombie
-{   
+{
     public new NormalZombieParameter parameter;
 
     private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();

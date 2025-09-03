@@ -13,7 +13,12 @@ public class SWATMovementManager : BaseMovementManager
     }
 
     public override bool CanJump(){
-        if(!swatParameter.isPlayedByPlayer){
+        if (!base.CanJump())
+        {
+            return false;
+        }
+        if (!swatParameter.isPlayedByPlayer)
+        {
             return false;
         }
         if(swatParameter.isShooting){
@@ -36,7 +41,12 @@ public class SWATMovementManager : BaseMovementManager
     }
 
     protected override bool CanMove(){
-        if(!swatParameter.isPlayedByPlayer){
+        if (!base.CanMove())
+        {
+            return false;
+        }
+        if (!swatParameter.isPlayedByPlayer)
+        {
             return false;
         }
         if(swatParameter.isShooting){
@@ -55,8 +65,17 @@ public class SWATMovementManager : BaseMovementManager
         return true;
     }
 
-    protected override bool CanFlip(){
-        if(!swatParameter.isPlayedByPlayer){
+    protected override bool CanFlip() {
+
+        if (!base.CanFlip())
+        {
+            return false;
+        }
+        if(swatParameter.isDoingMelee){
+            return false;
+        }
+        if (!swatParameter.isPlayedByPlayer)
+        {
             return false;
         }
         if(swatParameter.isShooting){

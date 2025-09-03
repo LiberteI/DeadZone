@@ -24,7 +24,8 @@ public enum SWATRole{
     ShieldOperator
 }
 [Serializable]
-public class SWATParameter : SurvivorParameters{
+public class SWATParameter : SurvivorParameters
+{
 
     public SWATMovementManager movementManager;
 
@@ -43,6 +44,7 @@ public class SWATParameter : SurvivorParameters{
     public bool isDoingMelee;
 
     public bool isCrouching;
+    
 }
 
 
@@ -53,8 +55,11 @@ public class SWAT : SurvivorBase
     public new SWATParameter parameter;
 
     // assign parameter at Awake
-    void Awake(){
-        base.parameter = (SWATParameter)this.parameter;
+    void Awake()
+    {
+        base.parameter = parameter;
+        
+        SurvivorManager.survivorList.Add(parameter.survivorContainer);
     }
 
     void Start()
@@ -73,9 +78,6 @@ public class SWAT : SurvivorBase
         states.Add(SWATStateType.Crouch, new SWATCrouchState(this));
 
         base.currentState = states[SWATStateType.Idle];
-        
-        SurvivorManager.survivorList.Add(parameter.survivorContainer);
-
         // Debug.Log("should added");
     }
 

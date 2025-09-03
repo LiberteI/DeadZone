@@ -16,8 +16,6 @@ public class ZombieAggroManager : MonoBehaviour
 
     [SerializeField] BaseZombie zombie;
 
-    [SerializeField] BaseZombieParameter parameter;
-
     public GameObject currentTarget;
 
     [SerializeField] private float maxAggroSwitchTimer = 2f;
@@ -56,8 +54,6 @@ public class ZombieAggroManager : MonoBehaviour
     void Start()
     {
         DecideSiegeMode();
-
-        parameter = zombie.parameter;
 
         TryAssignAggroTarget();
     }

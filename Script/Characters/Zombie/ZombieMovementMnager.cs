@@ -4,15 +4,10 @@ public class ZombieMovementMnager : MonoBehaviour
 {
     [SerializeField] private BaseZombie zombie;
 
-    private BaseZombieParameter parameter;
-
     private GameObject currentTarget;
 
     [SerializeField] private float walkSpeed;
-    void Awake()
-    {
-        parameter = zombie.parameter;
-    }
+    
     void Start()
     {
         walkSpeed = UnityEngine.Random.Range(3f, 5f);
@@ -30,7 +25,7 @@ public class ZombieMovementMnager : MonoBehaviour
 
     private bool TargetIsNull()
     {
-        if (parameter.aggroManager.currentTarget == null)
+        if (zombie.parameter.aggroManager.currentTarget == null)
         {
             return true;
         }
@@ -40,27 +35,32 @@ public class ZombieMovementMnager : MonoBehaviour
     {
         if (transform.eulerAngles.y == 0)
         {
-            parameter.isFacingRight = true;
+            zombie.parameter.isFacingRight = true;
             return;
         }
         if (transform.eulerAngles.y == 180f)
         {
-            parameter.isFacingRight = false;
+            zombie.parameter.isFacingRight = false;
             return;
         }
     }
 
     private void SetTarget()
     {
-        if (this.currentTarget != parameter.aggroManager.currentTarget)
+        if (zombie.parameter == null)
         {
-            if (parameter.aggroManager.currentTarget == null)
+            Debug.Log("parameter is null");
+            return;
+        }
+        if (this.currentTarget != zombie.parameter.aggroManager.currentTarget)
+        {
+            if (zombie.parameter.aggroManager.currentTarget == null)
             {
                 this.currentTarget = null;
                 return;
             }
-            
-            this.currentTarget = parameter.aggroManager.currentTarget;
+
+            this.currentTarget = zombie.parameter.aggroManager.currentTarget;
         }
     }
     private void FlipToTarget()
@@ -84,7 +84,7 @@ public class ZombieMovementMnager : MonoBehaviour
     public void Move()
     {
         float dir = 0;
-        if (parameter.isFacingRight)
+        if (zombie.parameter.isFacingRight)
         {
             dir = 1f;
         }
@@ -92,11 +92,16 @@ public class ZombieMovementMnager : MonoBehaviour
         {
             dir = -1f;
         }
-        parameter.RB.linearVelocity = new Vector2(walkSpeed * dir, parameter.RB.linearVelocity.y);
+        zombie.parameter.RB.linearVelocity = new Vector2(walkSpeed * dir, zombie.parameter.RB.linearVelocity.y);
     }
 
     public void DisableLinearVelocity()
     {
-        parameter.RB.linearVelocity = Vector2.zero;
+        if (zombie.parameter == null)
+        {
+            Debug.Log("parameter is null");
+            return;
+        }
+        zombie.parameter.RB.linearVelocity = Vector2.zero;
     }
 }

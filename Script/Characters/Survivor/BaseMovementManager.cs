@@ -75,6 +75,20 @@ public abstract class BaseMovementManager : MonoBehaviour
 
     [SerializeField] private float bufferForce;
 
+    [SerializeField] private bool isClutched;
+
+    void OnEnable()
+    {
+        EventManager.OnClutch += GetClutched;
+
+        EventManager.OnRelease += GetReleased;
+    }
+    void OnDisable()
+    {
+        EventManager.OnClutch -= GetClutched;
+
+        EventManager.OnRelease -= GetReleased;
+    }
     void Start(){
         this.parameter = survivor.parameter;
     }
@@ -94,12 +108,39 @@ public abstract class BaseMovementManager : MonoBehaviour
 
         BufferLedge();
     }
+    private void GetClutched(ClutchData data)
+    {
+        if (data.receiver != this.gameObject)
+        {
+            return;
+        }
 
-    private void HandleHorizontalMovement(){
-        if(isRunning){
+        isClutched = true;
+
+        
+    }
+
+    private void GetReleased(ClutchData data)
+    {
+        if (data.receiver != this.gameObject)
+        {
+            return;
+        }
+
+        isClutched = false;
+
+        
+
+        
+    }
+    private void HandleHorizontalMovement()
+    {
+        if (isRunning)
+        {
             Run();
         }
-        else{
+        else
+        {
             Walk();
         }
     }
@@ -269,7 +310,12 @@ public abstract class BaseMovementManager : MonoBehaviour
 
 
     protected virtual bool CanMove(){
-        if(!parameter.isPlayedByPlayer){
+        if (isClutched)
+        {
+            return false;
+        }
+        if (!parameter.isPlayedByPlayer)
+        {
             return false;
         }
         return true;
@@ -287,7 +333,12 @@ public abstract class BaseMovementManager : MonoBehaviour
     }
 
     public virtual bool CanJump(){
-        if(!parameter.isPlayedByPlayer){
+        if (isClutched)
+        {
+            return false;
+        }
+        if (!parameter.isPlayedByPlayer)
+        {
             return false;
         }
         // check if is grounded
