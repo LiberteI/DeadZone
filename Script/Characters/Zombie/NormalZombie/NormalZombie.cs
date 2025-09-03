@@ -4,7 +4,7 @@ using System.Collections;
 using System;
 
 /*
-    This script is a base for 4 normal zombies. They share the same behaviour but diffenrent sprite.
+    This script is a base for 4 normal zombies(Runner). They share the same behaviour but diffenrent sprite.
 */
 [Serializable]
 public class NormalZombieParameter : BaseZombieParameter{
