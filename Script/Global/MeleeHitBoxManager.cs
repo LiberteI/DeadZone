@@ -64,7 +64,7 @@ public class MeleeHitBoxManager : MonoBehaviour
 
         EventManager.RaiseOnMeleeHit(data);
 
-        Debug.Log($"{data.initiator} hits {data.receiver} with damage {data.damage} facing {data.hitIncomingDir}");
+        // Debug.Log($"{data.initiator} hits {data.receiver} with damage {data.damage} facing {data.hitIncomingDir}");
 
     }
 }

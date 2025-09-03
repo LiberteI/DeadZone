@@ -29,8 +29,10 @@ public class CIdleState : IState
         if (parameter.meleeManager.SurvivorIsInRange())
         {
             clutcher.TransitionState(ClutcherStateType.Clutch);
+            return;
         }
         clutcher.TransitionState(ClutcherStateType.Walk);
+        return;
     }
 
     public void OnExit()

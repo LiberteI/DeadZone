@@ -35,7 +35,7 @@ public class ClutchBoxManager : MonoBehaviour
 
         EventManager.RaiseOnClutch(data);
 
-        Debug.Log($"{data.receiver} is grabbed by {data.initiator}");
+        // Debug.Log($"{data.receiver} is grabbed by {data.initiator}");
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -59,6 +59,6 @@ public class ClutchBoxManager : MonoBehaviour
 
         EventManager.RaiseOnRelease(data);
 
-        Debug.Log($"{data.receiver} is released by {data.initiator}");
+        // Debug.Log($"{data.receiver} is released by {data.initiator}");
     }
 }

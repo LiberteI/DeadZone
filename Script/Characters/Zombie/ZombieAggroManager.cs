@@ -97,7 +97,7 @@ public class ZombieAggroManager : MonoBehaviour
         {
             return;
         }
-
+        
         currentTarget = FindTheNearestTarget();
 
         curAggroSwitchTimer = maxAggroSwitchTimer;
@@ -126,7 +126,8 @@ public class ZombieAggroManager : MonoBehaviour
         }
         for (int i = 0; i < SurvivorManager.survivorList.Count; i++)
         {
-            float curDistance = (transform.position - SurvivorManager.survivorList[i].transform.position).sqrMagnitude;
+            float curDistance = (transform.position - SurvivorManager.survivorList[i].GetComponentInChildren<BaseSurvivorHealthManager>().transform.position).sqrMagnitude;
+            // Debug.Log($"Survivor Transform position: {SurvivorManager.survivorList[i].GetComponentInChildren<BaseSurvivorHealthManager>().transform.position}");
 
             if (curDistance < minDistance)
             {
@@ -135,6 +136,9 @@ public class ZombieAggroManager : MonoBehaviour
                 survivorTargetIdx = i;
             }
         }
+        // Debug.Log($"minDistance : {minDistance}");
+    
+        // Debug.Log($"zombieToBaseDist : {zombieToBaseDist}");
         if (minDistance == float.PositiveInfinity || survivorTargetIdx == -99)
         {
             Debug.Log("survivor is not found");
