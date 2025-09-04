@@ -29,6 +29,16 @@ public static class EventManager
 
     public static event Action<GameObject> OnScream;
 
+    public static event Action<GameObject> OnIsWithinScreamRange;
+
+    public static void RaiseOnIsWithinScreamRange(GameObject receiver)
+    {
+        if (OnIsWithinScreamRange != null)
+        {
+            OnIsWithinScreamRange(receiver);
+        }
+    }
+
     public static void RaiseOnScream(GameObject screamer)
     {
         if (OnScream != null)

@@ -306,6 +306,8 @@ public class SCScreamState : IState
 
     public void OnEnter()
     {
+        parameter.isScreaming = true;
+
         parameter.animator.Play("Scream");
 
         parameter.hasScreamed = true;
@@ -332,7 +334,7 @@ public class SCScreamState : IState
 
     public void OnExit()
     {
-
+        parameter.isScreaming = false;
     }
 }
 

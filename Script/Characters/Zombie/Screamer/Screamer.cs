@@ -27,7 +27,9 @@ public class ScreamerParameter : BaseZombieParameter
 
     public bool hasScreamed;
 
-    
+    public GameObject screamerCentreObj;
+
+    public bool isScreaming;
 }
 public class Screamer : BaseZombie
 {
@@ -38,17 +40,20 @@ public class Screamer : BaseZombie
 
     private AnimatorStateInfo info;
 
-    private float timer;
+    [SerializeField] private float timer;
 
     void OnEnable()
     {
         base.parameter = parameter;
 
         EventManager.OnScream += SetHasScreamed;
+
+        
     }
     void OnDisable()
     {
         EventManager.OnScream -= SetHasScreamed;
+
     }
     void Start()
     {
@@ -79,6 +84,8 @@ public class Screamer : BaseZombie
     {
         TryScream();
 
+        TryActivateScreamRange();
+
         currentState.OnUpdate();
     }
 
@@ -98,6 +105,17 @@ public class Screamer : BaseZombie
         base.currentState.OnEnter();
     }
 
+    private void TryActivateScreamRange()
+    {
+        if (parameter.isScreaming)
+        {
+            parameter.screamerCentreObj.SetActive(true);
+        }
+        else
+        {
+            parameter.screamerCentreObj.SetActive(false);
+        }
+    }
     public void TryScream()
     {
         if (timer > 0)
@@ -113,6 +131,7 @@ public class Screamer : BaseZombie
         parameter.hasScreamed = true;
 
         TransitionState(ScreamerStateType.Scream);
+        
     }
 
     public void PerformComboAttack()

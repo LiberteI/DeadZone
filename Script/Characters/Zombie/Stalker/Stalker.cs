@@ -43,12 +43,16 @@ public class Stalker : BaseZombie
     private AnimatorStateInfo info;
     void OnEnable()
     {
+        EventManager.OnIsWithinScreamRange += SetProvoked;
+
         EventManager.OnProvoked += SetProvoked;
 
         base.parameter = parameter;
     }
     void OnDisable()
     {
+        EventManager.OnIsWithinScreamRange -= SetProvoked;
+
         EventManager.OnProvoked -= SetProvoked;
     }
     void Start()
@@ -139,6 +143,15 @@ public class Stalker : BaseZombie
     private void SetProvoked(ProvocationData data)
     {
         if (data.initiator != this.gameObject)
+        {
+            return;
+        }
+        parameter.hasBeenProvoked = true;
+    }
+
+    private void SetProvoked(GameObject receiver)
+    {
+        if (receiver != this.gameObject)
         {
             return;
         }
