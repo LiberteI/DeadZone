@@ -13,7 +13,7 @@ using UnityEngine;
 
         3. Screamer will use scream to summon lots of infected.
 
-        4. Spitter will spray poisonous chemicals that cause range effect. Inspired by Left 4 Dead.
+        4. Poisoner will spray poisonous chemicals that cause range effect. Inspired by Left 4 Dead.
 
         5. Jockey is a swift creeping infected, it jumps and controls the survivor. If lands on the survivor, it continuously apply scratch attacks / bite survivors on the ground.
 
@@ -24,10 +24,7 @@ using UnityEngine;
 
         8. Tank's chest is busted open with tusks. It has the highest health volume and the way it attacks is to swing fist or grab survivor with its tusks.
 */
-public enum ZombieType
-{
-    Runner, Clutcher, Screamer, Spitter, Jockey, Boomer, Stalker, Tank
-}
+
 public abstract class BaseZombieParameter
 {
     public Animator animator;
