@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.Rendering;
 /*
     Stalker is the same as Runner regarding infected level, but they have swifter speed and higher damage.
 

@@ -27,6 +27,16 @@ public static class EventManager
 
     public static event Action<ProvocationData> OnProvoked;
 
+    public static event Action<GameObject> OnScream;
+
+    public static void RaiseOnScream(GameObject screamer)
+    {
+        if (OnScream != null)
+        {
+            OnScream(screamer);
+        }
+    }
+
     public static void RaiseOnProvoked(ProvocationData data)
     {
         if (OnProvoked != null)

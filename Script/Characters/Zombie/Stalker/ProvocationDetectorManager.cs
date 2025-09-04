@@ -29,7 +29,7 @@ public class ProvocationDetectorManager : MonoBehaviour
         }
         
 
-        Debug.Log($"{data.initiator} sees survivor : {data.receiver}");
+        // Debug.Log($"{data.initiator} sees survivor : {data.receiver}");
         EventManager.RaiseOnProvoked(data);
     }
 }
