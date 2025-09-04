@@ -25,6 +25,16 @@ public static class EventManager
 
     public static event Action<ClutchData> OnRelease;
 
+    public static event Action<ProvocationData> OnProvoked;
+
+    public static void RaiseOnProvoked(ProvocationData data)
+    {
+        if (OnProvoked != null)
+        {
+            OnProvoked(data);
+        }
+    }
+
     public static void RaiseOnRelease(ClutchData data)
     {
         if (OnRelease != null)

@@ -6,11 +6,11 @@ public class ZombieMovementMnager : MonoBehaviour
 
     private GameObject currentTarget;
 
-    [SerializeField] private float walkSpeed;
+    public float speed;
     
     void Start()
     {
-        walkSpeed = UnityEngine.Random.Range(3f, 5f);
+        speed = UnityEngine.Random.Range(3f, 5f);
         
     }
     void Update()
@@ -92,7 +92,7 @@ public class ZombieMovementMnager : MonoBehaviour
         {
             dir = -1f;
         }
-        zombie.parameter.RB.linearVelocity = new Vector2(walkSpeed * dir, zombie.parameter.RB.linearVelocity.y);
+        zombie.parameter.RB.linearVelocity = new Vector2(speed * dir, zombie.parameter.RB.linearVelocity.y);
     }
 
     public void DisableLinearVelocity()

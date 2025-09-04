@@ -28,6 +28,7 @@ public class BIdleState : IState
         if (parameter.meleeManager.SurvivorIsInRange())
         {
             boomer.TransitionState(BoomerStateType.Attack);
+            return;
         }
         boomer.TransitionState(BoomerStateType.Walk);
     }

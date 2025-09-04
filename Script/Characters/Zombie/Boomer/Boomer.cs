@@ -18,7 +18,7 @@ public enum BoomerStateType
 [Serializable]
 public class BoomerParameter : BaseZombieParameter
 {
-    
+    public float explosionRange;
 }
 public class Boomer : BaseZombie
 {
