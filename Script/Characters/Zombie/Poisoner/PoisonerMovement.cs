@@ -67,8 +67,8 @@ public class PoisonerMovement : ZombieMovementMnager
         base.zombie.parameter.RB.linearVelocity = new Vector2(speed * dir, base.zombie.parameter.RB.linearVelocity.y);
 
     }
-
-    protected override void FlipToTarget()
+    
+    public override void FlipToTarget()
     {
         if (base.TargetIsNull())
         {

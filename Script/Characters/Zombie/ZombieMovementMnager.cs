@@ -63,7 +63,7 @@ public class ZombieMovementMnager : MonoBehaviour
             this.currentTarget = zombie.parameter.aggroManager.currentTarget;
         }
     }
-    protected virtual void FlipToTarget()
+    public virtual void FlipToTarget()
     {
         if (TargetIsNull())
         {

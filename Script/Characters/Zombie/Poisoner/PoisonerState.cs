@@ -34,7 +34,8 @@ public class PIdleState : IState
 
     public void OnUpdate()
     {
-       
+        parameter.movementManager.FlipToTarget();
+        
         if (decideTimer > 0)
         {
             decideTimer -= Time.deltaTime;
@@ -126,7 +127,7 @@ public class PAttackState : IState
     public void OnUpdate()
     {
         info = parameter.animator.GetCurrentAnimatorStateInfo(0);
-
+        parameter.movementManager.FlipToTarget();
         if (info.normalizedTime < 1f)
         {
             return;

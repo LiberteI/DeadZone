@@ -62,7 +62,7 @@ public class Poisoner : BaseZombie
     public void TransitionState(PoisonerStateType newState)
     {
         // exit current state
-        Debug.Log($"Transition from {currentState} to {newState}");
+        // Debug.Log($"Transition from {currentState} to {newState}");
         if (base.currentState != null)
         {
             base.currentState.OnExit();
@@ -78,7 +78,7 @@ public class Poisoner : BaseZombie
     public void ProjectPoisonousSpore()
     {
         
-        Debug.Log("Executed");
+        // Debug.Log("Executed");
         
         StartCoroutine(ExecuteProjection());
     }
@@ -87,14 +87,14 @@ public class Poisoner : BaseZombie
     {
 
         parameter.isProjecting = true;
-        Debug.Log(parameter.isProjecting);
+        // Debug.Log(parameter.isProjecting);
 
         parameter.animator.Play("Spit");
         
         yield return WaitForAnimationFinishes("Spit");
 
         parameter.isProjecting = false;
-        Debug.Log(parameter.isProjecting);
+        // Debug.Log(parameter.isProjecting);
     }
 
     private IEnumerator WaitForAnimationFinishes(string name)
