@@ -7456,7 +7456,7 @@ Transform:
   m_GameObject: {fileID: 1645443405}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.79, y: -3.13, z: 0}
+  m_LocalPosition: {x: -14.9, y: -3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7569,8 +7569,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1645443413}
   speed: 0
-  sqrDistanceThreshold: 30
+  sqrDistanceThreshold: 20
   sqrThresholdOffset: 5
+  shouldFollow: 0
+  shouldProject: 0
 --- !u!114 &1645443411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7630,6 +7632,7 @@ MonoBehaviour:
     meleeManager: {fileID: 1645443412}
     aggroManager: {fileID: 1645443411}
     movementManager: {fileID: 1645443410}
+    isProjecting: 0
 --- !u!61 &1645443414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7702,7 +7705,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1668624413
 GameObject:
   m_ObjectHideFlags: 0

@@ -94,7 +94,8 @@ public class ZombieAggroManager : MonoBehaviour
             Debug.Log("Current target is null. Cannot calculate distance");
             return;
         }
-        curDistanceToTarget = (currentTarget.transform.position - transform.position).magnitude;
+        // Debug.Log(currentTarget);
+        curDistanceToTarget = Mathf.Abs(currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position.x - transform.position.x);
     }
     private void UpdateForceAggroTimer()
     {

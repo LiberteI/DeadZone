@@ -31,7 +31,7 @@ public class ZombieMovementMnager : MonoBehaviour
         }
         return false;
     }
-    private void DefineFacingDir()
+    protected void DefineFacingDir()
     {
         if (transform.eulerAngles.y == 0)
         {
@@ -45,7 +45,7 @@ public class ZombieMovementMnager : MonoBehaviour
         }
     }
 
-    private void SetTarget()
+    protected void SetTarget()
     {
         if (zombie.parameter == null)
         {

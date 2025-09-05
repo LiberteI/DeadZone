@@ -8,6 +8,8 @@ public class PIdleState : IState
 
     private float random;
 
+    private float decideTimer;
+
     public PIdleState(Poisoner poisoner)
     {
         this.poisoner = poisoner;
@@ -16,6 +18,8 @@ public class PIdleState : IState
     }
     public void OnEnter()
     {
+        decideTimer = 2f;
+
         random = UnityEngine.Random.Range(0, 100);
 
         if (random > 50f)
@@ -30,6 +34,12 @@ public class PIdleState : IState
 
     public void OnUpdate()
     {
+       
+        if (decideTimer > 0)
+        {
+            decideTimer -= Time.deltaTime;
+            return;
+        }
         if (parameter.aggroManager.currentTarget == null)
         {
             return;
@@ -39,12 +49,17 @@ public class PIdleState : IState
             poisoner.TransitionState(PoisonerStateType.Attack);
             return;
         }
+        if (((PoisonerMovement)parameter.movementManager).shouldProject)
+        {
+            poisoner.TransitionState(PoisonerStateType.Project);
+            return;
+        }
         poisoner.TransitionState(PoisonerStateType.Walk);
     }
 
     public void OnExit()
     {
-
+        decideTimer = 2f;
     }
 }
 
@@ -69,7 +84,17 @@ public class PWalkState : IState
     {
         parameter.movementManager.Move();
 
-        
+        if (parameter.meleeManager.SurvivorIsInRange())
+        {
+            poisoner.TransitionState(PoisonerStateType.Attack);
+            return;
+        }
+
+        if (((PoisonerMovement)parameter.movementManager).shouldProject)
+        {
+            poisoner.TransitionState(PoisonerStateType.Project);
+            return;
+        }
     }
 
     public void OnExit()
@@ -84,6 +109,9 @@ public class PAttackState : IState
 
     private PoisonerParameter parameter;
 
+    private AnimatorStateInfo info;
+
+
     public PAttackState(Poisoner poisoner)
     {
         this.poisoner = poisoner;
@@ -92,12 +120,19 @@ public class PAttackState : IState
     }
     public void OnEnter()
     {
-
+        parameter.animator.Play("Attack1");
     }
 
     public void OnUpdate()
     {
+        info = parameter.animator.GetCurrentAnimatorStateInfo(0);
 
+        if (info.normalizedTime < 1f)
+        {
+            return;
+        }
+
+        poisoner.TransitionState(PoisonerStateType.Idle);
     }
 
     public void OnExit()
@@ -120,12 +155,18 @@ public class PProjectState : IState
     }
     public void OnEnter()
     {
-
+        // do spit
+        poisoner.ProjectPoisonousSpore();
     }
 
     public void OnUpdate()
     {
-
+        if (parameter.isProjecting)
+        {
+            return;
+        }
+        poisoner.TransitionState(PoisonerStateType.Idle);
+        
     }
 
     public void OnExit()

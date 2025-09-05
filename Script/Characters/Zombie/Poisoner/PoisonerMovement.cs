@@ -7,12 +7,29 @@ public class PoisonerMovement : ZombieMovementMnager
     // to prevent jittering
     [SerializeField] private float sqrThresholdOffset;
 
-    private bool shouldFollow;
+    [SerializeField] private bool shouldFollow;
+
+    public bool shouldProject;
+
+    private float dir;
 
     // range: curDistance : [threshold - offset, threshold + offset]
-    public override void Move()
+
+    
+    void Update()
     {
-        float dir = 0;
+        // cache target
+        base.SetTarget();
+
+        DefineFacingDir();
+
+        FlipToTarget();
+
+        DetermineMovementBehaviour();
+    }
+
+    private void DetermineMovementBehaviour()
+    {
         if (base.zombie.parameter.isFacingRight)
         {
             dir = 1f;
@@ -24,12 +41,28 @@ public class PoisonerMovement : ZombieMovementMnager
         // poisoner is too close: should flee
         if (base.zombie.parameter.aggroManager.curDistanceToTarget < sqrDistanceThreshold - sqrThresholdOffset)
         {
+            shouldProject = false;
+            
             shouldFollow = false;
         }
         // poisoner is too far: should follow
         else if (base.zombie.parameter.aggroManager.curDistanceToTarget > sqrDistanceThreshold + sqrThresholdOffset)
         {
+            shouldProject = false;
+
             shouldFollow = true;
+        }
+        else
+        {
+            shouldProject = true;
+        }
+    }
+    public override void Move()
+    {
+        if (shouldProject)
+        {
+            base.zombie.parameter.RB.linearVelocity = new Vector2(0, base.zombie.parameter.RB.linearVelocity.y);
+            return;
         }
         base.zombie.parameter.RB.linearVelocity = new Vector2(speed * dir, base.zombie.parameter.RB.linearVelocity.y);
 
@@ -41,7 +74,12 @@ public class PoisonerMovement : ZombieMovementMnager
         {
             return;
         }
+        if (shouldProject)
+        {
 
+            base.FlipToTarget();
+            return;
+        }
         if (shouldFollow)
         {
             // flip to player

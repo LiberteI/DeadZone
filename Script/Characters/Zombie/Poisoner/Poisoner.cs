@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ public enum PoisonerStateType
 [Serializable]
 public class PoisonerParameter : BaseZombieParameter
 {
-    
+    public bool isProjecting;
 }
 public class Poisoner : BaseZombie
 {
@@ -61,7 +62,7 @@ public class Poisoner : BaseZombie
     public void TransitionState(PoisonerStateType newState)
     {
         // exit current state
-        // Debug.Log($"Transition from {currentState} to {newState}");
+        Debug.Log($"Transition from {currentState} to {newState}");
         if (base.currentState != null)
         {
             base.currentState.OnExit();
@@ -72,5 +73,54 @@ public class Poisoner : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+
+    public void ProjectPoisonousSpore()
+    {
+        
+        Debug.Log("Executed");
+        
+        StartCoroutine(ExecuteProjection());
+    }
+
+    private IEnumerator ExecuteProjection()
+    {
+
+        parameter.isProjecting = true;
+        Debug.Log(parameter.isProjecting);
+
+        parameter.animator.Play("Spit");
+        
+        yield return WaitForAnimationFinishes("Spit");
+
+        parameter.isProjecting = false;
+        Debug.Log(parameter.isProjecting);
+    }
+
+    private IEnumerator WaitForAnimationFinishes(string name)
+    {
+        AnimatorStateInfo info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+        while (true)
+        {
+
+            if (info.IsName(name))
+            {
+                break;
+            }
+            info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+
+            yield return null;
+        }
+
+        while (true)
+        {
+            if (info.normalizedTime > 0.99f)
+            {
+                break;
+            }
+            info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+
+            yield return null;
+        }
     }
 }
