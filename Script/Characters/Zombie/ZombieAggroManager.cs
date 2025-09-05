@@ -29,6 +29,8 @@ public class ZombieAggroManager : MonoBehaviour
     // fixed target on the base
     public bool isInSiegeMode;
 
+    public float curDistanceToTarget;
+
     void OnEnable()
     {
         EventManager.OnBulletHit += ForceSwitchAggro;
@@ -49,6 +51,8 @@ public class ZombieAggroManager : MonoBehaviour
         UpdateAggroSwitchTimer();
 
         UpdateForceAggroTimer();
+
+        CalculateCurDistance();
     }
 
     void Start()
@@ -83,7 +87,15 @@ public class ZombieAggroManager : MonoBehaviour
             curAggroSwitchTimer -= Time.deltaTime;
         }
     }
-
+    private void CalculateCurDistance()
+    {
+        if (currentTarget == null)
+        {
+            Debug.Log("Current target is null. Cannot calculate distance");
+            return;
+        }
+        curDistanceToTarget = (currentTarget.transform.position - transform.position).magnitude;
+    }
     private void UpdateForceAggroTimer()
     {
         if (curForceAggroTimer > 0)
@@ -141,6 +153,7 @@ public class ZombieAggroManager : MonoBehaviour
         // Debug.Log($"zombieToBaseDist : {zombieToBaseDist}");
         if (minDistance == float.PositiveInfinity || survivorTargetIdx == -99)
         {
+            curDistanceToTarget = zombieToBaseDist;
             Debug.Log("survivor is not found");
             return RadioSetHealthManager.baseObj;
         }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ZombieMovementMnager : MonoBehaviour
 {
-    [SerializeField] private BaseZombie zombie;
+    [SerializeField] protected BaseZombie zombie;
 
-    private GameObject currentTarget;
+    protected GameObject currentTarget;
 
     public float speed;
     
@@ -23,7 +23,7 @@ public class ZombieMovementMnager : MonoBehaviour
         FlipToTarget();
     }
 
-    private bool TargetIsNull()
+    protected bool TargetIsNull()
     {
         if (zombie.parameter.aggroManager.currentTarget == null)
         {
@@ -63,7 +63,7 @@ public class ZombieMovementMnager : MonoBehaviour
             this.currentTarget = zombie.parameter.aggroManager.currentTarget;
         }
     }
-    private void FlipToTarget()
+    protected virtual void FlipToTarget()
     {
         if (TargetIsNull())
         {
@@ -81,7 +81,7 @@ public class ZombieMovementMnager : MonoBehaviour
         }
     }
 
-    public void Move()
+    public virtual void Move()
     {
         float dir = 0;
         if (zombie.parameter.isFacingRight)
