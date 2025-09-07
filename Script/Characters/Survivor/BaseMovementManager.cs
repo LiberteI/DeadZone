@@ -77,17 +77,23 @@ public abstract class BaseMovementManager : MonoBehaviour
 
     [SerializeField] private bool isClutched;
 
+    [SerializeField] private bool isCaptured;
+
     void OnEnable()
     {
         EventManager.OnClutch += GetClutched;
 
         EventManager.OnRelease += GetReleased;
+
+        EventManager.OnControlSuccessful += GetCaptured;
     }
     void OnDisable()
     {
         EventManager.OnClutch -= GetClutched;
 
         EventManager.OnRelease -= GetReleased;
+
+        EventManager.OnControlSuccessful -= GetCaptured;
     }
     void Start(){
         this.parameter = survivor.parameter;
@@ -120,6 +126,17 @@ public abstract class BaseMovementManager : MonoBehaviour
         
     }
 
+    private void GetCaptured(DetectionData data)
+    {
+        if (data.receiver != this.gameObject)
+        {
+            return;
+        }
+        isCaptured = true;
+    }
+
+    // do capture break free in the future;
+
     private void GetReleased(ClutchData data)
     {
         if (data.receiver != this.gameObject)
@@ -128,10 +145,6 @@ public abstract class BaseMovementManager : MonoBehaviour
         }
 
         isClutched = false;
-
-        
-
-        
     }
     private void HandleHorizontalMovement()
     {
@@ -310,6 +323,10 @@ public abstract class BaseMovementManager : MonoBehaviour
 
 
     protected virtual bool CanMove(){
+        if (isCaptured)
+        {
+            return false;
+        }
         if (isClutched)
         {
             return false;
@@ -321,7 +338,12 @@ public abstract class BaseMovementManager : MonoBehaviour
         return true;
     }
     protected virtual bool CanFlip(){
-        if(!parameter.isPlayedByPlayer){
+        if (isCaptured)
+        {
+            return false;
+        }
+        if (!parameter.isPlayedByPlayer)
+        {
             return false;
         }
         if(isInMidAir){
@@ -333,6 +355,10 @@ public abstract class BaseMovementManager : MonoBehaviour
     }
 
     public virtual bool CanJump(){
+        if (isCaptured)
+        {
+            return false;
+        }
         if (isClutched)
         {
             return false;

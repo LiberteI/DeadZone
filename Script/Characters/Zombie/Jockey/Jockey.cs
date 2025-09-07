@@ -11,7 +11,7 @@ using UnityEngine;
 
         If when jockey lands, target is within range of its control box. Disable target's movement. Jockey starts attacking.
 
-        If jocky failed to control the player, start crowling and then do hunt again.
+        If jocky failed to control the player, disable control box and detection box and run to target.
 
     Only ally shoots jockey can the controlled target break free
 */
@@ -19,11 +19,18 @@ using UnityEngine;
 public class JockeyParameter : BaseZombieParameter
 {
     public GameObject controlBox;
-    public float huntDistThreshold;
+
+    public GameObject detectionBox;
 
     public float huntJumpYSpeed;
 
     public float huntJumpXSpeed;
+
+    public bool attackShouldLoop;
+
+    public bool isAttacking;
+
+    
 }
 
 public enum JockeyStateType
@@ -38,9 +45,22 @@ public class Jockey : BaseZombie
 
     public bool isHunting;
 
+    private AnimatorStateInfo info;
+
+
     void OnEnable()
     {
+        EventManager.OnSeeSurvivor += Hunt;
+
+        EventManager.OnControlSuccessful += LoopAttack;
+
         base.parameter = parameter;
+    }
+    void OnDisable()
+    {
+        EventManager.OnSeeSurvivor -= Hunt;
+
+        EventManager.OnControlSuccessful -= LoopAttack;
     }
 
     void Start()
@@ -78,7 +98,28 @@ public class Jockey : BaseZombie
         // execute OnEnter once;
         base.currentState.OnEnter();
     }
+    public void LoopAttack(DetectionData data)
+    {
+        if (data.initiator != this.gameObject)
+        {
+            return;
+        }
+        // disable control box after capturing
+        parameter.controlBox.SetActive(false);
 
+        parameter.attackShouldLoop = true;
+
+        TransitionState(JockeyStateType.Attack);
+    }
+    public void Hunt(DetectionData data)
+    {
+        if (data.initiator != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(JockeyStateType.Hunt);
+    }
     public void TryHunt()
     {
         StartCoroutine(ExecuteHunt());
@@ -92,17 +133,19 @@ public class Jockey : BaseZombie
     {
         isHunting = true;
 
+        parameter.controlBox.SetActive(true);
         // cache the distance on the x asix
         float distanceToLeap = parameter.aggroManager.curDistanceToTarget;
 
-        Debug.Log($"Distance to leap : {distanceToLeap}");
+        // Debug.Log($"Distance to leap : {distanceToLeap}");
 
         float distanceLeaped = 0;
 
         parameter.animator.Play("Jump");
 
         while (distanceLeaped < 0.5f * distanceToLeap)
-        {   
+        {
+            
             // x axis: calculate distance leaped
             distanceLeaped += parameter.huntJumpXSpeed * Time.deltaTime;
 
@@ -128,5 +171,56 @@ public class Jockey : BaseZombie
         }
 
         isHunting = false;
+    }
+
+    public void PerformComboAttack()
+    {
+        StartCoroutine(ExecuteComboAttack());
+    }
+
+    private IEnumerator ExecuteComboAttack()
+    {
+        parameter.isAttacking = true;
+
+        parameter.animator.Play("Attack1");
+
+        yield return WaitForAnimation("Attack1");
+
+        parameter.animator.Play("Attack2");
+
+        yield return WaitForAnimation("Attack2");
+
+        parameter.animator.Play("Attack3");
+
+        yield return WaitForAnimation("Attack3");
+
+        parameter.isAttacking = false;
+    }
+
+    private IEnumerator WaitForAnimation(string name)
+    {
+        while (true)
+        {
+            info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+
+            yield return null;
+
+            if (info.IsName(name))
+            {
+                break;
+            }
+        }
+
+        while (true)
+        {
+            info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+
+            yield return null;
+
+            if (info.normalizedTime > 0.99f)
+            {
+                break;
+            }
+        }
     }
 }

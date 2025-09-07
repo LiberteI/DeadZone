@@ -31,6 +31,26 @@ public static class EventManager
 
     public static event Action<GameObject> OnIsWithinScreamRange;
 
+    public static event Action<DetectionData> OnSeeSurvivor;
+
+    public static event Action<DetectionData> OnControlSuccessful;
+
+    public static void RaiseOnControlSuccessful(DetectionData data)
+    {
+        if (OnControlSuccessful != null)
+        {
+            OnControlSuccessful(data);
+        }
+    }
+
+    public static void RaiseOnSeeSurvivor(DetectionData data)
+    {
+        if (OnSeeSurvivor != null)
+        {
+            OnSeeSurvivor(data);
+        }
+    }
+
     public static void RaiseOnIsWithinScreamRange(GameObject receiver)
     {
         if (OnIsWithinScreamRange != null)

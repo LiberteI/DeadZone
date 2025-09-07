@@ -44,8 +44,6 @@ public class JCrawlState : IState
 
     private JockeyParameter parameter;
 
-    private float timer;
-
     public JCrawlState(Jockey jockey)
     {
         this.jockey = jockey;
@@ -55,23 +53,22 @@ public class JCrawlState : IState
 
     public void OnEnter()
     {
-        timer = 1.5f;
 
         parameter.animator.Play("Walk");
     }
     public void OnUpdate()
     {
         parameter.movementManager.Move();
-        if (timer > 0)
+
+        if (parameter.meleeManager.SurvivorIsInRange())
         {
-            timer -= Time.deltaTime;
-            return;
+            jockey.TransitionState(JockeyStateType.Attack);
         }
-        jockey.TransitionState(JockeyStateType.Hunt);
+        
     }
     public void OnExit()
     {
-        timer = 1.5f;
+        
     }
 }
 
@@ -127,12 +124,21 @@ public class JHuntState : IState
             return;
         }
         parameter.movementManager.DisableLinearVelocity();
+        if (!parameter.attackShouldLoop)
+        {
+            parameter.controlBox.SetActive(false);
 
-        // jockey.TransitionState(JockeyStateType.Idle);
+            parameter.detectionBox.SetActive(false);
+
+            jockey.TransitionState(JockeyStateType.Run);
+            return;
+        }
+        
+        // neutral state for performing hunt
     }
     public void OnExit()
     {
-
+        parameter.controlBox.SetActive(false);
     }
 }
 
@@ -141,6 +147,10 @@ public class JAttackState : IState
     private Jockey jockey;
 
     private JockeyParameter parameter;
+
+    private float randomNum;
+
+    private AnimatorStateInfo info;
 
     public JAttackState(Jockey jockey)
     {
@@ -151,11 +161,51 @@ public class JAttackState : IState
 
     public void OnEnter()
     {
+        parameter.movementManager.DisableLinearVelocity();
 
+        randomNum = UnityEngine.Random.Range(1f, 100f);
+
+        if (randomNum > 80f)
+        {
+            jockey.PerformComboAttack();
+        }
+        else if (randomNum < 26f)
+        {
+            parameter.animator.Play("Attack1");
+        }
+        else if (randomNum >= 26f && randomNum < 52f)
+        {
+            parameter.animator.Play("Attack2");
+        }
+        else if (randomNum > 52f && randomNum < 80f)
+        {
+            parameter.animator.Play("Attack3");
+        }
     }
     public void OnUpdate()
     {
+        if (info.normalizedTime < 1f)
+        {
+            info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+            return;
+        }
+        if (jockey.parameter.isAttacking)
+        {
+            return;
+        }
+        if (parameter.attackShouldLoop)
+        {
+            jockey.TransitionState(JockeyStateType.Attack);
 
+            return;
+        }
+        if (parameter.meleeManager.SurvivorIsInRange())
+        {
+            jockey.TransitionState(JockeyStateType.Attack);
+            return;
+        }
+
+        jockey.TransitionState(JockeyStateType.Run);
     }
     public void OnExit()
     {
@@ -232,11 +282,18 @@ public class JRunState : IState
 
     public void OnEnter()
     {
+        parameter.animator.Play("Run");
 
+        parameter.movementManager.speed = 10f;
     }
     public void OnUpdate()
     {
-
+        parameter.movementManager.Move();
+        if (parameter.meleeManager.SurvivorIsInRange())
+        {
+            jockey.TransitionState(JockeyStateType.Attack);
+            return;
+        }
     }
     public void OnExit()
     {
