@@ -167,6 +167,8 @@ public class BaseMovementManager : MonoBehaviour
     public void Walk(float dir)
     {
         parameter.RB.linearVelocity = new Vector2(dir * walkSpeed, parameter.RB.linearVelocity.y);
+
+        AutomaticFlip(dir);
     }
     public void Walk()
     {
@@ -185,7 +187,17 @@ public class BaseMovementManager : MonoBehaviour
         }
         parameter.RB.linearVelocity = new Vector2(horizontal * runSpeed, parameter.RB.linearVelocity.y);
     }
-
+    private void AutomaticFlip(float dir)
+    {
+        if (dir > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        if (dir < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
+        }
+    }
     private void Flip()
     {
         if (!CanFlip())

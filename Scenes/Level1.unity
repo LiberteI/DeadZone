@@ -5873,8 +5873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   survivor: {fileID: 1226211373}
-  walkSpeed: 5
-  runSpeed: 11
+  walkSpeed: 6
+  runSpeed: 10
   isRunning: 0
   jumpForce: 32
   maxJumpTimer: 0.1
@@ -5888,10 +5888,10 @@ MonoBehaviour:
   curCoyoteTimer: 0
   maxCoyoteTimer: 0.1
   raycastLength: 0.57
-  outerBackRayCastRoot: {fileID: 0}
-  outerFrontRayCastRoot: {fileID: 0}
-  innerBackRayCastRoot: {fileID: 0}
-  innerFrontRayCastRoot: {fileID: 0}
+  outerBackRayCastRoot: {fileID: 1493099754}
+  outerFrontRayCastRoot: {fileID: 1968891774}
+  innerBackRayCastRoot: {fileID: 1796438522}
+  innerFrontRayCastRoot: {fileID: 1947743473}
   bufferForce: 50
   isClutched: 0
   isCaptured: 0
@@ -5915,6 +5915,10 @@ MonoBehaviour:
     isFacingRight: 0
     survivorContainer: {fileID: 1476574000}
     movementManager: {fileID: 1226211372}
+    isCrouching: 0
+    isShooting: 0
+    isDoingMelee: 0
+    isReloading: 0
 --- !u!61 &1226211374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5976,7 +5980,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

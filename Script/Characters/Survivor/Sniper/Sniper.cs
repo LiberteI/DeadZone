@@ -23,6 +23,14 @@ public enum SniperStateType
 public class SniperParameter : SurvivorParameters
 {
     public BaseMovementManager movementManager;
+
+    public bool isCrouching;
+
+    public bool isShooting;
+
+    public bool isDoingMelee;
+
+    public bool isReloading;
 }
 public class Sniper : SurvivorBase
 {
@@ -42,6 +50,26 @@ public class Sniper : SurvivorBase
         states.Add(SniperStateType.Idle, new SniperIdleState(this));
 
         states.Add(SniperStateType.Walk, new SniperWalkState(this));
+
+        states.Add(SniperStateType.Run, new SniperRunState(this));
+
+        states.Add(SniperStateType.Crouch, new SniperCrouchState(this));
+
+        states.Add(SniperStateType.Throw, new SniperThrowState(this));
+
+        states.Add(SniperStateType.Reload, new SniperReloadState(this));
+
+        states.Add(SniperStateType.Jump, new SniperJumpState(this));
+
+        states.Add(SniperStateType.Hurt, new SniperHurtState(this));
+
+        states.Add(SniperStateType.Die, new SniperDieState(this));
+
+        states.Add(SniperStateType.Melee, new SniperMeleeState(this));
+
+        states.Add(SniperStateType.StandShoot, new SniperStandShootState(this));
+
+        states.Add(SniperStateType.CrouchShoot, new SniperCrouchShootState(this));
 
         TransitionState(SniperStateType.Idle);
     }

@@ -323,6 +323,7 @@ public class SWATCrouchState : SurvivorIState
 
     public void OnEnter(){
         parameter.isCrouching = true;
+        
         parameter.animator.Play("Crouch");
     }
 
