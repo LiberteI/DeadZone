@@ -17,7 +17,7 @@ public class SWATMovementManager : BaseMovementManager
         {
             return false;
         }
-        if (!swatParameter.isPlayedByPlayer)
+        if (!swat.isPlayedByPlayer)
         {
             return false;
         }
@@ -45,7 +45,7 @@ public class SWATMovementManager : BaseMovementManager
         {
             return false;
         }
-        if (!swatParameter.isPlayedByPlayer)
+        if (!swat.isPlayedByPlayer)
         {
             return false;
         }
@@ -74,7 +74,7 @@ public class SWATMovementManager : BaseMovementManager
         if(swatParameter.isDoingMelee){
             return false;
         }
-        if (!swatParameter.isPlayedByPlayer)
+        if (!swat.isPlayedByPlayer)
         {
             return false;
         }

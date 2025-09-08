@@ -18,11 +18,6 @@ public enum SWATStateType{
     Jump,
     Crouch
 }
-public enum SWATRole{
-    Assaulter,
-    Breacher,
-    ShieldOperator
-}
 [Serializable]
 public class SWATParameter : SurvivorParameters
 {
@@ -35,7 +30,6 @@ public class SWATParameter : SurvivorParameters
 
     public Transform crouchMuzzle;
 
-    public SWATRole currentRole;
     // universal bool
     public bool isShooting;
 
@@ -100,28 +94,28 @@ public class SWAT : SurvivorBase
     
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("fired");
-        if (!parameter.isPlayedByPlayer)
+        // Debug.Log("fired");
+        if (!base.isPlayedByPlayer)
         {
             return;
         }
-        Debug.Log("is played by plyaer");
+        // Debug.Log("is played by plyaer");
         if (other == null)
         {
             return;
         }
-        Debug.Log("Entered a collider");
+        // Debug.Log("Entered a collider");
 
         if (!other.CompareTag("Corpse"))
         {
             return;
         }
-        Debug.Log("Entered a Corpse");
+        // Debug.Log("Entered a Corpse");
         if (!Input.GetKey("e"))
         {
             return;
         }
-        Debug.Log("Looted a corpse");
+        // Debug.Log("Looted a corpse");
 
         EventManager.RaiseOnLootCorpose(other.gameObject);
 

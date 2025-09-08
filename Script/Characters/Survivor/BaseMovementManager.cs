@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BaseMovementManager : MonoBehaviour
+public class BaseMovementManager : MonoBehaviour
 {
     /*
         implement basic horizontal movement, and better jumping.
@@ -95,13 +95,15 @@ public abstract class BaseMovementManager : MonoBehaviour
 
         EventManager.OnControlSuccessful -= GetCaptured;
     }
-    void Start(){
+    void Start()
+    {
         this.parameter = survivor.parameter;
     }
-    void Update(){
+    void Update()
+    {
         // to allow dynamic jumping
         HandleHorizontalMovement();
-        
+
         SetHorizontal();
 
         Flip();
@@ -123,7 +125,7 @@ public abstract class BaseMovementManager : MonoBehaviour
 
         isClutched = true;
 
-        
+
     }
 
     private void GetCaptured(DetectionData data)
@@ -157,43 +159,56 @@ public abstract class BaseMovementManager : MonoBehaviour
             Walk();
         }
     }
-    
-    private void SetHorizontal(){
+
+    private void SetHorizontal()
+    {
         horizontal = Input.GetAxisRaw("Horizontal");
     }
-
-    public void Walk(){
-        if(!CanMove()){
+    public void Walk(float dir)
+    {
+        parameter.RB.linearVelocity = new Vector2(dir * walkSpeed, parameter.RB.linearVelocity.y);
+    }
+    public void Walk()
+    {
+        if (!CanMove())
+        {
             return;
         }
         parameter.RB.linearVelocity = new Vector2(horizontal * walkSpeed, parameter.RB.linearVelocity.y);
     }
 
-    public void Run(){
-        if(!CanMove()){
+    public void Run()
+    {
+        if (!CanMove())
+        {
             return;
         }
         parameter.RB.linearVelocity = new Vector2(horizontal * runSpeed, parameter.RB.linearVelocity.y);
     }
 
-    private void Flip(){
-        if(!CanFlip()){
+    private void Flip()
+    {
+        if (!CanFlip())
+        {
             return;
         }
         bool shouldFaceRight = isFacingRight;
 
         float newPos = 0f;
 
-        if(horizontal > 0){
+        if (horizontal > 0)
+        {
             shouldFaceRight = true;
             newPos = 0f;
         }
-        else if(horizontal < 0){
+        else if (horizontal < 0)
+        {
             shouldFaceRight = false;
             newPos = -180f;
         }
 
-        if(shouldFaceRight != isFacingRight){
+        if (shouldFaceRight != isFacingRight)
+        {
             // rotate survivor on the y-axis
             transform.rotation = Quaternion.Euler(0, newPos, 0);
         }
@@ -203,7 +218,8 @@ public abstract class BaseMovementManager : MonoBehaviour
         parameter.isFacingRight = isFacingRight;
     }
 
-    public void Jump(){
+    public void Jump()
+    {
         // add force to RB
         parameter.RB.AddForce(new Vector2(0, 1f * jumpForce), ForceMode2D.Impulse);
 
@@ -215,56 +231,71 @@ public abstract class BaseMovementManager : MonoBehaviour
         isInCoyoteTime = false;
     }
 
-    
 
-    private void UpdateJumpTimer(){
-        if(curJumpTimer > 0){
+
+    private void UpdateJumpTimer()
+    {
+        if (curJumpTimer > 0)
+        {
             curJumpTimer -= Time.deltaTime;
         }
     }
-    private bool HasJustJumped(){
+    private bool HasJustJumped()
+    {
         // start checking IsGrounded after a buffer
-        if(curJumpTimer > 0){
+        if (curJumpTimer > 0)
+        {
             return true;
         }
         return false;
     }
 
-    private void CheckLandedFromJumping(){
+    private void CheckLandedFromJumping()
+    {
         // implement jump buffer
-        if(HasJustJumped()){
+        if (HasJustJumped())
+        {
             return;
         }
 
         // from the mid air to ground
-        if(isInMidAir){
-            if(IsGrounded()){
+        if (isInMidAir)
+        {
+            if (IsGrounded())
+            {
                 isInMidAir = false;
             }
         }
     }
 
-    private bool IsGrounded(){
+    private bool IsGrounded()
+    {
         return Physics2D.OverlapCircle(groundCheckCentre.position, groundCheckRadius, groundLayer);
     }
-    
-    private void UpdateCoyoteTime(){
-        if(IsGrounded()){
+
+    private void UpdateCoyoteTime()
+    {
+        if (IsGrounded())
+        {
             curCoyoteTimer = maxCoyoteTimer;
         }
-        else{
-            if(curCoyoteTimer > 0){
+        else
+        {
+            if (curCoyoteTimer > 0)
+            {
                 // still enable jumping
                 isInCoyoteTime = true;
                 curCoyoteTimer -= Time.deltaTime;
             }
-            if(curCoyoteTimer < 0){
+            if (curCoyoteTimer < 0)
+            {
                 isInCoyoteTime = false;
             }
-            
+
         }
     }
-    private void OnDrawGizmosSelected(){
+    private void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheckCentre.position, groundCheckRadius);
 
@@ -276,27 +307,29 @@ public abstract class BaseMovementManager : MonoBehaviour
 
     }
 
-    
 
-    public void BufferLedge(){
-        if(!isInMidAir){
+
+    public void BufferLedge()
+    {
+        if (!isInMidAir)
+        {
             return;
         }
         Vector2 outerBack = outerBackRayCastRoot.position;
 
         // RaycastHit2D hit = Physics2D.RayCast(v2 origin, V2 dir, float distance, LayerMask target);
-        RaycastHit2D outerBackHit = Physics2D.Raycast(outerBack, new Vector2(0 , 1f), raycastLength, groundLayer);
+        RaycastHit2D outerBackHit = Physics2D.Raycast(outerBack, new Vector2(0, 1f), raycastLength, groundLayer);
 
         Vector2 outerFront = outerFrontRayCastRoot.position;
-        RaycastHit2D outerFrontHit = Physics2D.Raycast(outerFront, new Vector2(0 , 1f), raycastLength, groundLayer);
+        RaycastHit2D outerFrontHit = Physics2D.Raycast(outerFront, new Vector2(0, 1f), raycastLength, groundLayer);
 
         Vector2 innerFront = innerFrontRayCastRoot.position;
-        RaycastHit2D innerFrontHit = Physics2D.Raycast(innerFront, new Vector2(0 , 1f), raycastLength, groundLayer);
+        RaycastHit2D innerFrontHit = Physics2D.Raycast(innerFront, new Vector2(0, 1f), raycastLength, groundLayer);
 
         Vector2 innerBack = innerBackRayCastRoot.position;
-        RaycastHit2D innerBackHit = Physics2D.Raycast(innerBack, new Vector2(0 , 1f), raycastLength, groundLayer);
-        
-        
+        RaycastHit2D innerBackHit = Physics2D.Raycast(innerBack, new Vector2(0, 1f), raycastLength, groundLayer);
+
+
         /* 
             buffer ledge logic:
             if one side of inner and outer hit, push the survivor to the other side.
@@ -304,25 +337,34 @@ public abstract class BaseMovementManager : MonoBehaviour
         // define front and back
         Vector2 front = transform.right;
         Vector2 back = -front;
-        if(innerBackHit && outerBackHit){
-            if(!(innerFrontHit && outerBackHit)){
+        if (innerBackHit && outerBackHit)
+        {
+            if (!(innerFrontHit && outerBackHit))
+            {
                 //push to the front
                 // Debug.Log("back hit and applied force to front");
                 parameter.RB.AddForce(front * bufferForce, ForceMode2D.Impulse);
             }
         }
-        if(outerFrontHit && innerFrontHit){
-            if(!(innerBackHit && outerBackHit)){
+        if (outerFrontHit && innerFrontHit)
+        {
+            if (!(innerBackHit && outerBackHit))
+            {
                 //push to the front
                 // Debug.Log("front hit and applied force to back");
                 parameter.RB.AddForce(back * bufferForce, ForceMode2D.Impulse);
             }
         }
-        
+
     }
 
 
-    protected virtual bool CanMove(){
+    protected virtual bool CanMove()
+    {
+        if (!survivor.isPlayedByPlayer)
+        {
+            return false;
+        }
         if (isCaptured)
         {
             return false;
@@ -331,30 +373,34 @@ public abstract class BaseMovementManager : MonoBehaviour
         {
             return false;
         }
-        if (!parameter.isPlayedByPlayer)
+        return true;
+    }
+    protected virtual bool CanFlip()
+    {
+        if (!survivor.isPlayedByPlayer)
         {
             return false;
         }
-        return true;
-    }
-    protected virtual bool CanFlip(){
         if (isCaptured)
         {
             return false;
         }
-        if (!parameter.isPlayedByPlayer)
+
+        if (isInMidAir)
         {
             return false;
         }
-        if(isInMidAir){
-            return false;
-        }
-        
+
         return true;
 
     }
 
-    public virtual bool CanJump(){
+    public virtual bool CanJump()
+    {
+        if (!survivor.isPlayedByPlayer)
+        {
+            return false;
+        }
         if (isCaptured)
         {
             return false;
@@ -363,26 +409,32 @@ public abstract class BaseMovementManager : MonoBehaviour
         {
             return false;
         }
-        if (!parameter.isPlayedByPlayer)
-        {
-            return false;
-        }
+
         // check if is grounded
-        if(isInCoyoteTime){
+        if (isInCoyoteTime)
+        {
             return true;
         }
-        if(!IsGrounded()){
+        if (!IsGrounded())
+        {
             return false;
         }
         // prevent double jumping
-        if(HasJustJumped()){
+        if (HasJustJumped())
+        {
             return false;
         }
-        if(isInMidAir){
+        if (isInMidAir)
+        {
             return false;
         }
 
-        
+
         return true;
+    }
+
+    public void DisableLinearVelocity()
+    {
+        survivor.parameter.RB.linearVelocity = Vector2.zero;
     }
 }

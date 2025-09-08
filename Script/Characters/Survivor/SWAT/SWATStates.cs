@@ -17,7 +17,17 @@ public class SWATIdleState : SurvivorIState
         parameter.animator.Play("Idle");
     }
 
-    public void OnUpdate(){
+    public void OnUpdate()
+    {
+        if (swat.isPlayedByPlayer)
+        {
+            return;
+        }
+        if (parameter.aiManager.shouldFollow)
+        {
+            swat.TransitionState(SWATStateType.Walk);
+            return;
+        }
 
     }
 
@@ -84,8 +94,25 @@ public class SWATWalkState : SurvivorIState
         parameter.animator.Play("Walk");
     }
 
-    public void OnUpdate(){
-        parameter.movementManager.Walk();
+    public void OnUpdate()
+    {
+        if (swat.isPlayedByPlayer)
+        {
+            parameter.movementManager.Walk();
+            return;
+        }
+        
+        if (swat.isPlayedByPlayer)
+        {
+            return;
+        }
+        if (!parameter.aiManager.shouldFollow)
+        {
+            swat.TransitionState(SWATStateType.Idle);
+            return;
+        }
+
+        parameter.movementManager.Walk(Mathf.Sign(parameter.aiManager.distance));
     }
 
     public void HandleInput(){

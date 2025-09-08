@@ -13,10 +13,4 @@ public class SWATShootingManager : BaseShootingManager
         swatParameter = swat.parameter;
     }
 
-    
-    /*
-        There should be 3 partterns of shooting:
-        Pistol for shield operator, AR for assaulter, shotgun for breacher.
-        Decide shooting patterns based on their roles.
-    */
 }

@@ -10,7 +10,7 @@ public class SurvivorParameters
 
     public Animator animator;
 
-    public bool isPlayedByPlayer;
+    public SurvivorAI aiManager;
 
     public bool isFacingRight;
 
@@ -22,12 +22,15 @@ public class SurvivorBase : MonoBehaviour
 
     public SurvivorParameters parameter;
 
+    public bool isPlayedByPlayer;
+
+
     void Update()
     {
         // Debug.Log(parameter);
         currentState.OnUpdate();
 
-        if (!parameter.isPlayedByPlayer)
+        if (!isPlayedByPlayer)
         {
             return;
         }

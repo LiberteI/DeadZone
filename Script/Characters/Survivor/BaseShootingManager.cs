@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public abstract class BaseShootingManager : MonoBehaviour
+public class BaseShootingManager : MonoBehaviour
 {
     /*
         This script is responsible for shooting, 

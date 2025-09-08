@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 public class SurvivorManager : MonoBehaviour
-{   
+{
     /*
         This script is responsible for switching among / between survivors.
     */
+    
+    // elements are survivor containers
     public static List<GameObject> survivorList = new List<GameObject>();
+
+    public GameObject survivorIsPlayed;
 
     void OnEnable()
     {
@@ -20,11 +24,28 @@ public class SurvivorManager : MonoBehaviour
     }
     void Update(){
         // Debug.Log(survivorList.Count);
-        
+
+        TryFindPlayerToFollow();
+
         TrySwitchSurvivor();
     }
 
-    private void TrySwitchSurvivor(){
+    private void TryFindPlayerToFollow()
+    {
+        GameObject target = null;
+
+        for (int i = 0; i < SurvivorManager.survivorList.Count; i++)
+        {
+            if (SurvivorManager.survivorList[i].GetComponentInChildren<SurvivorBase>().isPlayedByPlayer)
+            {
+                target = SurvivorManager.survivorList[i];
+            }
+        }
+
+        survivorIsPlayed = target;
+    }
+    private void TrySwitchSurvivor()
+    {
         if (survivorList == null)
         {
             Debug.Log("list is null");
@@ -34,22 +55,26 @@ public class SurvivorManager : MonoBehaviour
         {
             return;
         }
-        
+
         int index = -99;
-        
+
         // take an index
-        for(int i = 0; i < 10; i ++){
-            if(Input.GetKeyDown(KeyCode.Alpha0 + i)){
+        for (int i = 0; i < 10; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
+            {
                 index = i;
                 break;
             }
         }
-        if(index == -99){
+        if (index == -99)
+        {
             // no input return
             return;
         }
         // validate input
-        if(NormalisedIndex(index) < 0 || NormalisedIndex(index) >= survivorList.Count){
+        if (NormalisedIndex(index) < 0 || NormalisedIndex(index) >= survivorList.Count)
+        {
             Debug.Log("index out of scope");
             return;
         }
@@ -61,13 +86,13 @@ public class SurvivorManager : MonoBehaviour
             SurvivorBase survivorScript = survivorList[i].GetComponentInChildren<SurvivorBase>();
             if(idx == i){
                 // set this to be controlled by the player
-                survivorScript.parameter.isPlayedByPlayer = true;
+                survivorScript.isPlayedByPlayer = true;
 
                 // Debug.Log($"Currently controlling {survivorList[idx]}");
             }
             else{
                 // set this to be controlled by AI
-                survivorScript.parameter.isPlayedByPlayer = false;
+                survivorScript.isPlayedByPlayer = false;
             }
         }
     }
