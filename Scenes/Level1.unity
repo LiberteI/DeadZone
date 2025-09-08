@@ -858,6 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1579fc8e355e442c484ada9e0303c57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 186707787}
     RB: {fileID: 186707788}
@@ -865,6 +866,7 @@ MonoBehaviour:
     meleeManager: {fileID: 186707785}
     aggroManager: {fileID: 186707783}
     movementManager: {fileID: 186707791}
+  worth: 0
 --- !u!114 &186707785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1573,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 995014372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &504918930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 504918931}
+  - component: {fileID: 504918932}
+  m_Layer: 7
+  m_Name: Foot
+  m_TagString: Zombie
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &504918931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504918930}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: -3.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2092308446}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &504918932
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504918930}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.18094349, y: 0.21384233}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.2302914, y: 0.3749224}
+  m_EdgeRadius: 0
 --- !u!1 &525589143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,7 +1839,7 @@ GameObject:
   - component: {fileID: 629792728}
   - component: {fileID: 629792727}
   - component: {fileID: 629792733}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Screamer
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -1927,6 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a57497c919d44859f15236bfd001fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 629792725}
     RB: {fileID: 629792732}
@@ -2092,7 +2173,7 @@ Transform:
   m_GameObject: {fileID: 723609429}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.85, y: 2.24, z: 0}
+  m_LocalPosition: {x: -58.49, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2317,6 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 723609432}
     RB: {fileID: 723609434}
@@ -2445,6 +2527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1579fc8e355e442c484ada9e0303c57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 770564980}
     RB: {fileID: 770564978}
@@ -2452,6 +2535,7 @@ MonoBehaviour:
     meleeManager: {fileID: 770564976}
     aggroManager: {fileID: 770564974}
     movementManager: {fileID: 770564982}
+  worth: 0
 --- !u!114 &770564976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2895,6 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fed9176423a479db13f9567a7c1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 815082026}
     RB: {fileID: 815082023}
@@ -3411,6 +3496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 885150344}
     RB: {fileID: 885150346}
@@ -3637,6 +3723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fed9176423a479db13f9567a7c1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 935690810}
     RB: {fileID: 935690816}
@@ -4164,6 +4251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 953490377}
     RB: {fileID: 953490379}
@@ -4636,6 +4724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8ad5959ede043f8b97527e77e2c0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 992793656}
     RB: {fileID: 992793658}
@@ -5146,7 +5235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1223463405
 Transform:
   m_ObjectHideFlags: 0
@@ -5425,6 +5514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1241041329}
     RB: {fileID: 1241041332}
@@ -5791,6 +5881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1323647930}
     RB: {fileID: 1323647932}
@@ -5880,7 +5971,7 @@ Transform:
   m_GameObject: {fileID: 1345269436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.88, y: -5.13, z: 0}
+  m_LocalPosition: {x: 8.23, y: -5.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6520,7 +6611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1434139680
 Transform:
   m_ObjectHideFlags: 0
@@ -6697,6 +6788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e40407264ea942399aa67b672832bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1434139682}
     RB: {fileID: 1434139689}
@@ -6950,6 +7042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fed9176423a479db13f9567a7c1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1438462638}
     RB: {fileID: 1438462645}
@@ -7648,6 +7741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e602377880bf345b98401eacc87a0108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1608413670}
     RB: {fileID: 1608413676}
@@ -8041,6 +8135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e409219a1374c6f8969bf6c2b6ae62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1645443408}
     RB: {fileID: 1645443415}
@@ -8156,7 +8251,7 @@ Transform:
   m_GameObject: {fileID: 1668624413}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.63, y: -1.63, z: 0}
+  m_LocalPosition: {x: -47.01, y: -1.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8381,6 +8476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6b98c6fc8324773a283f7ea6b042c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 1668624416}
     RB: {fileID: 1668624418}
@@ -15292,7 +15388,7 @@ GameObject:
   - component: {fileID: 2092308449}
   - component: {fileID: 2092308448}
   - component: {fileID: 2092308456}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Suit&Tie
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -15313,6 +15409,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1875363671}
+  - {fileID: 504918931}
   m_Father: {fileID: 1223463405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2092308448
@@ -15382,6 +15479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1579fc8e355e442c484ada9e0303c57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 2092308452}
     RB: {fileID: 2092308454}
@@ -15389,6 +15487,7 @@ MonoBehaviour:
     meleeManager: {fileID: 2092308449}
     aggroManager: {fileID: 2092308448}
     movementManager: {fileID: 2092308456}
+  worth: 0
 --- !u!95 &2092308452
 Animator:
   serializedVersion: 7
@@ -15441,7 +15540,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -15873,6 +15972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1579fc8e355e442c484ada9e0303c57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   parameter:
     animator: {fileID: 2174720476259911335}
     RB: {fileID: 2174720476259911334}
@@ -15880,6 +15980,7 @@ MonoBehaviour:
     meleeManager: {fileID: 2174720476259911332}
     aggroManager: {fileID: 2174720476259911331}
     movementManager: {fileID: 2174720476259911337}
+  worth: 0
 --- !u!50 &2174720476259911334
 Rigidbody2D:
   serializedVersion: 5

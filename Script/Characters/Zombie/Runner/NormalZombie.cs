@@ -20,29 +20,45 @@ public class NormalZombie : BaseZombie
 
     private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();
 
+    [SerializeField] private int worth;
     void OnEnable()
     {
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         base.parameter = parameter;
     }
-    void Start(){
-        
-        states.Add(NormalZombieStateTypes.Idle , new NZIdleState(this));
 
-        states.Add(NormalZombieStateTypes.Walk , new NZWalkState(this));
+    void OnDisable()
+    {
+        EventManager.OnZombieDie -= TransitionDieState;
 
-        states.Add(NormalZombieStateTypes.Attack , new NZAttackState(this));
+        EventManager.OnLootCorpse -= GetLooted;
+    }
 
-        states.Add(NormalZombieStateTypes.Hurt , new NZAttackState(this));
+    void Start()
+    {
 
-        states.Add(NormalZombieStateTypes.Die , new NZDieState(this));
+        states.Add(NormalZombieStateTypes.Idle, new NZIdleState(this));
+
+        states.Add(NormalZombieStateTypes.Walk, new NZWalkState(this));
+
+        states.Add(NormalZombieStateTypes.Attack, new NZAttackState(this));
+
+        states.Add(NormalZombieStateTypes.Hurt, new NZAttackState(this));
+
+        states.Add(NormalZombieStateTypes.Die, new NZDieState(this));
 
         TransitionState(NormalZombieStateTypes.Idle);
     }
 
-    public void TransitionState(NormalZombieStateTypes newState){
+    public void TransitionState(NormalZombieStateTypes newState)
+    {
         // exit current state
         // Debug.Log($"Transition from {currentState} to {newState}");
-        if(base.currentState != null){
+        if (base.currentState != null)
+        {
             base.currentState.OnExit();
         }
 
@@ -51,5 +67,29 @@ public class NormalZombie : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(NormalZombieStateTypes.Die);
+
+    }
+
+    private void GetLooted(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+        
+        // Update currency amount
+        CurrencySystem.currency += worth;
+
+        Destroy(this.gameObject);
     }
 }

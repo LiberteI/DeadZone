@@ -35,6 +35,16 @@ public static class EventManager
 
     public static event Action<DetectionData> OnControlSuccessful;
 
+    public static event Action<GameObject> OnLootCorpse;
+
+    public static void RaiseOnLootCorpose(GameObject zombie)
+    {
+        if (OnLootCorpse != null)
+        {
+            OnLootCorpse(zombie);
+        }
+    }
+
     public static void RaiseOnControlSuccessful(DetectionData data)
     {
         if (OnControlSuccessful != null)

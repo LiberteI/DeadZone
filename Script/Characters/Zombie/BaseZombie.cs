@@ -38,6 +38,8 @@ public abstract class BaseZombieParameter
     public ZombieAggroManager aggroManager;
 
     public ZombieMovementMnager movementManager;
+
+    
 }
 
 
@@ -46,6 +48,8 @@ public abstract class BaseZombie : MonoBehaviour
     protected IState currentState;
 
     public BaseZombieParameter parameter;
+
+    public bool isDead;
 
     void Update()
     {

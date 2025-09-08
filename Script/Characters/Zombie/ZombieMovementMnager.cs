@@ -15,6 +15,10 @@ public class ZombieMovementMnager : MonoBehaviour
     }
     void Update()
     {
+        if (zombie.isDead)
+        {
+            return;
+        }
         // cache target
         SetTarget();
 
@@ -67,6 +71,11 @@ public class ZombieMovementMnager : MonoBehaviour
     {
         if (TargetIsNull())
         {
+            return;
+        }
+        if (currentTarget == null)
+        {
+            Debug.Log("Current target is null");
             return;
         }
         if ((currentTarget.transform.position - transform.position).x > 0)

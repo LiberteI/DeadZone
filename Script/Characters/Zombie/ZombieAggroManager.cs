@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -46,6 +47,11 @@ public class ZombieAggroManager : MonoBehaviour
     }
     void Update()
     {
+        if (zombie.isDead)
+        {
+            return;
+        }
+        
         TryAssignAggroTarget();
 
         UpdateAggroSwitchTimer();

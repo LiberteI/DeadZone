@@ -51,14 +51,14 @@ public class SWATParameter : SurvivorParameters
 public class SWAT : SurvivorBase
 {
     private Dictionary<SWATStateType, SurvivorIState> states = new Dictionary<SWATStateType, SurvivorIState>();
-    
+
     public new SWATParameter parameter;
 
     // assign parameter at Awake
     void Awake()
     {
         base.parameter = parameter;
-        
+
         SurvivorManager.survivorList.Add(parameter.survivorContainer);
     }
 
@@ -82,10 +82,12 @@ public class SWAT : SurvivorBase
     }
 
 
-    public void TransitionState(SWATStateType newState){
+    public void TransitionState(SWATStateType newState)
+    {
         // exit current state
         // Debug.Log($"Transition from {currentState} to {newState}");
-        if(base.currentState != null){
+        if (base.currentState != null)
+        {
             base.currentState.OnExit();
         }
 
@@ -94,5 +96,34 @@ public class SWAT : SurvivorBase
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("fired");
+        if (!parameter.isPlayedByPlayer)
+        {
+            return;
+        }
+        Debug.Log("is played by plyaer");
+        if (other == null)
+        {
+            return;
+        }
+        Debug.Log("Entered a collider");
+
+        if (!other.CompareTag("Corpse"))
+        {
+            return;
+        }
+        Debug.Log("Entered a Corpse");
+        if (!Input.GetKey("e"))
+        {
+            return;
+        }
+        Debug.Log("Looted a corpse");
+
+        EventManager.RaiseOnLootCorpose(other.gameObject);
+
     }
 }

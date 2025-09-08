@@ -4,7 +4,7 @@ using System.Collections;
 using System;
 
 
-public abstract class SurvivorParameters
+public class SurvivorParameters
 {
     public Rigidbody2D RB;
 
@@ -16,7 +16,7 @@ public abstract class SurvivorParameters
 
     public GameObject survivorContainer;
 }
-public abstract class SurvivorBase : MonoBehaviour
+public class SurvivorBase : MonoBehaviour
 {
     protected SurvivorIState currentState;
 
@@ -27,7 +27,8 @@ public abstract class SurvivorBase : MonoBehaviour
         // Debug.Log(parameter);
         currentState.OnUpdate();
 
-        if(!parameter.isPlayedByPlayer){
+        if (!parameter.isPlayedByPlayer)
+        {
             return;
         }
         currentState.HandleInput();

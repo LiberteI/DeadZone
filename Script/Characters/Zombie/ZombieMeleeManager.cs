@@ -15,6 +15,12 @@ public class ZombieMeleeManager : MonoBehaviour
     [SerializeField] private LayerMask targetLayer;
 
     void Update(){
+
+        if (zombie.isDead)
+        {
+            return;
+        }
+        
         SetData();
     }
 

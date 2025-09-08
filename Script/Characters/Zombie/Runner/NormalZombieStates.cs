@@ -98,7 +98,13 @@ public class NZDieState : IState
         this.parameter = zombie.parameter;
     }
     public void OnEnter(){
+        zombie.gameObject.tag = "Corpse";
+        
+        zombie.isDead = true;
 
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
     public void OnUpdate(){
 
