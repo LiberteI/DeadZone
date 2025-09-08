@@ -41,8 +41,16 @@ public class Stalker : BaseZombie
     private Dictionary<StalkerStateType, IState> states = new Dictionary<StalkerStateType, IState>();
 
     private AnimatorStateInfo info;
+
+    public int stalkerWorth;
     void OnEnable()
     {
+        base.worth = stalkerWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         EventManager.OnIsWithinScreamRange += SetProvoked;
 
         EventManager.OnProvoked += SetProvoked;
@@ -54,6 +62,10 @@ public class Stalker : BaseZombie
         EventManager.OnIsWithinScreamRange -= SetProvoked;
 
         EventManager.OnProvoked -= SetProvoked;
+
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
     }
     void Start()
     {
@@ -88,6 +100,17 @@ public class Stalker : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(StalkerStateType.Die);
+
     }
 
     public void PerformComboAttack()

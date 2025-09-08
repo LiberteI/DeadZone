@@ -218,7 +218,13 @@ public class PDieState : IState
     }
     public void OnEnter()
     {
+        poisoner.gameObject.tag = "Corpse";
 
+        poisoner.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()

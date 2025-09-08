@@ -42,17 +42,27 @@ public class Screamer : BaseZombie
 
     [SerializeField] private float timer;
 
+    public int screamerWorth;
+
     void OnEnable()
     {
         base.parameter = parameter;
 
         EventManager.OnScream += SetHasScreamed;
 
-        
+        base.worth = screamerWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
     }
     void OnDisable()
     {
         EventManager.OnScream -= SetHasScreamed;
+
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
 
     }
     void Start()
@@ -82,6 +92,10 @@ public class Screamer : BaseZombie
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
         TryScream();
 
         TryActivateScreamRange();
@@ -131,7 +145,7 @@ public class Screamer : BaseZombie
         parameter.hasScreamed = true;
 
         TransitionState(ScreamerStateType.Scream);
-        
+
     }
 
     public void PerformComboAttack()
@@ -194,4 +208,14 @@ public class Screamer : BaseZombie
         parameter.hasScreamed = true;
     }
 
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(ScreamerStateType.Die);
+
+    }
 }

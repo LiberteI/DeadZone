@@ -29,10 +29,24 @@ public class Clutcher : BaseZombie
 
     private Dictionary<ClutcherStateType, IState> states = new Dictionary<ClutcherStateType, IState>();
 
+    public int clutcherWorth;
     // cast base parameter to this parameter. prevent nullity
     void OnEnable()
     {
+        base.worth = clutcherWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         base.parameter = parameter;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
     }
     void Start()
     {
@@ -49,10 +63,12 @@ public class Clutcher : BaseZombie
         TransitionState(ClutcherStateType.Idle);
     }
 
-    public void TransitionState(ClutcherStateType newState){
+    public void TransitionState(ClutcherStateType newState)
+    {
         // exit current state
         // Debug.Log($"Transition from {currentState} to {newState}");
-        if(base.currentState != null){
+        if (base.currentState != null)
+        {
             base.currentState.OnExit();
         }
 
@@ -61,5 +77,16 @@ public class Clutcher : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+    
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(ClutcherStateType.Die);
+
     }
 }

@@ -166,7 +166,13 @@ public class BExplodeState : IState
 
     public void OnEnter()
     {
+        boomer.gameObject.tag = "Corpse";
 
+        boomer.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()

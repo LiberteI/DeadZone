@@ -255,7 +255,13 @@ public class JDieState : IState
 
     public void OnEnter()
     {
+        jockey.gameObject.tag = "Corpse";
 
+        jockey.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
     public void OnUpdate()
     {

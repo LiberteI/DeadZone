@@ -127,7 +127,13 @@ public class CDieState : IState
 
     public void OnEnter()
     {
+        clutcher.gameObject.tag = "Corpse";
 
+        clutcher.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()

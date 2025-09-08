@@ -20,9 +20,11 @@ public class NormalZombie : BaseZombie
 
     private Dictionary<NormalZombieStateTypes, IState> states = new Dictionary<NormalZombieStateTypes, IState>();
 
-    [SerializeField] private int worth;
+    public int runnerWorth = 5;
     void OnEnable()
     {
+        base.worth = runnerWorth;
+
         EventManager.OnZombieDie += TransitionDieState;
 
         EventManager.OnLootCorpse += GetLooted;
@@ -80,16 +82,4 @@ public class NormalZombie : BaseZombie
 
     }
 
-    private void GetLooted(GameObject zombie)
-    {
-        if (zombie != this.gameObject)
-        {
-            return;
-        }
-        
-        // Update currency amount
-        CurrencySystem.currency += worth;
-
-        Destroy(this.gameObject);
-    }
 }

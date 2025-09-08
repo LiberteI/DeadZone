@@ -178,7 +178,13 @@ public class TDieState : IState
 
     public void OnEnter()
     {
+        tank.gameObject.tag = "Corpse";
 
+        tank.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()

@@ -26,9 +26,23 @@ public class Boomer : BaseZombie
 
     private Dictionary<BoomerStateType, IState> states = new Dictionary<BoomerStateType, IState>();
 
+    public int boomerWorth;
     void OnEnable()
     {
+        base.worth = boomerWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         base.parameter = parameter;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
     }
 
     void Start()
@@ -50,7 +64,8 @@ public class Boomer : BaseZombie
     {
         // exit current state
         // Debug.Log($"Transition from {currentState} to {newState}");
-        if(base.currentState != null){
+        if (base.currentState != null)
+        {
             base.currentState.OnExit();
         }
 
@@ -59,5 +74,16 @@ public class Boomer : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+    
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(BoomerStateType.Explode);
+
     }
 }

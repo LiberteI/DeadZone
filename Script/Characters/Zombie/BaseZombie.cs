@@ -25,7 +25,7 @@ using UnityEngine;
         8. Tank's chest is busted open with tusks. It has the highest health volume and the way it attacks is to swing fist or grab survivor with its tusks.
 */
 
-public abstract class BaseZombieParameter
+public class BaseZombieParameter
 {
     public Animator animator;
 
@@ -43,7 +43,7 @@ public abstract class BaseZombieParameter
 }
 
 
-public abstract class BaseZombie : MonoBehaviour
+public class BaseZombie : MonoBehaviour
 {
     protected IState currentState;
 
@@ -51,9 +51,23 @@ public abstract class BaseZombie : MonoBehaviour
 
     public bool isDead;
 
+    public int worth;
+
     void Update()
     {
         currentState.OnUpdate();
     }
 
+    public void GetLooted(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+        
+        // Update currency amount
+        CurrencySystem.currency += worth;
+        Debug.Log($"Current Currency: {CurrencySystem.currency}");
+        Destroy(this.gameObject);
+    }
 }

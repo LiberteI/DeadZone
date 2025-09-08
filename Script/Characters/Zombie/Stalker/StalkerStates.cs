@@ -265,7 +265,13 @@ public class SDieState : IState
 
     public void OnEnter()
     {
+        stalker.gameObject.tag = "Corpse";
 
+        stalker.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()

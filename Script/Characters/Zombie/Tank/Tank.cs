@@ -26,11 +26,24 @@ public class Tank : BaseZombie
 
     private Dictionary<TankStateType, IState> states = new Dictionary<TankStateType, IState>();
 
+    public int tankWorth;
     void OnEnable()
     {
+        base.worth = tankWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         base.parameter = parameter;
     }
 
+    void OnDisable()
+    {
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
+    }
     void Start()
     {
         states.Add(TankStateType.Walk, new TWalkState(this));
@@ -50,7 +63,8 @@ public class Tank : BaseZombie
     {
         // exit current state
         // Debug.Log($"Transition from {currentState} to {newState}");
-        if(base.currentState != null){
+        if (base.currentState != null)
+        {
             base.currentState.OnExit();
         }
 
@@ -59,5 +73,16 @@ public class Tank : BaseZombie
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+    
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(TankStateType.Die);
+
     }
 }

@@ -35,9 +35,24 @@ public class Poisoner : BaseZombie
 
     private Dictionary<PoisonerStateType, IState> states = new Dictionary<PoisonerStateType, IState>();
 
+    public int poisonerWorth;
+
     void OnEnable()
     {
+        base.worth = poisonerWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
+
         base.parameter = parameter;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnZombieDie -= TransitionDieState;
+
+        EventManager.OnLootCorpse -= GetLooted;
     }
 
     void Start()
@@ -77,9 +92,9 @@ public class Poisoner : BaseZombie
 
     public void ProjectPoisonousSpore()
     {
-        
+
         // Debug.Log("Executed");
-        
+
         StartCoroutine(ExecuteProjection());
     }
 
@@ -90,7 +105,7 @@ public class Poisoner : BaseZombie
         // Debug.Log(parameter.isProjecting);
 
         parameter.animator.Play("Spit");
-        
+
         yield return WaitForAnimationFinishes("Spit");
 
         parameter.isProjecting = false;
@@ -122,5 +137,16 @@ public class Poisoner : BaseZombie
 
             yield return null;
         }
+    }
+    
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(PoisonerStateType.Die);
+
     }
 }

@@ -47,6 +47,7 @@ public class Jockey : BaseZombie
 
     private AnimatorStateInfo info;
 
+    public int jockeyWorth;
 
     void OnEnable()
     {
@@ -55,6 +56,12 @@ public class Jockey : BaseZombie
         EventManager.OnControlSuccessful += LoopAttack;
 
         base.parameter = parameter;
+
+        base.worth = jockeyWorth;
+
+        EventManager.OnZombieDie += TransitionDieState;
+
+        EventManager.OnLootCorpse += GetLooted;
     }
     void OnDisable()
     {
@@ -145,7 +152,7 @@ public class Jockey : BaseZombie
 
         while (distanceLeaped < 0.5f * distanceToLeap)
         {
-            
+
             // x axis: calculate distance leaped
             distanceLeaped += parameter.huntJumpXSpeed * Time.deltaTime;
 
@@ -222,5 +229,16 @@ public class Jockey : BaseZombie
                 break;
             }
         }
+    }
+    
+    private void TransitionDieState(GameObject zombie)
+    {
+        if (zombie != this.gameObject)
+        {
+            return;
+        }
+
+        TransitionState(JockeyStateType.Die);
+
     }
 }

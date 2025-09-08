@@ -274,7 +274,13 @@ public class SCDieState : IState
 
     public void OnEnter()
     {
+        screamer.gameObject.tag = "Corpse";
 
+        screamer.isDead = true;
+
+        parameter.movementManager.DisableLinearVelocity();
+
+        parameter.animator.Play("Die");
     }
 
     public void OnUpdate()
