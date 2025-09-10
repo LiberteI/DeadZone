@@ -95,17 +95,16 @@ public class SWATWalkState : SurvivorIState
     }
 
     public void OnUpdate()
-    {
+    {   
+
+        // manual control enjoy higher priority
         if (swat.isPlayedByPlayer)
         {
             parameter.movementManager.Walk();
             return;
         }
         
-        if (swat.isPlayedByPlayer)
-        {
-            return;
-        }
+        
         if (!parameter.aiManager.shouldFollow)
         {
             swat.TransitionState(SWATStateType.Idle);
@@ -323,7 +322,7 @@ public class SWATCrouchState : SurvivorIState
 
     public void OnEnter(){
         parameter.isCrouching = true;
-        
+
         parameter.animator.Play("Crouch");
     }
 
@@ -365,8 +364,13 @@ public class SWATStandShootState : SurvivorIState
         parameter.shootingManager.FireABullet(parameter.standMuzzle);
     }
 
-    public void OnUpdate(){
-        
+    public void OnUpdate()
+    {
+        if (parameter.aiControl.shouldShoot)
+        {
+            return;
+        }
+        swat.TransitionState(SWATStateType.Idle);
     }
 
     public void HandleInput(){

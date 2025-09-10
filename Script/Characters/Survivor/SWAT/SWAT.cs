@@ -26,6 +26,8 @@ public class SWATParameter : SurvivorParameters
 
     public SWATShootingManager shootingManager;
 
+    public SurvivorAI aiControl;
+
     public Transform standMuzzle;
 
     public Transform crouchMuzzle;
@@ -54,6 +56,12 @@ public class SWAT : SurvivorBase
         base.parameter = parameter;
 
         SurvivorManager.survivorList.Add(parameter.survivorContainer);
+        
+    }
+
+    void OnEnable()
+    {
+        parameter.aiControl = this.gameObject.GetComponent<SurvivorAI>();
     }
 
     void Start()
@@ -74,8 +82,6 @@ public class SWAT : SurvivorBase
         base.currentState = states[SWATStateType.Idle];
         // Debug.Log("should added");
     }
-
-
     public void TransitionState(SWATStateType newState)
     {
         // exit current state
@@ -91,7 +97,21 @@ public class SWAT : SurvivorBase
         // execute OnEnter once;
         base.currentState.OnEnter();
     }
-    
+
+    void Update()
+    {   
+        // Debug.Log(parameter);
+        base.currentState.OnUpdate();
+
+        TryStartShooting();
+
+        if (!isPlayedByPlayer)
+        {
+            return;
+        }
+        base.currentState.HandleInput();
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         // Debug.Log("fired");
@@ -119,5 +139,19 @@ public class SWAT : SurvivorBase
 
         EventManager.RaiseOnLootCorpose(other.gameObject);
 
+    }
+
+    public void TryStartShooting()
+    {
+        if (isPlayedByPlayer)
+        {
+            return;
+        }
+        if (parameter.aiControl.shouldShoot)
+        {
+            TransitionState(SWATStateType.StandShoot);
+        }
+        
+        
     }
 }

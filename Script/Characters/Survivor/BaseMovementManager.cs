@@ -187,7 +187,7 @@ public class BaseMovementManager : MonoBehaviour
         }
         parameter.RB.linearVelocity = new Vector2(horizontal * runSpeed, parameter.RB.linearVelocity.y);
     }
-    private void AutomaticFlip(float dir)
+    public void AutomaticFlip(float dir)
     {
         if (dir > 0)
         {

@@ -15,7 +15,7 @@ public class ZombieHealthManager : MonoBehaviour
 
     [SerializeField] private float curHealth;
 
-    [SerializeField] private bool isDead;
+    public bool isDead;
 
     void OnEnable()
     {

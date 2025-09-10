@@ -26,7 +26,7 @@ public class SurvivorBase : MonoBehaviour
 
 
     void Update()
-    {
+    {   
         // Debug.Log(parameter);
         currentState.OnUpdate();
 

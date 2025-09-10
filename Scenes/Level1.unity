@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 10388460}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 186707784}
   - component: {fileID: 186707783}
   - component: {fileID: 186707791}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Naked
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 341775442}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1554,7 +1554,7 @@ GameObject:
   - component: {fileID: 429683336}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1663,7 +1663,7 @@ GameObject:
   - component: {fileID: 504918932}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1741,7 +1741,7 @@ GameObject:
   - component: {fileID: 523249353}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1958,7 +1958,7 @@ GameObject:
   - component: {fileID: 559429337}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,7 +2042,7 @@ GameObject:
   - component: {fileID: 629792728}
   - component: {fileID: 629792727}
   - component: {fileID: 629792733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Screamer
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -2357,7 +2357,7 @@ GameObject:
   - component: {fileID: 658648009}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2441,7 +2441,7 @@ GameObject:
   - component: {fileID: 723609437}
   - component: {fileID: 723609435}
   - component: {fileID: 723609440}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SoldierMale_1
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -2457,7 +2457,7 @@ Transform:
   m_GameObject: {fileID: 723609429}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.49, y: -0.38, z: 0}
+  m_LocalPosition: {x: -39.3, y: -6.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2722,7 +2722,7 @@ GameObject:
   - component: {fileID: 753973318}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2806,7 +2806,7 @@ GameObject:
   - component: {fileID: 770564975}
   - component: {fileID: 770564974}
   - component: {fileID: 770564982}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Female
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -3165,6 +3165,84 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &808495430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808495432}
+  - component: {fileID: 808495431}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &808495431
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808495430}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 10.038308}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 31.319788}
+  m_EdgeRadius: 0
+--- !u!4 &808495432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808495430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16, y: -7.7, z: -0.3645733}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812304859
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,7 +3357,7 @@ GameObject:
   - component: {fileID: 815082020}
   - component: {fileID: 815082018}
   - component: {fileID: 815082027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FemaleStudent
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -3563,7 +3641,7 @@ GameObject:
   - component: {fileID: 885150349}
   - component: {fileID: 885150347}
   - component: {fileID: 885150352}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bald
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -3579,7 +3657,7 @@ Transform:
   m_GameObject: {fileID: 885150341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -46.77, y: 1.48, z: 0}
+  m_LocalPosition: {x: -40.9, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3881,7 +3959,7 @@ GameObject:
   - component: {fileID: 935690811}
   - component: {fileID: 935690816}
   - component: {fileID: 935690817}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cop
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -4159,7 +4237,7 @@ GameObject:
   - component: {fileID: 948715622}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4402,7 +4480,7 @@ GameObject:
   - component: {fileID: 953490382}
   - component: {fileID: 953490380}
   - component: {fileID: 953490385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cop_3
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -4418,7 +4496,7 @@ Transform:
   m_GameObject: {fileID: 953490374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.25, y: -3.04, z: 0}
+  m_LocalPosition: {x: -42.3, y: -9.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4683,7 +4761,7 @@ GameObject:
   - component: {fileID: 972228691}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4992,7 +5070,7 @@ GameObject:
   - component: {fileID: 992793658}
   - component: {fileID: 992793657}
   - component: {fileID: 992793664}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boomer
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -5494,7 +5572,7 @@ GameObject:
   - component: {fileID: 1114345235}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5612,6 +5690,84 @@ MonoBehaviour:
   - {fileID: 186707780}
   - {fileID: 770564971}
   - {fileID: 2174720476259911327}
+--- !u!1 &1167947086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1167947088}
+  - component: {fileID: 1167947087}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1167947087
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167947086}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 10.038308}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 31.319788}
+  m_EdgeRadius: 0
+--- !u!4 &1167947088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167947086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.7, y: -7.5, z: -0.3645733}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1194475175
 GameObject:
   m_ObjectHideFlags: 0
@@ -5723,7 +5879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1223463405
 Transform:
   m_ObjectHideFlags: 0
@@ -5733,7 +5889,7 @@ Transform:
   m_GameObject: {fileID: 1223463404}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4, y: 0, z: 0}
+  m_LocalPosition: {x: -5.27, y: -0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6004,11 +6160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2d7cea8b24346fa9c82fdd37b81696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  survivor: {fileID: 0}
   distance: 0
   shouldFollow: 0
   distanceThreshold: 5
   curAIMode: 0
   survivorManager: {fileID: 553875547}
+  shouldShoot: 0
+  prioritisedZombie: {fileID: 0}
 --- !u!1 &1241041327
 GameObject:
   m_ObjectHideFlags: 0
@@ -6027,7 +6186,7 @@ GameObject:
   - component: {fileID: 1241041335}
   - component: {fileID: 1241041333}
   - component: {fileID: 1241041338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cop_1
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -6397,7 +6556,7 @@ GameObject:
   - component: {fileID: 1323647935}
   - component: {fileID: 1323647933}
   - component: {fileID: 1323647938}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SoldierFem
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -6732,7 +6891,7 @@ Transform:
   m_GameObject: {fileID: 1345269436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.23, y: -5.06, z: 0}
+  m_LocalPosition: {x: 5.39, y: -5.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6741,6 +6900,7 @@ Transform:
   - {fileID: 1411610858}
   - {fileID: 984984273}
   - {fileID: 179275586}
+  - {fileID: 1984415323}
   m_Father: {fileID: 949142751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1345269438
@@ -6949,6 +7109,7 @@ MonoBehaviour:
     survivorContainer: {fileID: 949142750}
     movementManager: {fileID: 1345269445}
     shootingManager: {fileID: 1345269447}
+    aiControl: {fileID: 0}
     standMuzzle: {fileID: 1270439162}
     crouchMuzzle: {fileID: 951598818}
     isShooting: 0
@@ -7012,11 +7173,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2d7cea8b24346fa9c82fdd37b81696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  survivor: {fileID: 0}
   distance: 0
   shouldFollow: 0
   distanceThreshold: 5
   curAIMode: 0
   survivorManager: {fileID: 553875547}
+  shouldShoot: 0
+  prioritisedZombie: {fileID: 0}
 --- !u!1 &1368334963
 GameObject:
   m_ObjectHideFlags: 0
@@ -7250,7 +7414,7 @@ GameObject:
   - component: {fileID: 1394016800}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7328,7 +7492,7 @@ GameObject:
   - component: {fileID: 1407185947}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7539,7 +7703,7 @@ GameObject:
   - component: {fileID: 1434139685}
   - component: {fileID: 1434139684}
   - component: {fileID: 1434139683}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jockey
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -7831,7 +7995,7 @@ GameObject:
   - component: {fileID: 1438462645}
   - component: {fileID: 1438462646}
   - component: {fileID: 1438462647}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FemaleCivilian
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -8315,7 +8479,7 @@ GameObject:
   - component: {fileID: 1476788197}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8488,7 +8652,7 @@ GameObject:
   - component: {fileID: 1537894248}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8764,7 +8928,7 @@ GameObject:
   - component: {fileID: 1608413673}
   - component: {fileID: 1608413671}
   - component: {fileID: 1608413678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tank
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -9152,7 +9316,7 @@ GameObject:
   - component: {fileID: 1625684984}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9332,7 +9496,7 @@ GameObject:
   - component: {fileID: 1645443411}
   - component: {fileID: 1645443410}
   - component: {fileID: 1645443409}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poisoner
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -9620,7 +9784,7 @@ GameObject:
   - component: {fileID: 1668624421}
   - component: {fileID: 1668624419}
   - component: {fileID: 1668624424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SoldierMale_2
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -9636,7 +9800,7 @@ Transform:
   m_GameObject: {fileID: 1668624413}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -47.01, y: -1.11, z: 0}
+  m_LocalPosition: {x: -43.4, y: -2.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9901,7 +10065,7 @@ GameObject:
   - component: {fileID: 1693051320}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15790,7 +15954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1862859888
 Transform:
   m_ObjectHideFlags: 0
@@ -15800,7 +15964,7 @@ Transform:
   m_GameObject: {fileID: 1862859887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.5, y: 2.1, z: 0}
+  m_LocalPosition: {x: 74.1, y: 10.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16383,6 +16547,100 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1984415322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1984415323}
+  - component: {fileID: 1984415324}
+  - component: {fileID: 1984415325}
+  m_Layer: 8
+  m_Name: FrontZombieDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1984415323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984415322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.57, y: 1.92, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1345269437}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1984415324
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984415322}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 11.16057, y: -0.00000023841858}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 23.32114, y: 3.6554713}
+  m_EdgeRadius: 0
+--- !u!114 &1984415325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984415322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7921947f91c7a4700863d7e4d5790af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    initiator: {fileID: 1345269436}
+    receiver: {fileID: 0}
 --- !u!1 &2012113907
 GameObject:
   m_ObjectHideFlags: 0
@@ -16491,7 +16749,7 @@ GameObject:
   - component: {fileID: 2064506362}
   m_Layer: 7
   m_Name: Foot
-  m_TagString: Zombie
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16696,7 +16954,7 @@ GameObject:
   - component: {fileID: 2092308449}
   - component: {fileID: 2092308448}
   - component: {fileID: 2092308456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Suit&Tie
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -16712,7 +16970,7 @@ Transform:
   m_GameObject: {fileID: 2092308442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.5, y: 6.68, z: 0.054160886}
+  m_LocalPosition: {x: -18.53, y: -3.94, z: 0.054160886}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17162,7 +17420,7 @@ GameObject:
   - component: {fileID: 2174720476259911329}
   - component: {fileID: 2174720476259911328}
   - component: {fileID: 2174720476259911337}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireFigher
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -17424,3 +17682,5 @@ SceneRoots:
   - {fileID: 1164758451}
   - {fileID: 1296063571}
   - {fileID: 1529690526}
+  - {fileID: 1167947088}
+  - {fileID: 808495432}

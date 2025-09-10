@@ -145,7 +145,7 @@ public class ZombieAggroManager : MonoBehaviour
         }
         for (int i = 0; i < SurvivorManager.survivorList.Count; i++)
         {
-            float curDistance = (transform.position - SurvivorManager.survivorList[i].GetComponentInChildren<BaseSurvivorHealthManager>().transform.position).sqrMagnitude;
+            float curDistance = (transform.position - SurvivorManager.survivorList[i].GetComponentInChildren<Rigidbody2D>().transform.position).sqrMagnitude;
             // Debug.Log($"Survivor Transform position: {SurvivorManager.survivorList[i].GetComponentInChildren<BaseSurvivorHealthManager>().transform.position}");
 
             if (curDistance < minDistance)

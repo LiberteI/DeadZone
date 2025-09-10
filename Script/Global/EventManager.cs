@@ -37,6 +37,17 @@ public static class EventManager
 
     public static event Action<GameObject> OnLootCorpse;
 
+    public static event Action<DetectionData> OnSeeZombie;
+
+    
+    public static void RaiseOnSeeZombie(DetectionData data)
+    {
+        if (OnSeeZombie != null)
+        {
+            OnSeeZombie(data);
+        }
+    }
+
     public static void RaiseOnLootCorpose(GameObject zombie)
     {
         if (OnLootCorpse != null)
