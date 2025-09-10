@@ -20,13 +20,15 @@ public class SurvivorAI : MonoBehaviour
 
     [SerializeField] private float distanceThreshold;
 
-    [SerializeField] private AIMode curAIMode;
+    public AIMode curAIMode;
 
     [SerializeField] private SurvivorManager survivorManager;
 
     public bool shouldShoot;
 
     [SerializeField] private GameObject prioritisedZombie;
+
+    private float alterTimer;
     void Update()
     {
         CalculateDistanceToTarget();
@@ -34,6 +36,8 @@ public class SurvivorAI : MonoBehaviour
         DecideShouldFollow();
 
         TryResetPrioritisedZombie();
+
+        TryUpdateAlterTimer();
     }
 
     void OnEnable()
@@ -42,11 +46,50 @@ public class SurvivorAI : MonoBehaviour
 
         EventManager.OnSeeZombie += SetZombieIncomingDir;
 
+        EventManager.OnAlterAIType += AlterAIMode;
+
     }
     void OnDisable()
     {
         EventManager.OnSeeZombie -= SetZombieIncomingDir;
+
+        EventManager.OnAlterAIType -= AlterAIMode;
     }
+
+    public void AlterAIMode(GameObject survivor)
+    {
+        if (alterTimer > 0)
+        {
+            return;
+        }
+        if (this.gameObject != survivor)
+        {
+            return;
+        }
+        if (curAIMode == AIMode.Follow)
+        {
+            curAIMode = AIMode.HoldPosition;
+        }
+        else
+        {
+            curAIMode = AIMode.Follow;
+        }
+
+        StartAlterTimer();
+    }
+    private void StartAlterTimer()
+    {
+        alterTimer = 1f;
+    }
+
+    private void TryUpdateAlterTimer()
+    {
+        if (alterTimer > 0)
+        {
+            alterTimer -= Time.deltaTime;
+        }
+    }
+
     private void SetZombieIncomingDir(DetectionData data)
     {
         if (data.initiator != this.gameObject)
@@ -83,7 +126,7 @@ public class SurvivorAI : MonoBehaviour
         else if (dir > 0)
         {
             survivor.parameter.isFacingRight = true;
-            
+
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         shouldShoot = true;
@@ -107,6 +150,11 @@ public class SurvivorAI : MonoBehaviour
 
     private void DecideShouldFollow()
     {
+        if (curAIMode != AIMode.Follow)
+        {
+            shouldFollow = false;
+            return;
+        }
         if (shouldShoot)
         {
             shouldFollow = false;

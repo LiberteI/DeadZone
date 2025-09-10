@@ -366,6 +366,10 @@ public class SWATStandShootState : SurvivorIState
 
     public void OnUpdate()
     {
+        if (swat.isPlayedByPlayer)
+        {
+            return;
+        }
         if (parameter.aiControl.shouldShoot)
         {
             return;

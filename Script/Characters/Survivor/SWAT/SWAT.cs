@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using System.Threading;
 /*
     This script is the cross road linking Managers and parameters.
 */
@@ -50,18 +51,21 @@ public class SWAT : SurvivorBase
 
     public new SWATParameter parameter;
 
+    
+
     // assign parameter at Awake
     void Awake()
     {
         base.parameter = parameter;
 
         SurvivorManager.survivorList.Add(parameter.survivorContainer);
-        
+
     }
 
     void OnEnable()
     {
         parameter.aiControl = this.gameObject.GetComponent<SurvivorAI>();
+
     }
 
     void Start()
@@ -99,7 +103,7 @@ public class SWAT : SurvivorBase
     }
 
     void Update()
-    {   
+    {
         // Debug.Log(parameter);
         base.currentState.OnUpdate();
 
@@ -112,34 +116,7 @@ public class SWAT : SurvivorBase
         base.currentState.HandleInput();
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        // Debug.Log("fired");
-        if (!base.isPlayedByPlayer)
-        {
-            return;
-        }
-        // Debug.Log("is played by plyaer");
-        if (other == null)
-        {
-            return;
-        }
-        // Debug.Log("Entered a collider");
-
-        if (!other.CompareTag("Corpse"))
-        {
-            return;
-        }
-        // Debug.Log("Entered a Corpse");
-        if (!Input.GetKey("e"))
-        {
-            return;
-        }
-        // Debug.Log("Looted a corpse");
-
-        EventManager.RaiseOnLootCorpose(other.gameObject);
-
-    }
+    
 
     public void TryStartShooting()
     {
@@ -151,7 +128,9 @@ public class SWAT : SurvivorBase
         {
             TransitionState(SWATStateType.StandShoot);
         }
-        
-        
+
+
     }
+
+    
 }

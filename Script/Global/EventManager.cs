@@ -39,6 +39,16 @@ public static class EventManager
 
     public static event Action<DetectionData> OnSeeZombie;
 
+    public static event Action<GameObject> OnAlterAIType;
+
+    public static void RaiseOnAlterAIType(GameObject survivor)
+    {
+        if (OnAlterAIType != null)
+        {
+            OnAlterAIType(survivor);
+        }
+    }
+
     
     public static void RaiseOnSeeZombie(DetectionData data)
     {
