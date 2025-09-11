@@ -9,17 +9,19 @@ public class InteractionBox : MonoBehaviour
         {
             return;
         }
-        // Debug.Log($"Entered a collider {other}");
 
+        // Debug.Log($"Entered a collider {other}");
+        
         if (other.CompareTag("Corpse"))
         {
-            // Debug.Log("Entered a Corpse");
+            // Debug.Log($"Entered a Corpse {other.gameObject}");
             if (Input.GetKey("e"))
             {
                 // Debug.Log("Looted a corpse");
                 EventManager.RaiseOnLootCorpose(other.gameObject);
+                return;
             }
-            return;
+
         }
         if (other.CompareTag("Survivor"))
         {
@@ -27,8 +29,9 @@ public class InteractionBox : MonoBehaviour
             {
                 // Debug.Log("Looted a corpse");
                 EventManager.RaiseOnAlterAIType(other.gameObject);
+                return;
             }
-            return;
+            
         }
     }
 }

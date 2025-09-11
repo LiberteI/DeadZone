@@ -98,7 +98,7 @@ public class SurvivorAI : MonoBehaviour
         }
         if (survivor.isPlayedByPlayer)
         {
-            Debug.Log("Skip process");
+            // Debug.Log("Skip process");
             return;
         }
 
@@ -116,7 +116,7 @@ public class SurvivorAI : MonoBehaviour
             1. calculate zombie's relative position
         */
 
-        Debug.Log($"Sees zombie at {dir}");
+        // Debug.Log($"Sees zombie at {dir}");
         if (dir < 0)
         {
             survivor.parameter.isFacingRight = false

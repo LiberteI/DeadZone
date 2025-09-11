@@ -22,8 +22,6 @@ public class ZombieHealthManager : MonoBehaviour
         EventManager.OnBulletHit += TakeDamage;
 
         EventManager.OnMeleeHit += TakeDamage;
-
-        EventManager.OnZombieDie += Die;
     }
 
     void OnDisable()
@@ -31,8 +29,6 @@ public class ZombieHealthManager : MonoBehaviour
         EventManager.OnBulletHit -= TakeDamage;
 
         EventManager.OnMeleeHit -= TakeDamage;
-        
-        EventManager.OnZombieDie -= Die;
     }
     void Start(){
         curHealth = maxHealth;
@@ -50,7 +46,7 @@ public class ZombieHealthManager : MonoBehaviour
         
         if (curHealth <= 0)
         {
-            EventManager.RaiseOnZombieDie(data.receiver);
+            Die();
         }
     }
 
@@ -64,21 +60,19 @@ public class ZombieHealthManager : MonoBehaviour
         curHealth -= data.damage;
         if (curHealth <= 0)
         {
-            EventManager.RaiseOnZombieDie(data.receiver);
+            Die();
         }
     }
 
-    private void Die(GameObject zombie)
+    private void Die()
     {
-        if (zombie != this.gameObject)
-        {
-            return;
-        }
+
         if (isDead)
         {
             return;
         }
         isDead = true;
+        EventManager.RaiseOnZombieDie(this.gameObject);
     }
 
 

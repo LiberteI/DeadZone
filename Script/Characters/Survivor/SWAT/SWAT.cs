@@ -104,6 +104,7 @@ public class SWAT : SurvivorBase
 
     void Update()
     {
+        SynchroniseFaceDir();
         // Debug.Log(parameter);
         base.currentState.OnUpdate();
 
@@ -132,5 +133,15 @@ public class SWAT : SurvivorBase
 
     }
 
-    
+    private void SynchroniseFaceDir()
+    {
+        if (transform.rotation == Quaternion.Euler(0, 180f, 0))
+        {
+            parameter.isFacingRight = false;
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 0, 0))
+        {
+            parameter.isFacingRight = true;
+        }
+    }
 }

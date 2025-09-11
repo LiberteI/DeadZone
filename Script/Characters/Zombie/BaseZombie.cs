@@ -60,6 +60,11 @@ public class BaseZombie : MonoBehaviour
 
     public void GetLooted(GameObject zombie)
     {
+        if (zombie == null)
+        {
+            Debug.Log($"zombie is null : {zombie}");
+            return;
+        }
         if (zombie != this.gameObject)
         {
             return;
@@ -67,7 +72,7 @@ public class BaseZombie : MonoBehaviour
         
         // Update currency amount
         CurrencySystem.currency += worth;
-        Debug.Log($"Current Currency: {CurrencySystem.currency}");
+        // Debug.Log($"Current Currency: {CurrencySystem.currency}");
         Destroy(this.gameObject);
     }
 }

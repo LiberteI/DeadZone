@@ -13,7 +13,10 @@ public class SWATIdleState : SurvivorIState
     }
 
     public void OnEnter(){
+        parameter.movementManager.DisableLinearVelocity();
+
         parameter.movementManager.isRunning = false;
+
         parameter.animator.Play("Idle");
     }
 
@@ -174,7 +177,11 @@ public class SWATRunState : SurvivorIState
     }
 
     public void OnUpdate(){
-        parameter.movementManager.Run();
+        if (swat.isPlayedByPlayer)
+        {
+            parameter.movementManager.Run();
+        }
+        
     }
 
     public void HandleInput(){

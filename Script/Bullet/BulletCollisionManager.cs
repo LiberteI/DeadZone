@@ -63,7 +63,7 @@ public class BulletCollisionManager : MonoBehaviour
     */
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
+        // Debug.Log(other);
         if (other == null)
         {
             return;
@@ -111,7 +111,7 @@ public class BulletCollisionManager : MonoBehaviour
             return;
         }
         SetData(hit.collider.gameObject);
-        Debug.Log(hit.collider.gameObject);
+        // Debug.Log(hit.collider.gameObject);
         EventManager.RaiseOnBulletHit(data);
 
         // Debug.Log($"Raycast Hit {data.receiver}");

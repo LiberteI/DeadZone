@@ -68,6 +68,10 @@ public class Jockey : BaseZombie
         EventManager.OnSeeSurvivor -= Hunt;
 
         EventManager.OnControlSuccessful -= LoopAttack;
+
+        EventManager.OnLootCorpse -= GetLooted;
+
+        EventManager.OnZombieDie -= TransitionDieState;
     }
 
     void Start()

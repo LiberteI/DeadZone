@@ -276,7 +276,7 @@ public class SDieState : IState
 
     public void OnUpdate()
     {
-
+        parameter.animator.Play("Die");
     }
 
     public void OnExit()

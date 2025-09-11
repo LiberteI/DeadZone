@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SniperIdleState : SurvivorIState
@@ -41,16 +40,24 @@ public class SniperIdleState : SurvivorIState
 
     public void HandleInput()
     {
-        if(Input.GetKeyDown("r")){
+        if (Input.GetKeyDown("r"))
+        {
             survivor.TransitionState(SniperStateType.Reload);
             return;
         }
-        if(Input.GetKeyDown("f")){
+        if (Input.GetKeyDown("f"))
+        {
             survivor.TransitionState(SniperStateType.Melee);
             return;
         }
-        if(Input.GetKey("j")){
-            if(Input.GetKey("s")){
+        if (Input.GetKey("j"))
+        {
+            if (!parameter.shootingManager.CanShoot())
+            {
+                return;
+            }
+            if (Input.GetKey("s"))
+            {
                 survivor.TransitionState(SniperStateType.CrouchShoot);
                 return;
             }
@@ -58,8 +65,10 @@ public class SniperIdleState : SurvivorIState
             return;
         }
         // movement
-        if(Input.GetKey("a") || Input.GetKey("d")){
-            if(Input.GetKey(KeyCode.LeftShift)){
+        if (Input.GetKey("a") || Input.GetKey("d"))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
                 survivor.TransitionState(SniperStateType.Run);
                 return;
             }
@@ -67,17 +76,131 @@ public class SniperIdleState : SurvivorIState
             return;
         }
 
-        if(Input.GetKeyDown("k")){
-            if(parameter.movementManager.CanJump()){
+        if (Input.GetKeyDown("k"))
+        {
+            if (parameter.movementManager.CanJump())
+            {
                 survivor.TransitionState(SniperStateType.Jump);
                 return;
             }
-            
+
         }
 
-        if(Input.GetKey("s")){
+        if (Input.GetKey("s"))
+        {
             survivor.TransitionState(SniperStateType.Crouch);
         }
+    }
+}
+public class SniperStandShootState : SurvivorIState
+{
+    private Sniper sniper;
+
+    private SniperParameter parameter;
+
+    private AnimatorStateInfo info;
+
+    public SniperStandShootState(Sniper sniper)
+    {
+        this.sniper = sniper;
+
+        this.parameter = sniper.parameter;
+    }
+
+    public void OnEnter()
+    {
+        parameter.shootingManager.SetShootTimer();
+
+        parameter.isShooting = true;
+
+        parameter.animator.Play("StandShoot");
+
+        parameter.shootingManager.FireABullet(parameter.standMuzzle);
+    }
+
+    public void OnUpdate()
+    {
+        info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+        if (!info.IsName("StandShoot"))
+        {
+            parameter.animator.Play("StandShoot");
+            return;
+        }
+        if (info.normalizedTime < 1f)
+        {
+            return;
+        }
+        sniper.TransitionState(SniperStateType.Idle);
+        return;
+    }
+
+    public void HandleInput()
+    {
+        if(Input.GetKey("s")){
+            sniper.TransitionState(SniperStateType.CrouchShoot);
+            return;
+        }
+
+    }
+
+    public void OnExit()
+    {
+        parameter.isShooting = false;
+    }
+}
+public class SniperCrouchShootState : SurvivorIState
+{
+    private Sniper sniper;
+
+    private SniperParameter parameter;
+
+    private AnimatorStateInfo info;
+
+    public SniperCrouchShootState(Sniper sniper)
+    {
+        this.sniper = sniper;
+
+        this.parameter = sniper.parameter;
+    }
+
+    public void OnEnter()
+    {
+        parameter.shootingManager.SetShootTimer();
+
+        parameter.isShooting = true;
+
+        parameter.animator.Play("CrouchShoot");
+
+        parameter.shootingManager.FireABullet(parameter.crouchMuzzle);
+    }
+
+    public void OnUpdate()
+    {
+        info = parameter.animator.GetCurrentAnimatorStateInfo(0);
+        if (!info.IsName("CrouchShoot"))
+        {
+            parameter.animator.Play("CrouchShoot");
+            return;
+        }
+        if (info.normalizedTime < 1f)
+        {
+            return;
+        }
+        sniper.TransitionState(SniperStateType.Crouch);
+        return;
+    }
+
+    public void HandleInput()
+    {
+        if(!Input.GetKey("s")){
+            sniper.TransitionState(SniperStateType.Idle);
+            return;
+        }
+    }
+
+    public void OnExit()
+    {
+        parameter.isShooting = false;
     }
 }
 public class SniperWalkState : SurvivorIState
@@ -103,6 +226,7 @@ public class SniperWalkState : SurvivorIState
     {
         if (survivor.isPlayedByPlayer)
         {
+            parameter.movementManager.Walk();
             return;
         }
         if (!parameter.aiManager.shouldFollow)
@@ -271,6 +395,10 @@ public class SniperCrouchState : SurvivorIState
             return;
         }
         if(Input.GetKey("j")){
+            if (!parameter.shootingManager.CanShoot())
+            {
+                return;
+            }
             sniper.TransitionState(SniperStateType.CrouchShoot);
             return;
         }
@@ -470,52 +598,7 @@ public class SniperDieState : SurvivorIState
     }
 }
 
-public class SniperCrouchShootState : SurvivorIState
-{
-    private Sniper sniper;
 
-    private SniperParameter parameter;
-
-    public SniperCrouchShootState(Sniper sniper)
-    {
-        this.sniper = sniper;
-
-        this.parameter = sniper.parameter;
-    }
-
-    public void OnEnter()
-    {
-        parameter.isShooting = true;
-        parameter.animator.Play("CrouchShoot");
-    
-    }
-
-    public void OnUpdate()
-    {
-
-    }
-
-    public void HandleInput()
-    {
-        if(!Input.GetKey("s")){
-            sniper.TransitionState(SniperStateType.StandShoot);
-            return;
-        }
-        if(!Input.GetKey("j")){
-            sniper.TransitionState(SniperStateType.Idle);
-            return;
-        }
-        else{
-            sniper.TransitionState(SniperStateType.CrouchShoot);
-            return;
-        }
-    }
-
-    public void OnExit()
-    {
-
-    }
-}
 
 public class SniperMeleeState : SurvivorIState
 {
@@ -562,51 +645,3 @@ public class SniperMeleeState : SurvivorIState
     }
 }
 
-public class SniperStandShootState : SurvivorIState
-{
-    private Sniper sniper;
-
-    private SniperParameter parameter;
-
-    public SniperStandShootState(Sniper sniper)
-    {
-        this.sniper = sniper;
-
-        this.parameter = sniper.parameter;
-    }
-
-    public void OnEnter()
-    {
-        parameter.isShooting = true;
-
-        parameter.animator.Play("StandShoot");
-
-        // parameter.shootingManager.FireABullet(parameter.standMuzzle);
-    }
-
-    public void OnUpdate()
-    {
-
-    }
-
-    public void HandleInput()
-    {
-        if(Input.GetKey("s")){
-            sniper.TransitionState(SniperStateType.CrouchShoot);
-            return;
-        }
-        if(!Input.GetKey("j")){
-            sniper.TransitionState(SniperStateType.Idle);
-            return;
-        }
-        else{
-            sniper.TransitionState(SniperStateType.StandShoot);
-            return;
-        }
-    }
-
-    public void OnExit()
-    {
-        
-    }
-}

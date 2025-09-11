@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public enum SniperStateType
 {
@@ -24,6 +25,14 @@ public class SniperParameter : SurvivorParameters
 {
     public BaseMovementManager movementManager;
 
+    public SniperShootingManager shootingManager;
+
+    public SurvivorAI aiControl;
+
+    public Transform crouchMuzzle;
+
+    public Transform standMuzzle;
+
     public bool isCrouching;
 
     public bool isShooting;
@@ -43,6 +52,12 @@ public class Sniper : SurvivorBase
         base.parameter = parameter;
 
         SurvivorManager.survivorList.Add(parameter.survivorContainer);
+
+        parameter.movementManager = this.gameObject.GetComponent<BaseMovementManager>();
+
+        parameter.shootingManager = this.gameObject.GetComponent<SniperShootingManager>();
+
+        parameter.aiControl = this.gameObject.GetComponent<SurvivorAI>();
     }
 
     void Start()
@@ -74,10 +89,24 @@ public class Sniper : SurvivorBase
         TransitionState(SniperStateType.Idle);
     }
 
+    void Update()
+    {
+        SynchroniseFaceDir();
+        // Debug.Log(parameter);
+        base.currentState.OnUpdate();
+
+        TryStartShooting();
+
+        if (!isPlayedByPlayer)
+        {
+            return;
+        }
+        base.currentState.HandleInput();
+    }
     public void TransitionState(SniperStateType newState)
     {
         // exit current state
-        // Debug.Log($"Transition from {currentState} to {newState}");
+        Debug.Log($"Transition from {currentState} to {newState}");
         if (base.currentState != null)
         {
             base.currentState.OnExit();
@@ -88,5 +117,32 @@ public class Sniper : SurvivorBase
 
         // execute OnEnter once;
         base.currentState.OnEnter();
+    }
+
+    public void TryStartShooting()
+    {
+        if (isPlayedByPlayer)
+        {
+            return;
+        }
+        if (!parameter.shootingManager.CanShoot())
+        {
+            return;
+        }
+        if (parameter.aiControl.shouldShoot)
+        {
+            TransitionState(SniperStateType.StandShoot);
+        }
+    }
+    private void SynchroniseFaceDir()
+    {
+        if (transform.rotation == Quaternion.Euler(0, 180f, 0))
+        {
+            parameter.isFacingRight = false;
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 0, 0))
+        {
+            parameter.isFacingRight = true;
+        }
     }
 }

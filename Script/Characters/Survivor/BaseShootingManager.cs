@@ -10,17 +10,11 @@ public class BaseShootingManager : MonoBehaviour
     */
     [SerializeField] protected SurvivorBase survivor;
 
-    protected SurvivorParameters parameter;
-
     [SerializeField] protected GameObject bulletPrefab;
 
     [SerializeField] protected float firingInterval; // 0 - 1
 
-    private Coroutine firing;
-
-    void Awake(){
-        this.parameter = survivor.parameter;
-    }
+    protected Coroutine firing;
 
     public virtual void FireABullet(Transform muzzle){
         if(firing != null){
@@ -34,7 +28,7 @@ public class BaseShootingManager : MonoBehaviour
         firing = StartCoroutine(ExecuteFireABullet(muzzle));
     }
 
-    private IEnumerator ExecuteFireABullet(Transform muzzle){
+    protected IEnumerator ExecuteFireABullet(Transform muzzle){
         // instantiate new bullet
         GameObject bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 
@@ -50,12 +44,8 @@ public class BaseShootingManager : MonoBehaviour
             yield break;
         }
         // determine bullet dir
-        if (parameter == null)
-        {
-            Debug.Log("parameter is null");
-            yield break;
-        }
-        curBullet.isFacingRight = parameter.isFacingRight;
+
+        curBullet.isFacingRight = survivor.parameter.isFacingRight;
 
         bullet.SetActive(true);
         yield return new WaitForSeconds(firingInterval);
