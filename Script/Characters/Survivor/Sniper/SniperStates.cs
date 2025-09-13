@@ -137,6 +137,11 @@ public class SniperStandShootState : SurvivorIState
     public void HandleInput()
     {
         if(Input.GetKey("s")){
+            if (!parameter.shootingManager.CanShoot())
+            {
+                sniper.TransitionState(SniperStateType.Crouch);
+                return;
+            }
             sniper.TransitionState(SniperStateType.CrouchShoot);
             return;
         }
@@ -329,7 +334,12 @@ public class SniperRunState : SurvivorIState
             return;
         }
         if(Input.GetKey("j")){
-            if(Input.GetKey("s")){
+            if (!parameter.shootingManager.CanShoot())
+            {
+                return;
+            }
+            if (Input.GetKey("s"))
+            {
                 sniper.TransitionState(SniperStateType.CrouchShoot);
                 return;
             }
@@ -636,7 +646,7 @@ public class SniperMeleeState : SurvivorIState
 
     public void HandleInput()
     {
-
+        
     }
 
     public void OnExit()

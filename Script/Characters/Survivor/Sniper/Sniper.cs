@@ -106,7 +106,7 @@ public class Sniper : SurvivorBase
     public void TransitionState(SniperStateType newState)
     {
         // exit current state
-        Debug.Log($"Transition from {currentState} to {newState}");
+        // Debug.Log($"Transition from {currentState} to {newState}");
         if (base.currentState != null)
         {
             base.currentState.OnExit();

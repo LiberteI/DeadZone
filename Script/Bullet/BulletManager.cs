@@ -6,11 +6,11 @@ public class BulletManager : MonoBehaviour
         This script is responsible for 
         1. Keeping bullet data, such as flying time, flying speed, special effects etc.
     */
-    [SerializeField] private float curDyingTime;
+    [SerializeField] protected float curDyingTime;
 
-    [SerializeField] private float dyingTime;
+    [SerializeField] protected float dyingTime;
 
-    [SerializeField] private float bulletForce;
+    [SerializeField] protected float bulletForce;
 
     public float bulletDamage;
 

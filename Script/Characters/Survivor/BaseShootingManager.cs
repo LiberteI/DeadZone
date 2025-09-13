@@ -28,7 +28,7 @@ public class BaseShootingManager : MonoBehaviour
         firing = StartCoroutine(ExecuteFireABullet(muzzle));
     }
 
-    protected IEnumerator ExecuteFireABullet(Transform muzzle){
+    protected virtual IEnumerator ExecuteFireABullet(Transform muzzle){
         // instantiate new bullet
         GameObject bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 
