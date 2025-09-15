@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-using System;
+
 public class ZombieSpawner : MonoBehaviour
 {
 
@@ -15,7 +14,21 @@ public class ZombieSpawner : MonoBehaviour
 
     [SerializeField] private float curSpawnTimer;
 
-    [SerializeField] private List<GameObject> zombieContainerPrefabs;
+    [SerializeField] private List<GameObject> runnerContainerPrefabs;
+
+    [SerializeField] private List<GameObject> stalkerContainerPrefabs;
+
+    [SerializeField] private List<GameObject> clutcherContainerPrefabs;
+
+    [SerializeField] private GameObject tankContainerPrefab;
+
+    [SerializeField] private GameObject boomerContainerPrefab;
+
+    [SerializeField] private GameObject jockeyContainerPrefab;
+
+    [SerializeField] private GameObject screamerContainerPrefab;
+
+    [SerializeField] private GameObject poisonerContainerPrefab;
 
     // max zombie count should be instantiated
     private int maxZombieCount;
@@ -24,7 +37,7 @@ public class ZombieSpawner : MonoBehaviour
     private int curZombieCount;
 
     private bool hasStoppedSpawning = false;
-    
+
     void OnEnable()
     {
         EventManager.OnBreakingDawn += SetMaxZombieCount;
@@ -63,11 +76,7 @@ public class ZombieSpawner : MonoBehaviour
 
     void Update()
     {
-        UpdateSpawnTimer();
 
-        TrySpawn();
-
-        TryRaiseLevelCleared();
     }
 
     private void TryRaiseLevelCleared()
@@ -100,7 +109,7 @@ public class ZombieSpawner : MonoBehaviour
     }
 
 
-    private void TrySpawn()
+    private void TrySpawnZombie(List<GameObject> zombies)
     {
         if (curZombieCount <= 0)
         {
@@ -110,11 +119,11 @@ public class ZombieSpawner : MonoBehaviour
         {
             return;
         }
-        int maxIdx = zombieContainerPrefabs.Count;
+        int maxIdx = zombies.Count;
 
         int randomIdx = UnityEngine.Random.Range(0, maxIdx);
 
-        GameObject zombieContainer = zombieContainerPrefabs[randomIdx];
+        GameObject zombieContainer = zombies[randomIdx];
 
         GameObject curZombieContainer = Instantiate(zombieContainer, spawnPoint.position, Quaternion.identity);
 
@@ -127,6 +136,29 @@ public class ZombieSpawner : MonoBehaviour
 
         curZombieCount -= 1;
     }
+
+    private void TrySpawnTank()
+    {
+
+    }
+
+    private void TrySpawnBoomer()
+    {
+
+    }
+
+    private void TrySpawnScreamer()
+    {
+
+    }
+
+    private void TrySpawnPoisoner()
+    {
+
+    }
     
-    
+    private void TrySpawnJockey()
+    {
+        
+    }
 }

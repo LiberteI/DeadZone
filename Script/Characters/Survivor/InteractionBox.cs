@@ -2,16 +2,26 @@ using UnityEngine;
 
 public class InteractionBox : MonoBehaviour
 {
+    [SerializeField] private GameObject playerToTeleport;
     private void OnTriggerStay2D(Collider2D other)
     {
-        
+
         if (other == null)
         {
             return;
         }
 
-        // Debug.Log($"Entered a collider {other}");
-        
+        Debug.Log($"Entered a collider {other}");
+        if (other.CompareTag("Door"))
+        {
+            Debug.Log("fired");
+            if (Input.GetKey("w"))
+            {
+                TeleportManager door = other.GetComponent<TeleportManager>();
+
+                door.Teleport(playerToTeleport);
+            }
+        }
         if (other.CompareTag("Corpse"))
         {
             // Debug.Log($"Entered a Corpse {other.gameObject}");
@@ -31,7 +41,7 @@ public class InteractionBox : MonoBehaviour
                 EventManager.RaiseOnAlterAIType(other.gameObject);
                 return;
             }
-            
+
         }
     }
 }

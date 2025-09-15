@@ -138,7 +138,7 @@ public class CDieState : IState
 
     public void OnUpdate()
     {
-
+        parameter.animator.Play("Die");
     }
 
     public void OnExit()

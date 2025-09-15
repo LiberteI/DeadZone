@@ -13,6 +13,8 @@ public class RaiderShootingManager : BaseShootingManager
 
     public float maxAngle = 60f;
 
+    private float fireAnimationOffset = 0.1f;
+
     void Update()
     {
         UpdateShootTimer();
@@ -59,6 +61,7 @@ public class RaiderShootingManager : BaseShootingManager
     {
         List<GameObject> bullets = new List<GameObject>();
 
+        yield return new WaitForSeconds(fireAnimationOffset);
         // instantiate bullets
         for (int i = 0; i < bulletCount; i++)
         {
@@ -76,7 +79,7 @@ public class RaiderShootingManager : BaseShootingManager
             curBulletCollider.SetBulletInitiator(this.gameObject);
 
             curBullet.isFacingRight = survivor.parameter.isFacingRight;
-            
+
             bullets[i].SetActive(true);
         }
 

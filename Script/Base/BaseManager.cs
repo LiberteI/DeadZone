@@ -1,18 +1,32 @@
 using UnityEngine;
 
-public class RadioSetHealthManager : MonoBehaviour
-{
+public class BaseManager : MonoBehaviour
+{   
+
+    public static BaseManager Instance
+    {
+        get; private set;
+    }
     public float maxHealth;
 
     public float curHealth;
 
     public bool isBroken;
 
-    public static GameObject baseObj;
+    public GameObject baseObj;
+
+    public Transform level1Door;
+
+    public Transform level2Door;
 
     void Awake()
     {
-        baseObj = this.gameObject;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
     void OnEnable()
     {
@@ -34,7 +48,7 @@ public class RadioSetHealthManager : MonoBehaviour
     public void TakeDamage(MeleeHitData data)
     {
         // receiver filter
-        if (this.gameObject != data.receiver)
+        if (baseObj != data.receiver)
         {
             return;
         }

@@ -24,9 +24,9 @@ public class SurvivorBase : MonoBehaviour
 
     public bool isPlayedByPlayer;
 
-
+    public int curFloor = 1;
     void Update()
-    {   
+    {
         // Debug.Log(parameter);
         currentState.OnUpdate();
 
@@ -35,5 +35,30 @@ public class SurvivorBase : MonoBehaviour
             return;
         }
         currentState.HandleInput();
+    }
+    void OnEnable()
+    {
+        EventManager.OnFloorChanged += UpdateCurFloor;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnFloorChanged -= UpdateCurFloor;
+    }
+    private void UpdateCurFloor(GameObject obj, bool shouldIncrement)
+    {
+        if (obj != this.gameObject)
+        {
+            return;
+        }
+
+        if (shouldIncrement)
+        {
+            curFloor += 1;
+        }
+        else
+        {
+            curFloor -= 1;
+        }
     }
 }

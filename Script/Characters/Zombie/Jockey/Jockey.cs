@@ -242,6 +242,8 @@ public class Jockey : BaseZombie
             return;
         }
 
+        StopAllCoroutines();
+        
         TransitionState(JockeyStateType.Die);
 
     }

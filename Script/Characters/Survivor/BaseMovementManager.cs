@@ -192,10 +192,14 @@ public class BaseMovementManager : MonoBehaviour
         if (dir > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            isFacingRight = true;
         }
         if (dir < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+
+            isFacingRight = false;
         }
     }
     private void Flip()

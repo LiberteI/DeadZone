@@ -189,7 +189,7 @@ public class TDieState : IState
 
     public void OnUpdate()
     {
-
+        parameter.animator.Play("Die");
     }
 
     public void OnExit()

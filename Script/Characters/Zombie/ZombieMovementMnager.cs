@@ -6,6 +6,8 @@ public class ZombieMovementMnager : MonoBehaviour
 
     protected GameObject currentTarget;
 
+    protected Vector3 targetPos;
+
     public float speed;
     
     void Start()
@@ -61,11 +63,14 @@ public class ZombieMovementMnager : MonoBehaviour
             if (zombie.parameter.aggroManager.currentTarget == null)
             {
                 this.currentTarget = null;
+
                 return;
             }
 
             this.currentTarget = zombie.parameter.aggroManager.currentTarget;
         }
+        
+        this.targetPos = zombie.parameter.aggroManager.targetPos;
     }
     public virtual void FlipToTarget()
     {
@@ -78,12 +83,12 @@ public class ZombieMovementMnager : MonoBehaviour
             Debug.Log("Current target is null");
             return;
         }
-        if ((currentTarget.transform.position - transform.position).x > 0)
+        if (targetPos.x - transform.position.x > 0)
         {
             // target is to the right
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if ((currentTarget.transform.position - transform.position).x < 0)
+        else if (targetPos.x - transform.position.x < 0)
         {
             // target is to the left
             transform.rotation = Quaternion.Euler(0, 180f, 0);

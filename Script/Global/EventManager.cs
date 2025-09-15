@@ -41,6 +41,16 @@ public static class EventManager
 
     public static event Action<GameObject> OnAlterAIType;
 
+    public static event Action<GameObject, bool> OnFloorChanged;
+
+    public static void RaiseOnFloorChanged(GameObject obj, bool shouldIncrement)
+    {
+        if (OnFloorChanged != null)
+        {
+            OnFloorChanged(obj, shouldIncrement);
+        }
+    }
+
     public static void RaiseOnAlterAIType(GameObject survivor)
     {
         if (OnAlterAIType != null)

@@ -1,21 +1,18 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RaiderMeleeManager : BaseMeleeManager
 {
-    public int comboStep;
-
     public bool isInCoroutine;
 
-    private float comboTimer;
+    [SerializeField] private float comboTimer;
 
-    private Coroutine curAttack;
+    [SerializeField] private Coroutine curAttack;
     void Start()
     {
-        comboStep = 1;
-
-        comboTimer = 0f;
+        comboTimer = 0;
     }
     void Update()
     {
@@ -28,39 +25,30 @@ public class RaiderMeleeManager : BaseMeleeManager
     {
         if (comboTimer > 0)
         {
-            comboStep = 2;
-
             comboTimer -= Time.deltaTime;
 
             return;
         }
-        if (comboStep != 1)
-        {
-            comboStep = 1;
-        }
-
     }
     public void Attack()
     {
-        if (comboStep == 2)
+        // do not attack if is attacking
+        if (curAttack != null)
         {
-            if (curAttack != null)
-            {
-                return;
-            }
-            curAttack = StartCoroutine(ExecuteMeleeAttack("Melee2"));
-            comboTimer = 0f;
-        }
-        else
-        {
-            if (curAttack != null)
-            {
-                return;
-            }
-            curAttack = StartCoroutine(ExecuteMeleeAttack("Melee1"));
-            comboTimer = 2f;
+            return;
         }
 
+        // if in combo time, execute melee 2
+        if (comboTimer > 0)
+        {
+            curAttack = StartCoroutine(ExecuteMeleeAttack("Melee2"));
+
+            comboTimer = 0;
+            return;
+        }
+        curAttack = StartCoroutine(ExecuteMeleeAttack("Melee1"));
+        
+        comboTimer = 2;
     }
 
     private IEnumerator ExecuteMeleeAttack(string name)
@@ -72,6 +60,8 @@ public class RaiderMeleeManager : BaseMeleeManager
         yield return WaitForAnimationEnds(name);
 
         isInCoroutine = false;
+
+        curAttack = null;
     }
 
     private IEnumerator WaitForAnimationEnds(string name)

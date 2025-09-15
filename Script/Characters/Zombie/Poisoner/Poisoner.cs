@@ -146,6 +146,8 @@ public class Poisoner : BaseZombie
             return;
         }
 
+        StopAllCoroutines();
+        
         TransitionState(PoisonerStateType.Die);
 
     }

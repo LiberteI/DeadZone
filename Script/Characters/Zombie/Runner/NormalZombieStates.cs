@@ -107,8 +107,8 @@ public class NZDieState : IState
         parameter.animator.Play("Die");
     }
     public void OnUpdate(){
-
-    }
+        parameter.animator.Play("Die");
+    }   
     public void OnExit(){
 
     }

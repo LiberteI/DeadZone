@@ -177,7 +177,7 @@ public class BExplodeState : IState
 
     public void OnUpdate()
     {
-
+        parameter.animator.Play("Die");
     }
 
     public void OnExit()

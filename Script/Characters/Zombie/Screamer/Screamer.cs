@@ -215,6 +215,8 @@ public class Screamer : BaseZombie
             return;
         }
 
+        StopAllCoroutines();
+        
         TransitionState(ScreamerStateType.Die);
 
     }

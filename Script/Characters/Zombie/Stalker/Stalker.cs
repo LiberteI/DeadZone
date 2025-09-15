@@ -108,7 +108,8 @@ public class Stalker : BaseZombie
         {
             return;
         }
-
+        StopAllCoroutines();
+        
         TransitionState(StalkerStateType.Die);
 
     }
