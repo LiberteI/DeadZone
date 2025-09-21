@@ -30,6 +30,11 @@ public class PoisonerMovement : ZombieMovementMnager
 
     private void DetermineMovementBehaviour()
     {
+        if (currentTarget == null)
+        {
+            return;
+        }
+        
         if (base.zombie.parameter.isFacingRight)
         {
             dir = 1f;
@@ -38,12 +43,24 @@ public class PoisonerMovement : ZombieMovementMnager
         {
             dir = -1f;
         }
+        // if current target is not a survivor
+        
+        // Debug.Log($"is player : {currentTarget.GetComponentInChildren<SurvivorBase>()}");
+        if (!currentTarget.GetComponentInChildren<SurvivorBase>())
+        {
+            shouldFollow = true;
+
+            shouldProject = false;
+            // Debug.Log("1");
+            return;
+        }
         // poisoner is too close: should flee
         if (base.zombie.parameter.aggroManager.curDistanceToTarget < sqrDistanceThreshold - sqrThresholdOffset)
         {
             shouldProject = false;
-            
+
             shouldFollow = false;
+            // Debug.Log("2");
         }
         // poisoner is too far: should follow
         else if (base.zombie.parameter.aggroManager.curDistanceToTarget > sqrDistanceThreshold + sqrThresholdOffset)
@@ -51,10 +68,14 @@ public class PoisonerMovement : ZombieMovementMnager
             shouldProject = false;
 
             shouldFollow = true;
+
+            // Debug.Log("3");
         }
         else
         {
             shouldProject = true;
+
+            // Debug.Log("4");
         }
     }
     public override void Move()
@@ -70,6 +91,10 @@ public class PoisonerMovement : ZombieMovementMnager
     
     public override void FlipToTarget()
     {
+        if (zombie.isDead)
+        {
+            return;
+        }
         if (base.TargetIsNull())
         {
             return;
@@ -83,26 +108,32 @@ public class PoisonerMovement : ZombieMovementMnager
         if (shouldFollow)
         {
             // flip to player
-            if ((currentTarget.transform.position - transform.position).x > 0)
+            if ((currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position - transform.position).x > 0)
             {
                 // target is to the right
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else if ((currentTarget.transform.position - transform.position).x < 0)
+            else if ((currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position - transform.position).x < 0)
             {
                 // target is to the left
                 transform.rotation = Quaternion.Euler(0, 180f, 0);
             }
         }
         else
-        {   
+        {
+            if (currentTarget == null)
+            {
+                Debug.Log("Poisoner's Target is null");
+
+                return;
+            }
             // unflip to player
-            if ((currentTarget.transform.position - transform.position).x > 0)
+            if ((currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position - transform.position).x > 0)
             {
                 // target is to the right
                 transform.rotation = Quaternion.Euler(0, 180f, 0);
             }
-            else if ((currentTarget.transform.position - transform.position).x < 0)
+            else if ((currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position - transform.position).x < 0)
             {
                 // target is to the left
                 transform.rotation = Quaternion.Euler(0, 0, 0);

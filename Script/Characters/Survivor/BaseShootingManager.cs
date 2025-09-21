@@ -16,11 +16,16 @@ public class BaseShootingManager : MonoBehaviour
 
     protected Coroutine firing;
 
-    public virtual void FireABullet(Transform muzzle){
-        if(firing != null){
+    [SerializeField] protected float shootNoise;
+
+    public virtual void FireABullet(Transform muzzle)
+    {
+        if (firing != null)
+        {
             return;
         }
-        if(bulletPrefab == null){
+        if (bulletPrefab == null)
+        {
             Debug.Log("Bullet prefab is not assigned");
             return;
         }
@@ -28,14 +33,15 @@ public class BaseShootingManager : MonoBehaviour
         firing = StartCoroutine(ExecuteFireABullet(muzzle));
     }
 
-    protected virtual IEnumerator ExecuteFireABullet(Transform muzzle){
+    protected virtual IEnumerator ExecuteFireABullet(Transform muzzle)
+    {
         // instantiate new bullet
         GameObject bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 
         BulletManager curBullet = bullet.GetComponent<BulletManager>();
 
         BulletCollisionManager curBulletCollider = bullet.GetComponentInChildren<BulletCollisionManager>();
-        
+
         curBulletCollider.SetBulletInitiator(this.gameObject);
 
         if (curBullet == null)
@@ -48,7 +54,13 @@ public class BaseShootingManager : MonoBehaviour
         curBullet.isFacingRight = survivor.parameter.isFacingRight;
 
         bullet.SetActive(true);
+
+        // announce gun shot
+        EventManager.RaiseOnGunShot(shootNoise);
+
         yield return new WaitForSeconds(firingInterval);
         firing = null;
     }
+    
+    
 }

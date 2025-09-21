@@ -2,18 +2,18 @@ using UnityEngine;
 
 /*
     Context: 
-        1. There are 3 floors in the game scene.
-        2. Base is on the third. the second floor is basically a corridor consists of 2 doors.
-        3. The ground floor is a space outside the building.
+        1. There are 3 floors in the game scene. *
+        2. Base is on the third. the second floor is basically a corridor consists of 2 doors. *
+        3. The ground floor is a space outside the building. *
 
 
-    Default target: 20% zombies look for base. 20% zombies search for the nearest survivor.
+    Default target: 20% zombies look for base. 20% zombies search for the nearest survivor. *
     
-    while in ground / second floor: 
+    while in ground / second floor: *
         if zombie is closer to survivor than the door to the next floor: aggro = survivor (in the same floor)
         otherwise: aggro = door
 
-    while in third floor: 
+    while in third floor: *
         aggro = base
 
     Retarget every ~2s (throttled scan). *
@@ -46,9 +46,13 @@ public class ZombieAggroManager : MonoBehaviour
     // fixed target on the base
     public bool isInSiegeMode;
 
-    private int curFloor = 1;
+    public int curFloor = 1;
+
+    private GameObject gameObjToTeleport;
     void OnEnable()
     {
+        gameObjToTeleport = this.gameObject;
+
         EventManager.OnBulletHit += ForceSwitchAggro;
 
         EventManager.OnMeleeHit += ForceSwitchAggro;
@@ -81,16 +85,20 @@ public class ZombieAggroManager : MonoBehaviour
         UpdateForceAggroTimer();
 
         CalculateCurDistance();
+
+        TryFindPathForSiegeMode();
+
+        MoniterPlayerTarget();
     }
 
     void Start()
-    {   
+    {
         DecideSiegeMode();
 
         CalculateDistToBaseObj();
 
         CalculateDistToSurvivor();
-        
+
         TryAssignAggroTarget();
     }
     private void UpdateCurFloor(GameObject obj, bool shouldIncrement)
@@ -111,7 +119,6 @@ public class ZombieAggroManager : MonoBehaviour
     }
     private void TryAssignAggroTarget()
     {
-
         if (!ShouldSearchForNextTarget())
         {
             return;
@@ -155,7 +162,7 @@ public class ZombieAggroManager : MonoBehaviour
         // Debug.Log(currentTarget);
 
         targetPos = currentTarget.GetComponentInChildren<Rigidbody2D>().transform.position;
-        
+
         curDistanceToTarget = Mathf.Abs(targetPos.x - transform.position.x);
     }
     private float CalculateDistToBaseObj()
@@ -164,7 +171,7 @@ public class ZombieAggroManager : MonoBehaviour
         {
             Debug.Log("BaseManager.Instance is null");
         }
-        
+
         if (curFloor == 1)
         {
             return Mathf.Abs(BaseManager.Instance.level1Door.position.x - transform.position.x);
@@ -271,8 +278,8 @@ public class ZombieAggroManager : MonoBehaviour
             curForceAggroTimer -= Time.deltaTime;
         }
     }
-    
-    
+
+
 
     // aggro overrider
     private void ForceSwitchAggro(BulletHitData data)
@@ -294,6 +301,7 @@ public class ZombieAggroManager : MonoBehaviour
             return;
         }
 
+        // stick to target for force aggro time
         currentTarget = data.initiator;
 
         curForceAggroTimer = maxForceAggroTimer;
@@ -306,17 +314,92 @@ public class ZombieAggroManager : MonoBehaviour
         if (random > 80f)
         {
             isInSiegeMode = true;
-
-            if (BaseManager.Instance.baseObj == null)
-            {
-                Debug.Log("Base obj is null");
-                return;
-            }
-            currentTarget = BaseManager.Instance.baseObj;
         }
         else
         {
             isInSiegeMode = false;
+        }
+    }
+
+    private void TryFindPathForSiegeMode()
+    {
+        if (!isInSiegeMode)
+        {
+            return;
+        }
+        if (curForceAggroTimer > 0)
+        {
+            return;
+        }
+
+        if (curFloor == 1)
+        {
+            currentTarget = BaseManager.Instance.level1Door.gameObject;
+        }
+        else if (curFloor == 2)
+        {
+            currentTarget = BaseManager.Instance.level2Door.gameObject;
+        }
+        else
+        {
+            currentTarget = BaseManager.Instance.baseObj;
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other == null)
+        {
+            return;
+        }
+        if (!other.CompareTag("Door"))
+        {
+            return;
+        }
+        
+        TeleportManager door = other.GetComponent<TeleportManager>();
+       
+        // skip if currentTarget is player
+        if (currentTarget == BaseManager.Instance.level1Door.gameObject || currentTarget == BaseManager.Instance.level2Door.gameObject)
+        {
+            
+            door.Teleport(gameObjToTeleport);
+            if (curFloor == 2)
+            {
+                currentTarget = BaseManager.Instance.level2Door.gameObject;
+            }
+            else if (curFloor == 3)
+            {
+                currentTarget = BaseManager.Instance.baseObj;
+            }
+        }
+
+    }
+
+    private void MoniterPlayerTarget()
+    {
+        // compensate when player is not in the same level
+
+        if (currentTarget.GetComponent<SurvivorBase>())
+        {
+            // if current following a player
+            if (currentTarget.GetComponent<SurvivorBase>().curFloor != curFloor)
+            {
+                // stick to the floor-based target
+                if (curFloor == 2)
+                {
+                    currentTarget = BaseManager.Instance.level2Door.gameObject;
+                }
+                else if (curFloor == 3)
+                {
+                    currentTarget = BaseManager.Instance.baseObj;
+                }
+                else if(curFloor == 1)
+                {
+                    currentTarget = BaseManager.Instance.level1Door.gameObject;
+                }
+            }
         }
     }
 }

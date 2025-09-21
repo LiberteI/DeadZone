@@ -10,11 +10,6 @@ public static class EventManager
     public static event Action<GameObject> OnSurvivorDied;
 
     public static event Action OnBaseBroken;
-
-    public static event Action<DayConfig> OnBreakingDawn;
-
-    public static event Action<NightConfig> OnNightFall;
-
     public static event Action OnStopSpawning;
 
     public static event Action<GameObject> OnZombieDie;
@@ -42,6 +37,58 @@ public static class EventManager
     public static event Action<GameObject> OnAlterAIType;
 
     public static event Action<GameObject, bool> OnFloorChanged;
+
+    public static event Action OnMiniHorde;
+
+    public static event Action OnSmallHorde;
+
+    public static event Action OnGrandHorde;
+
+    public static event Action<float> OnGunShot;
+
+    public static event Action OnSendMessage;
+
+    public static void RaiseSOS()
+    {
+        if (OnSendMessage != null)
+        {
+            OnSendMessage();
+        }
+        
+    }
+
+    public static void RaiseMiniHorde()
+    {
+        if (OnMiniHorde != null)
+        {
+            OnMiniHorde();
+        }
+    }
+
+    public static void RaiseSmallHorde()
+    {
+        if (OnSmallHorde != null)
+        {
+            OnSmallHorde();
+        }
+    }
+
+    public static void RaiseGrandHorde()
+    {
+        if (OnGrandHorde != null)
+        {
+            OnGrandHorde();
+        }
+    }
+    public static void RaiseOnGunShot(float noise)
+    {
+        if (OnGunShot != null)
+        {
+            OnGunShot(noise);
+        }
+    }
+
+
 
     public static void RaiseOnFloorChanged(GameObject obj, bool shouldIncrement)
     {
@@ -155,20 +202,6 @@ public static class EventManager
         }
     }
 
-    public static void RaiseOnNightFall(NightConfig curNight)
-    {
-        if (OnNightFall != null)
-        {
-            OnNightFall(curNight);
-        }
-    }
-    public static void RaiseOnBreakingDawn(DayConfig dayConfig)
-    {
-        if (OnBreakingDawn != null)
-        {
-            OnBreakingDawn(dayConfig);
-        }
-    }
     public static void RaiseOnBulletHit(BulletHitData data)
     {
         if (OnBulletHit != null)

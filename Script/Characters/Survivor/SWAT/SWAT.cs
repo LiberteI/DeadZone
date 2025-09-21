@@ -62,12 +62,6 @@ public class SWAT : SurvivorBase
 
     }
 
-    void OnEnable()
-    {
-        parameter.aiControl = this.gameObject.GetComponent<SurvivorAI>();
-
-    }
-
     void Start()
     {
         // add states into the dictionary, taking a parameter of Player script

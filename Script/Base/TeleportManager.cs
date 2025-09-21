@@ -16,34 +16,9 @@ public class TeleportManager : MonoBehaviour
 {
     public Transform destination;
 
-    [SerializeField] private bool hasTeleported;
-
     public bool shouldIncrementLevelSignature;
 
     private HashSet<GameObject> blockedItems = new HashSet<GameObject>();
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (blockedItems.Contains(other.gameObject))
-        {
-            return;
-        }
-        if (!(other.CompareTag("Zombie") || other.CompareTag("Survivor")))
-        {
-            return;
-        }
-        if (other.CompareTag("Survivor"))
-        {
-            SurvivorBase survivor = other.GetComponentInChildren<SurvivorBase>();
-            if (survivor.isPlayedByPlayer)
-            {
-                return;
-            }
-        }
-        Teleport(other.gameObject);
-
-        
-    }
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -71,6 +46,8 @@ public class TeleportManager : MonoBehaviour
         destination.GetComponent<TeleportManager>().BlockGameObject(obj);
 
         EventManager.RaiseOnFloorChanged(obj, shouldIncrementLevelSignature);
+
+        // Debug.Log($"Raise OnFloorChange for {obj}, should increment: {shouldIncrementLevelSignature}");
     }
 
     public bool ShouldTeleport(GameObject obj)

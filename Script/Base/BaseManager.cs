@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class BaseManager : MonoBehaviour
-{   
+{
 
     public static BaseManager Instance
     {
@@ -18,6 +18,8 @@ public class BaseManager : MonoBehaviour
     public Transform level1Door;
 
     public Transform level2Door;
+
+    private float radioMessageTimer;
 
     void Awake()
     {
@@ -43,8 +45,10 @@ public class BaseManager : MonoBehaviour
     void Update()
     {
         TryBreaking();
+
+        TryUpdateSOSMessageCoolDown();
     }
-    
+
     public void TakeDamage(MeleeHitData data)
     {
         // receiver filter
@@ -68,6 +72,26 @@ public class BaseManager : MonoBehaviour
             Debug.Log("YOU LOSE");
             isBroken = true;
         }
+    }
 
+    public void SendSOSMessage()
+    {
+        if (radioMessageTimer > 0)
+        {
+            return;
+        }
+
+        // Debug.Log("SOS Sent");
+        EventManager.RaiseSOS();
+
+        radioMessageTimer = 60f;
+    }
+
+    private void TryUpdateSOSMessageCoolDown()
+    {
+        if (radioMessageTimer >= 0)
+        {
+            radioMessageTimer -= Time.deltaTime;
+        }
     }
 }

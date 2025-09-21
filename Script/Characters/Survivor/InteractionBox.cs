@@ -10,11 +10,17 @@ public class InteractionBox : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log($"Entered a collider {other}");
+        if (other.CompareTag("Radio"))
+        {
+            if (Input.GetKey("e"))
+            {
+                BaseManager.Instance.SendSOSMessage();
+            }
+        }
+        // Debug.Log($"Entered a collider {other}");
         if (other.CompareTag("Door"))
         {
-            Debug.Log("fired");
+            // Debug.Log("fired");
             if (Input.GetKey("w"))
             {
                 TeleportManager door = other.GetComponent<TeleportManager>();

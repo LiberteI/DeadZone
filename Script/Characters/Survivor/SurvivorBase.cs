@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-using System;
 
 
 public class SurvivorParameters
@@ -39,16 +36,20 @@ public class SurvivorBase : MonoBehaviour
     void OnEnable()
     {
         EventManager.OnFloorChanged += UpdateCurFloor;
+        // Debug.Log($"Subscribed for {this.gameObject}");
     }
 
     void OnDisable()
     {
         EventManager.OnFloorChanged -= UpdateCurFloor;
+        // Debug.Log($"UpSubscribed for {this.gameObject}");
     }
-    private void UpdateCurFloor(GameObject obj, bool shouldIncrement)
+    protected void UpdateCurFloor(GameObject obj, bool shouldIncrement)
     {
+        // Debug.Log("update cur floor get called");
         if (obj != this.gameObject)
         {
+            // Debug.Log($"this survivor: {parameter.survivorContainer}, should be updated: {obj}");
             return;
         }
 
